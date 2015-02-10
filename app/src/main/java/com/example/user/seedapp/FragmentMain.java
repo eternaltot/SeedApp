@@ -2,6 +2,7 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,21 @@ import android.view.ViewGroup;
  */
 public class FragmentMain extends Fragment {
 
+    private static View view;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        if (view!=null){
+            ViewGroup viewGroup = (ViewGroup) view.getParent();
+            if (viewGroup!=null){
+                viewGroup.removeView(view);
+            }
+        }
+        try{
+            view = inflater.inflate(R.layout.fragment_main, container, false);
+        }catch (InflateException e){
 
-
-
-        return rootView;
+        }
+        return view;
     }
 
 }
