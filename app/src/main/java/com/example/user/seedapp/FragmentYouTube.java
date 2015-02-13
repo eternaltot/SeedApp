@@ -22,6 +22,11 @@ public class FragmentYouTube extends Fragment {
     private YouTubePlayer YPlayer;
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
     private static final int RECOVERY_DIALOG_REQUEST = 1;
+    private static String youtubeName = "l8Iu9PEKMmw";
+
+    public void setYoutubeName(String youtubeName){
+        this.youtubeName = youtubeName;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -47,7 +52,7 @@ public class FragmentYouTube extends Fragment {
                 if (!b) {
                     YPlayer = youTubePlayer;
                     YPlayer.setFullscreen(false);
-                    YPlayer.loadVideo("l8Iu9PEKMmw");
+                    YPlayer.loadVideo(youtubeName);
                     YPlayer.play();
                 }
             }
