@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
  */
 public class FragmentYouTube extends Fragment {
 
+    private static View view;
     private FragmentActivity myContext;
     private YouTubePlayer YPlayer;
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
@@ -39,32 +41,42 @@ public class FragmentYouTube extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_youtube, container, false);
+        if (view!=null){
+            ViewGroup viewGroup = (ViewGroup) view.getParent();
+            if (viewGroup!=null){
+                viewGroup.removeView(view);
+            }
+        }
+        try{
+            view = inflater.inflate(R.layout.fragment_youtube, container, false);
 
-        YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
+            YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
 
-        youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
+            youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
 
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
-                if (!b) {
-                    YPlayer = youTubePlayer;
-                    YPlayer.setFullscreen(false);
-                    YPlayer.loadVideo(youtubeName);
-                    YPlayer.play();
+                @Override
+                public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
+                    if (!b) {
+                        YPlayer = youTubePlayer;
+                        YPlayer.setFullscreen(false);
+                        YPlayer.loadVideo(youtubeName);
+                        YPlayer.play();
+                    }
                 }
-            }
 
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
-                // TODO Auto-generated method stub
+                @Override
+                public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
+                    // TODO Auto-generated method stub
 
-            }
-        });
+                }
+            });
+        }catch (InflateException e){
 
-        return rootView;
+        }
+
+        return view;
     }
 
 }

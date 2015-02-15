@@ -6,6 +6,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 /**
@@ -14,7 +15,8 @@ import android.widget.ImageButton;
 public class FragmentMain extends Fragment {
 
     private static View view;
-    private ImageButton imageView_youtube;
+    private Button bt_youtube;
+    private Button bt_lyrics;
     private MainActivity mainActivity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,9 +31,10 @@ public class FragmentMain extends Fragment {
 
             mainActivity = (MainActivity)getActivity();
 
-            imageView_youtube = (ImageButton) view.findViewById(R.id.imageView_youtube);
+            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
+            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
 
-            imageView_youtube.setOnClickListener(new View.OnClickListener() {
+            bt_youtube.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     FragmentYouTube fragmentYouTube = new FragmentYouTube();
                     fragmentYouTube.setYoutubeName("VT8uLDauarc");
@@ -39,6 +42,12 @@ public class FragmentMain extends Fragment {
                 }
             });
 
+            bt_lyrics.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    FragmentLyrics fragmentLyrics = new FragmentLyrics();
+                    mainActivity.setFragment(fragmentLyrics);
+                }
+            });
         }catch (InflateException e){
 
         }
