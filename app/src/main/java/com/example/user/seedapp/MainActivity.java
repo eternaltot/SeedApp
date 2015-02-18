@@ -1,5 +1,6 @@
 package com.example.user.seedapp;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -9,15 +10,25 @@ import android.view.MenuItem;
 
 public class MainActivity extends FragmentActivity {
 
+    FragmentTransaction transaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         FragmentMain fragmentMain = new FragmentMain();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
+    }
+
+    public void setFragment(Fragment fragment){
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+//        transaction.add(R.id.fragment_container, fragment).commit();
     }
 
 

@@ -49,6 +49,14 @@
         android:background="#ff24fff8"
         android:clickable="false"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearMenu" />
+        android:id="@+id/linearMenu" >
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/horizontalScrollView">
+
+        </HorizontalScrollView>
+    </LinearLayout>
 
 </RelativeLayout>
