@@ -13,4 +13,45 @@
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true" />
+
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:text="MV"
+        android:id="@+id/bt_youtube"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:text="List"
+        android:id="@+id/bt_list"
+        android:textSize="10dp"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignEnd="@+id/bt_youtube" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:text=">"
+        android:id="@+id/bt_play"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toStartOf="@+id/imageView3" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:text="Lyrics"
+        android:textSize="7dp"
+        android:id="@+id/bt_lyrics"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignEnd="@+id/bt_play" />
 </RelativeLayout>
