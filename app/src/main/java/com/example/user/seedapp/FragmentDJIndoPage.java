@@ -1,5 +1,6 @@
 package com.example.user.seedapp;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +46,25 @@ public class FragmentDJIndoPage extends Fragment {
             TextView nameDJ = (TextView) view.findViewById(R.id.name_dj);
             TextView online_time = (TextView) view.findViewById(R.id.online_time);
             ImageView imageDJ = (ImageView) view.findViewById(R.id.imageDJ);
-
+            Button btnTextToDJ = (Button) view.findViewById(R.id.text_dj);
+            btnTextToDJ.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.customdialog);
+                    dialog.setCancelable(true);
+                    Button btnSend = (Button) dialog.findViewById(R.id.btnSend);
+                    Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+            });
             nameDJ.setText(nameDJ.getText().toString() + " " + djInfo.getJSONObject().getString("name"));
             online_time.setText(djInfo.getJSONObject().getString("time_online"));
 

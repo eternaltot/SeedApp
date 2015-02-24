@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
 
         getDataFromServer();
 
-        FragmentMain fragmentMain = new FragmentMain();
+        final FragmentMain fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
@@ -82,6 +82,7 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
                 btnSeed.setImageResource(R.drawable.icon_seed_app_logo_75px_white);
                 btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+                setFragment(fragmentMain);
             }
         });
 
@@ -104,6 +105,8 @@ public class MainActivity extends FragmentActivity {
                 btnStream.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnSeed.setImageResource(R.drawable.icon_seed_app_logo_75px_white);
+                FragmentYouTube fragmentYouTube = new FragmentYouTube();
+                setFragment(fragmentYouTube);
             }
         });
     }

@@ -54,10 +54,10 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="150dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/imageView3"
             android:src="@drawable/bodyslam"
             android:layout_gravity="center_horizontal"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
         <Button
@@ -99,5 +99,32 @@
             android:id="@+id/bt_lyrics"
             android:layout_alignBottom="@+id/imageView3"
             android:layout_alignEnd="@+id/bt_play" />
+
+        <SeekBar
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/seekBar"
+            android:layout_below="@+id/imageView3"
+            android:layout_centerHorizontal="true" />
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="@android:color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/seekBar"
+            android:id="@+id/view"
+            android:layout_marginTop="10dp"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Bodyslam-เรือเล็กควรออกจากฝั่ง"
+            android:id="@+id/textNameSong"
+            android:layout_below="@+id/view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 </LinearLayout>
