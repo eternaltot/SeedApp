@@ -1,21 +1,16 @@
 package com.example.user.seedapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.user.seedapp.com.add.model.Music;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -25,30 +20,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by LacNoito on 2/13/2015.
+ * Created by LacNoito on 2/25/2015.
  */
-public class FragmentYouTube extends Fragment {
-
+public class FragmentLive extends Fragment {
     private static View view;
-    private FragmentActivity myContext;
-    private YouTubePlayer YPlayer;
-    private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
     private static String youtubeName = "l8Iu9PEKMmw";
     private static String musicName = "-";
-
-    public void setYoutubeName(String youtubeName){
-        this.youtubeName = youtubeName;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        if (activity instanceof FragmentActivity) {
-            myContext = (FragmentActivity) activity;
-        }
-
-        super.onAttach(activity);
-    }
+    private YouTubePlayer YPlayer;
+    private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -58,12 +37,9 @@ public class FragmentYouTube extends Fragment {
             }
         }
         try{
-            view = inflater.inflate(R.layout.fragment_youtube, container, false);
-
-            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-
+            view = inflater.inflate(R.layout.fragment_live, container, false);
             getDataFromServer();
-
+            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
 
             YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
@@ -88,7 +64,8 @@ public class FragmentYouTube extends Fragment {
 
                 }
             });
-        }catch (InflateException e){
+
+        }catch (Exception e){
 
         }
 
@@ -151,5 +128,4 @@ public class FragmentYouTube extends Fragment {
             return "";
         }
     }
-
 }
