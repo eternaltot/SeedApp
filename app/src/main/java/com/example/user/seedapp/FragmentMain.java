@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+
+import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
+import com.viewpagerindicator.CirclePageIndicator;
+
 
 /**
  * Created by LacNoito on 2/10/2015.
@@ -31,6 +34,15 @@ public class FragmentMain extends Fragment {
 
             mainActivity = (MainActivity)getActivity();
 
+            DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
+            AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
+            pager.setAdapter(adapter);
+            pager.startAutoScroll(100);
+
+            CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+            indicator .setViewPager(pager);
+            indicator.setSnap(true);
+
             bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
 
@@ -48,7 +60,7 @@ public class FragmentMain extends Fragment {
                     mainActivity.setFragment(fragmentLyrics);
                 }
             });
-        }catch (InflateException e){
+        }catch (Exception e){
 
         }
         return view;

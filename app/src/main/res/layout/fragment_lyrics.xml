@@ -13,25 +13,74 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:background="#ffffffff"
-            android:layout_weight="1">
+            android:layout_weight="2">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Now Playing : "
-                android:id="@+id/tv_name"
+                android:id="@+id/name"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="18"
+            android:background="#ffff393b"
+            >
+
         <LinearLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:background="#ffff393b"
-            android:layout_weight="10">
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="คำร้อง "
+                    android:textSize="12dp"
+                    android:id="@+id/author"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="ทำนอง "
+                    android:textSize="12dp"
+                    android:id="@+id/tempo"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="เรียบเรียง "
+                    android:textSize="12dp"
+                    android:id="@+id/compose"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Lyrics"
+                    android:id="@+id/tv_lyrics"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text=" "
+                    android:textSize="12dp"
+                    android:id="@+id/lyrics"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+       </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

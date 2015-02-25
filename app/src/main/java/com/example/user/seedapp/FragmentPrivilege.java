@@ -1,5 +1,6 @@
 package com.example.user.seedapp;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,9 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -15,6 +19,10 @@ import android.view.ViewGroup;
  */
 public class FragmentPrivilege extends Fragment {
     private static View view;
+    private ArrayList<String> listitem = new ArrayList<String>();
+    private ArrayList<String> listchild = new ArrayList<String>();
+    private ExpandableListView expandableListView;
+    private CustomAdapter adapter;
 
     public FragmentPrivilege() {
     }
@@ -28,7 +36,11 @@ public class FragmentPrivilege extends Fragment {
         }
         try{
             view = inflater.inflate(R.layout.fragment_list_privilege, container, false);
-
+            setListData();
+            expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
+            Resources res =getResources();
+            adapter = new CustomAdapter(getActivity(),listitem,listchild,res);
+            expandableListView.setAdapter(adapter);
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -47,5 +59,12 @@ public class FragmentPrivilege extends Fragment {
         }
 
         return view;
+    }
+
+    public void setListData(){
+        listitem.add("Test");
+        listitem.add("Test");
+        listitem.add("Test");
+        listchild.add("ttttttttttttttttttttttttttttttttttttttttttttt");
     }
 }

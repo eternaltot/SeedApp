@@ -11,14 +11,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/imageView4"
-            android:background="#fff5ff5d"
+            android:background="#ff436eff"
             android:layout_weight="1" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/imageView5"
-            android:background="#ff57c9ff"
+            android:background="#ffff3443"
             android:layout_weight="1.5" />
 
 
@@ -28,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:orientation="vertical"
-            android:background="#ffff393b"
+            android:background="#ffff3155"
             />
 
         <LinearLayout
