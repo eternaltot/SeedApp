@@ -42,23 +42,23 @@ public class FragmentMain extends Fragment {
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
             indicator .setViewPager(pager);
 
-//            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
-//            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
-//
-//            bt_youtube.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
-//                    fragmentYouTube.setYoutubeName("VT8uLDauarc");
-//                    mainActivity.setFragment(fragmentYouTube);
-//                }
-//            });
-//
-//            bt_lyrics.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    FragmentLyrics fragmentLyrics = new FragmentLyrics();
-//                    mainActivity.setFragment(fragmentLyrics);
-//                }
-//            });
+            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
+            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
+
+            bt_youtube.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
+                    fragmentYouTube.setYoutubeName("VT8uLDauarc");
+                    mainActivity.setFragment(fragmentYouTube);
+                }
+            });
+
+            bt_lyrics.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    FragmentLyrics fragmentLyrics = new FragmentLyrics();
+                    mainActivity.setFragment(fragmentLyrics);
+                }
+            });
         }catch (InflateException e){
 
         }
