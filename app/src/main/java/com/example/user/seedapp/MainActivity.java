@@ -75,7 +75,7 @@ public class MainActivity extends FragmentActivity {
         final ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
         final ImageButton btnSeed = (ImageButton) findViewById(R.id.btnSeed);
         final ImageButton btnStream = (ImageButton) findViewById(R.id.btnStream);
-        btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+        btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
