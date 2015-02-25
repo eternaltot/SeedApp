@@ -2,12 +2,16 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.UnderlinePageIndicator;
+
 
 /**
  * Created by LacNoito on 2/10/2015.
@@ -31,23 +35,30 @@ public class FragmentMain extends Fragment {
 
             mainActivity = (MainActivity)getActivity();
 
-            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
-            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
+            DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfoArray());
+            ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
+            pager.setAdapter(adapter);
 
-            bt_youtube.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
-                    fragmentYouTube.setYoutubeName("VT8uLDauarc");
-                    mainActivity.setFragment(fragmentYouTube);
-                }
-            });
+            CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+            indicator .setViewPager(pager);
 
-            bt_lyrics.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    FragmentLyrics fragmentLyrics = new FragmentLyrics();
-                    mainActivity.setFragment(fragmentLyrics);
-                }
-            });
+//            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
+//            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
+//
+//            bt_youtube.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
+//                    fragmentYouTube.setYoutubeName("VT8uLDauarc");
+//                    mainActivity.setFragment(fragmentYouTube);
+//                }
+//            });
+//
+//            bt_lyrics.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    FragmentLyrics fragmentLyrics = new FragmentLyrics();
+//                    mainActivity.setFragment(fragmentLyrics);
+//                }
+//            });
         }catch (InflateException e){
 
         }
