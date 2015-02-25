@@ -35,8 +35,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="00dp"
-            android:background="#ff24fff8"
-            android:clickable="false"
+            android:background="#c9000000"
             android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:id="@+id/linearMenu" >
@@ -45,6 +44,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/horizontalScrollView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/btnHome"
+                        android:src="@drawable/iconseedappheadphone_75px"
+                        android:background="@null" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="30dp"
+                        android:id="@+id/btnSeed"
+                        android:src="@drawable/icon_seed_app_logo_75px_white"
+                        android:background="@null" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="30dp"
+                        android:id="@+id/btnStream"
+                        android:src="@drawable/iconseedappeye_75px"
+                        android:background="@null" />
+                </LinearLayout>
 
             </HorizontalScrollView>
         </LinearLayout>
