@@ -9,10 +9,20 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.user.seedapp.com.add.model.Music;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by LacNoito on 2/13/2015.
@@ -25,6 +35,7 @@ public class FragmentYouTube extends Fragment {
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     private static String youtubeName = "l8Iu9PEKMmw";
+    private static String musicName = "-";
 
     public void setYoutubeName(String youtubeName){
         this.youtubeName = youtubeName;
@@ -49,6 +60,12 @@ public class FragmentYouTube extends Fragment {
         }
         try{
             view = inflater.inflate(R.layout.fragment_youtube, container, false);
+
+            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+
+            getDataFromServer();
+
+            tv_name.setText(tv_name.getText() + musicName);
 
             YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -77,6 +94,63 @@ public class FragmentYouTube extends Fragment {
         }
 
         return view;
+    }
+
+    public void getDataFromServer(){
+        try {
+
+//            URL url = new URL("http://192.168.43.174/testServer/");
+//            URLConnection conn = url.openConnection();
+//
+//            HttpURLConnection httpConn = (HttpURLConnection) conn;
+//            httpConn.setAllowUserInteraction(false);
+//            httpConn.setInstanceFollowRedirects(true);
+//            httpConn.setRequestMethod("POST");
+//            httpConn.connect();
+//
+//            InputStream is = httpConn.getInputStream();
+//            String parsedString = convertinputStreamToString(is);
+//
+//            JSONObject jsonObject = new JSONObject(parsedString);
+
+            String parsedString = "{\"youtube\":{\"name_music\":\"คิดถึง - bodyslam\",\"youtube_name\":\"_3kZzIfTt0o\"}}";
+            JSONObject jsonObject = new JSONObject(parsedString);
+            JSONObject youtube = (JSONObject) jsonObject.get("youtube");
+            if(youtube != null){
+                musicName = youtube.getString("name_music");
+                youtubeName = youtube.getString("youtube_name");
+            }
+
+
+//            for(int x= 0 ; x < dj_info_array.length() ; ++x){
+//                JSONObject object = dj_info_array.getJSONObject(x);
+//                Log.d("system", object.getString("name"));
+//            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String convertinputStreamToString(InputStream ists)
+            throws IOException {
+        if (ists != null) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            try {
+                BufferedReader r1 = new BufferedReader(new InputStreamReader(
+                        ists, "UTF-8"));
+                while ((line = r1.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+            } finally {
+                ists.close();
+            }
+            return sb.toString();
+        } else {
+            return "";
+        }
     }
 
 }
