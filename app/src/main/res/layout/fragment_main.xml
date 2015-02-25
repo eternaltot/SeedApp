@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
@@ -25,15 +25,15 @@
         <com.example.user.seedapp.com.add.view.AutoScrollViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
             />
 
 
         <com.viewpagerindicator.CirclePageIndicator
             android:id="@+id/indicator"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="10dp"
             app:radius="4dp"
             app:fillColor="#88FF0000"
             app:pageColor="#FF888888"
@@ -47,7 +47,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
         <TextView

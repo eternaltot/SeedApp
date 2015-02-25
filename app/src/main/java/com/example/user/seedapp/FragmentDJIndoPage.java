@@ -3,6 +3,11 @@ package com.example.user.seedapp;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
+import com.example.user.seedapp.com.add.view.RoundedImageView;
 
 import org.json.JSONObject;
 
@@ -45,8 +51,9 @@ public class FragmentDJIndoPage extends Fragment {
 
             TextView nameDJ = (TextView) view.findViewById(R.id.name_dj);
             TextView online_time = (TextView) view.findViewById(R.id.online_time);
-            ImageView imageDJ = (ImageView) view.findViewById(R.id.imageDJ);
+            RoundedImageView imageDJ = (RoundedImageView) view.findViewById(R.id.imageDJ);
             Button btnTextToDJ = (Button) view.findViewById(R.id.text_dj);
+
             btnTextToDJ.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,6 +79,19 @@ public class FragmentDJIndoPage extends Fragment {
 //            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
             imageDJ.setImageBitmap(djInfo.getBitmap());
 
+//            int width = 150;
+//            int height = 150;
+//
+//            Bitmap circleBitmap = Bitmap.createBitmap(djInfo.getBitmap().getWidth(), djInfo.getBitmap().getHeight(), Bitmap.Config.ARGB_8888);
+//
+//            BitmapShader shader = new BitmapShader(djInfo.getBitmap(),  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+//            Paint paint = new Paint();
+//            paint.setShader(shader);
+//
+//            Canvas c = new Canvas(circleBitmap);
+//            c.drawCircle(djInfo.getBitmap().getWidth()/2, djInfo.getBitmap().getHeight()/2, djInfo.getBitmap().getWidth()/2, paint);
+//
+//            imageDJ.setImageBitmap(circleBitmap);
 
             return view;
         }catch (Exception e){

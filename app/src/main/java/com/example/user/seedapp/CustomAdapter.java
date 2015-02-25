@@ -24,6 +24,8 @@ public class CustomAdapter extends BaseAdapter {
     private ArrayList<String> group;
     private static LayoutInflater inflater=null;
     public Resources res;
+    public Boolean livePage = false;
+
 
     public CustomAdapter(Activity a, ArrayList<String> d,Resources resLocal) {
 
@@ -38,6 +40,19 @@ public class CustomAdapter extends BaseAdapter {
 
     }
 
+    public CustomAdapter(Activity a, ArrayList<String> d,Resources resLocal, Boolean livePage) {
+
+        /********** Take passed values **********/
+        activity = a;
+        group=d;
+        res = resLocal;
+        this.livePage = livePage;
+
+        /***********  Layout inflator to call external xml layout () ***********/
+        inflater = ( LayoutInflater )activity.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+    }
 
     @Override
     public int getCount() {
@@ -57,7 +72,10 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listitem, null);
+            if(!livePage)
+                convertView = inflater.inflate(R.layout.listitem, null);
+            else
+                convertView = inflater.inflate(R.layout.listitem_live_rerun, null);
         }
         if(position % 2 == 0){
             convertView.setBackgroundColor(Color.parseColor("#f46555"));
@@ -65,8 +83,13 @@ public class CustomAdapter extends BaseAdapter {
             convertView.setBackgroundColor(Color.parseColor("#f38d76"));
         }
 
-        TextView textView = (TextView) convertView.findViewById(R.id.textView);
-        textView.setText(group.get(position));
+        if(!livePage) {
+            TextView textView = (TextView) convertView.findViewById(R.id.textView);
+            textView.setText(group.get(position));
+        }else{
+            TextView textView = (TextView) convertView.findViewById(R.id.textView);
+            textView.setText("Rerun : " + group.get(position));
+        }
         return convertView;
     }
 }
