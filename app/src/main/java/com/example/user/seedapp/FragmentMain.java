@@ -60,7 +60,7 @@ public class FragmentMain extends Fragment {
                     mainActivity.setFragment(fragmentLyrics);
                 }
             });
-        }catch (InflateException e){
+        }catch (Exception e){
 
         }
         return view;
