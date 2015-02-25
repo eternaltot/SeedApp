@@ -43,6 +43,12 @@ public class DJPageAdapter extends FragmentPagerAdapter {
         }
     }
 
+    public DJPageAdapter(FragmentManager fm, List<DJInfo> djInfos) {
+        super(fm);
+
+        this.djInfos = djInfos;
+    }
+
     @Override
     public Fragment getItem(int i) {
         try {
@@ -60,6 +66,6 @@ public class DJPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return dj_info_array.length();
+        return djInfos.size();
     }
 }

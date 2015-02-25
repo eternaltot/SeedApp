@@ -34,7 +34,7 @@ public class FragmentMain extends Fragment {
 
             mainActivity = (MainActivity)getActivity();
 
-            DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfoArray());
+            DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
             pager.startAutoScroll(100);
