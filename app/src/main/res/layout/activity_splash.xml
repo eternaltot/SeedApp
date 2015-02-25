@@ -7,9 +7,9 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/splashImage"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_seed_app_225px"
+        android:src="@drawable/logo"
         android:contentDescription="@string/logo" />
 </LinearLayout>
