@@ -2,15 +2,14 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
 
 /**
@@ -36,11 +35,13 @@ public class FragmentMain extends Fragment {
             mainActivity = (MainActivity)getActivity();
 
             DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfoArray());
-            ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
+            AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
+            pager.startAutoScroll(100);
 
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
             indicator .setViewPager(pager);
+            indicator.setSnap(true);
 
             bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);

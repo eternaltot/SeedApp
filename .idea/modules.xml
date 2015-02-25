@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SeedApp.iml" filepath="$PROJECT_DIR$/SeedApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" filepath="$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" />
     </modules>
   </component>
 </project>
