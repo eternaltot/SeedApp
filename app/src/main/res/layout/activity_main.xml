@@ -12,7 +12,7 @@
             android:layout_height="0dp"
             android:id="@+id/imageView4"
             android:background="#1083d4"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:src="@drawable/vivo"
             android:scaleType="center"
             android:paddingTop="5dp" />
@@ -22,9 +22,8 @@
             android:layout_height="0dp"
             android:id="@+id/imageView5"
             android:background="#e9031f"
-            android:layout_weight="1.2"
-            android:src="@drawable/ads"
-            android:scaleType="fitXY" />
+            android:layout_weight="1"
+            android:src="@drawable/ads" />
 
 
         <LinearLayout
