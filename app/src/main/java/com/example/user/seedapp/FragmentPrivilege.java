@@ -4,14 +4,15 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class FragmentPrivilege extends Fragment {
     private ArrayList<String> listchild = new ArrayList<String>();
     private ListView expandableListView;
     private CustomAdapter adapter;
+    FragmentTransaction transaction;
 
     public FragmentPrivilege() {
     }
@@ -47,7 +49,9 @@ public class FragmentPrivilege extends Fragment {
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    Toast.makeText(getActivity().getApplicationContext(),"Click " + position,Toast.LENGTH_LONG).show();
+                    SelectItemFragment fragment = new SelectItemFragment();
+                    ((MainActivity)getActivity()).setFragment(fragment);
                 }
             });
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);

@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Now Playing : คิดถึง - Bodyslam"
             android:id="@+id/textNowPlaying"
             android:layout_centerHorizontal="true"
