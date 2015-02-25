@@ -9,7 +9,9 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -21,7 +23,7 @@ public class FragmentPrivilege extends Fragment {
     private static View view;
     private ArrayList<String> listitem = new ArrayList<String>();
     private ArrayList<String> listchild = new ArrayList<String>();
-    private ExpandableListView expandableListView;
+    private ListView expandableListView;
     private CustomAdapter adapter;
 
     public FragmentPrivilege() {
@@ -37,10 +39,17 @@ public class FragmentPrivilege extends Fragment {
         try{
             view = inflater.inflate(R.layout.fragment_list_privilege, container, false);
             setListData();
-            expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
-            Resources res =getResources();
-            adapter = new CustomAdapter(getActivity(),listitem,listchild,res);
+            expandableListView = (ListView) view.findViewById(R.id.listView);
+            final Resources res =getResources();
+            adapter = new CustomAdapter(getActivity(),listitem,res);
             expandableListView.setAdapter(adapter);
+            expandableListView.setDivider(null);
+            expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                }
+            });
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -49,6 +58,8 @@ public class FragmentPrivilege extends Fragment {
                         @Override
                         public void run() {
                             swipeRefreshLayout.setRefreshing(false);
+                            adapter = new CustomAdapter(getActivity(),listitem,res);
+                            expandableListView.setAdapter(adapter);
                         }
                     },5000);
                 }
@@ -62,9 +73,13 @@ public class FragmentPrivilege extends Fragment {
     }
 
     public void setListData(){
-        listitem.add("Test");
-        listitem.add("Test");
-        listitem.add("Test");
-        listchild.add("ttttttttttttttttttttttttttttttttttttttttttttt");
+        listitem = new ArrayList<String>();
+        listchild = new ArrayList<String>();
+        listitem.add("PRIVILEGE");
+        listitem.add("PRIVILEGE");
+        listitem.add("PRIVILEGE");
+        listitem.add("PRIVILEGE");
+        listitem.add("PRIVILEGE");
+        listitem.add("PRIVILEGE");
     }
 }
