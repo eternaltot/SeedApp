@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:id="@+id/imageView5"
             android:background="#e9031f"
-            android:layout_weight="1.5" />
+            android:layout_weight="1.2" />
 
 
         <LinearLayout

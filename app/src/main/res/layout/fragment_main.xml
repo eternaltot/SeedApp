@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
@@ -47,7 +47,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
         <TextView

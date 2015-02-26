@@ -38,7 +38,7 @@ public class FragmentMain extends Fragment {
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
             pager.startAutoScroll(5);
-            pager.setInterval(2000);
+            pager.setInterval(2500);
 
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
             indicator .setViewPager(pager);
