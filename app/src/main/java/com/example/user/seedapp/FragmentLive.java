@@ -1,11 +1,13 @@
 package com.example.user.seedapp;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -18,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by LacNoito on 2/25/2015.
@@ -27,7 +30,18 @@ public class FragmentLive extends Fragment {
     private static String youtubeName = "l8Iu9PEKMmw";
     private static String musicName = "-";
     private YouTubePlayer YPlayer;
+    private ArrayList<String> listitem = new ArrayList<String>();
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
+    private CustomAdapter adapter;
+
+    public void setListData(){
+        listitem = new ArrayList<String>();
+        listitem.add("VDO1");
+        listitem.add("VDO2");
+        listitem.add("VDO3");
+        listitem.add("VDO4");
+        listitem.add("VDO5");
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -41,6 +55,14 @@ public class FragmentLive extends Fragment {
             getDataFromServer();
             TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
+
+            ListView expandableListView = (ListView) view.findViewById(R.id.listView);
+
+            final Resources res =getResources();
+            setListData();
+            adapter = new CustomAdapter(getActivity(),listitem, res,true);
+            expandableListView.setAdapter(adapter);
+            expandableListView.setDivider(null);
 
             YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
