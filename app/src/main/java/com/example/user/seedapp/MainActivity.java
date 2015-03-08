@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
+import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
@@ -102,7 +103,7 @@ public class MainActivity extends FragmentActivity {
     public void setBanner() throws Exception {
         for(int x= 0 ; x < jsonBanner.length() ; ++x){
             Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
-            arrBanner.add(jsonBanner.getJSONObject(x).get("image").toString());
+            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
         }
     }
 
@@ -125,28 +126,40 @@ public class MainActivity extends FragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        imageView = (ImageView) findViewById(R.id.imageView4);
-        String urbaner = path_Image_Topbanner + arrBanner.get(0);
+//        imageView = (ImageView) findViewById(R.id.imageView4);
+        BannerAdapter adapter = null;
         try {
-            URL urlBanner = new URL(urbaner);
-            Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
-            Log.d("system" , "Set Image " + bmp.toString() );
-            imageView.setImageBitmap(bmp);
+            adapter = new BannerAdapter(getSupportFragmentManager(),arrBanner );
         } catch (IOException e) {
-            Log.e("system",e.getMessage());
+            e.printStackTrace();
         }
+        AutoScrollViewPager pager = (AutoScrollViewPager)findViewById(R.id.pagebanner);
+        pager.setAdapter(adapter);
+        pager.startAutoScroll();
+        pager.setInterval(1000);
+        pager.setCycle(true);
+        pager.setAutoScrollDurationFactor(200);
+//        String urbaner = path_Image_Topbanner + arrBanner.get(0);
+//        try {
+//            URL urlBanner = new URL(urbaner);
+//            Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
+//            Log.d("system" , "Set Image " + bmp.toString() );
+//            imageView.setImageBitmap(bmp);
+//        } catch (IOException e) {
+//            Log.e("system",e.getMessage());
+//        }
 
-        animationSlideInLeft = AnimationUtils.loadAnimation(this,
-                R.anim.slide_left);
-        animationSlideOutRight = AnimationUtils.loadAnimation(this,
-                R.anim.slide_right);
-        animationSlideInLeft.setDuration(15000);
-        animationSlideOutRight.setDuration(15000);
-        animationSlideInLeft.setAnimationListener(animationSlideInLeftListener);
-        animationSlideOutRight.setAnimationListener(animationSlideOutRightListener);
+//        animationSlideInLeft = AnimationUtils.loadAnimation(this,
+//                R.anim.slide_left);
+//        animationSlideOutRight = AnimationUtils.loadAnimation(this,
+//                R.anim.slide_right);
+//        animationSlideInLeft.setDuration(15000);
+//        animationSlideOutRight.setDuration(15000);
+//        animationSlideInLeft.setAnimationListener(animationSlideInLeftListener);
+//        animationSlideOutRight.setAnimationListener(animationSlideOutRightListener);
 
   
-        imageView.startAnimation(animationSlideInLeft);
+//        imageView.startAnimation(animationSlideInLeft);
 
 
 

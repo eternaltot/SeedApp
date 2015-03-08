@@ -1,12 +1,10 @@
 package com.example.user.seedapp;
 
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.InflateException;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +12,6 @@ import android.widget.Button;
 
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
-
-import android.os.Handler;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 
 /**
@@ -72,8 +62,8 @@ public class FragmentMain extends Fragment {
             DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
-            pager.startAutoScroll(5);
-            pager.setInterval(2500);
+            pager.startAutoScroll();
+            pager.setInterval(15000);
 
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
             indicator .setViewPager(pager);
@@ -135,6 +125,7 @@ public class FragmentMain extends Fragment {
         }
         return view;
     }
+
 
 
     class PlayMediaTask extends AsyncTask<String, String, String> {

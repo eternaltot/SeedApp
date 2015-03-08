@@ -7,15 +7,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/imageView4"
-            android:background="#1083d4"
             android:layout_weight="0.8"
-            android:src="@drawable/vivo"
-            android:scaleType="fitXY" />
-
+            android:id="@+id/linearBanner">
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/imageView4"-->
+            <!--android:background="#1083d4"-->
+            <!--android:src="@drawable/vivo"-->
+            <!--android:scaleType="fitXY" />-->
+        <com.example.user.seedapp.com.add.view.AutoScrollViewPager
+                android:id="@+id/pagebanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
