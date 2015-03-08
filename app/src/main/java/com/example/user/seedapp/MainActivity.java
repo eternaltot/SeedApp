@@ -1,5 +1,6 @@
 package com.example.user.seedapp;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,11 @@ import android.widget.ImageButton;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +30,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +41,13 @@ public class MainActivity extends FragmentActivity {
 
     FragmentTransaction transaction;
     JSONArray dj_info_array;
+    private String url = "http://203.147.16.93:8000/seedcave.mp3";
+
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
+
+    public String getURL(){
+        return url;
+    }
 
     public JSONArray getDJInfoArray(){
         return dj_info_array;
@@ -40,6 +55,10 @@ public class MainActivity extends FragmentActivity {
 
     public List<DJInfo> getDJInfos(){
         return djInfos;
+    }
+
+    public Context returnBaseContext(){
+        return getBaseContext();
     }
 
     public void setDjInfos() throws Exception {
@@ -65,6 +84,7 @@ public class MainActivity extends FragmentActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+        getDateListMusic();
         getDataFromServer();
 
         final FragmentMain fragmentMain = new FragmentMain();
@@ -135,6 +155,40 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getDateListMusic(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://api.seedmcot.com/api/radio-urls");
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = convertinputStreamToString(instream);
+                Log.e("system", "Sucess!!!!");
+                Log.e("system", result);
+
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    url = (String) jsonObject.get("url");
+                    Log.e("system", "url :: " + url);
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void getDataFromServer(){
