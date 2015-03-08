@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -46,6 +48,7 @@ public class MainActivity extends FragmentActivity {
 
     FragmentTransaction transaction;
     JSONArray dj_info_array;
+    Animation animationSlideInLeft, animationSlideOutRight;
     private String url = "http://203.147.16.93:8000/seedcave.mp3";
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
@@ -129,11 +132,23 @@ public class MainActivity extends FragmentActivity {
             Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
             Log.d("system" , "Set Image " + bmp.toString() );
             imageView.setImageBitmap(bmp);
-
-        fragmentMain = new FragmentMain();
+            fragmentMain = new FragmentMain();
         } catch (IOException e) {
             Log.e("system",e.getMessage());
         }
+
+        animationSlideInLeft = AnimationUtils.loadAnimation(this,
+                R.anim.slide_left);
+        animationSlideOutRight = AnimationUtils.loadAnimation(this,
+                R.anim.slide_right);
+        animationSlideInLeft.setDuration(15000);
+        animationSlideOutRight.setDuration(15000);
+        animationSlideInLeft.setAnimationListener(animationSlideInLeftListener);
+        animationSlideOutRight.setAnimationListener(animationSlideOutRightListener);
+
+        imageView.startAnimation(animationSlideInLeft);
+
+
 
 
         final FragmentMain fragmentMain = new FragmentMain();
@@ -416,5 +431,42 @@ public class MainActivity extends FragmentActivity {
 //            });
 //        }
 //    }
+    Animation.AnimationListener animationSlideInLeftListener
+            = new Animation.AnimationListener() {
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+            imageView.startAnimation(animationSlideOutRight);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    Animation.AnimationListener animationSlideOutRightListener
+            = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+            imageView.startAnimation(animationSlideInLeft);
+        }
+
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+
+        public void onAnimationStart(Animation animation) {
+
+        }
+    };
+
 
 }
