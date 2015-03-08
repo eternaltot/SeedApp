@@ -64,6 +64,11 @@ public class PlayMedia {
         }
     }
 
+    public Boolean returnIsPlating(){
+        return mediaPlayer.isPlaying();
+    }
+
+
     public void playMedia(boolean check) {
         try {
             if (check) {

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +18,8 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
+import com.example.user.seedapp.com.add.model.ListPageItem;
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,11 +46,23 @@ public class MainActivity extends FragmentActivity {
     FragmentTransaction transaction;
     JSONArray dj_info_array;
     private String url = "http://203.147.16.93:8000/seedcave.mp3";
+    private static int SPLASH_TIMEOUT = 3000;
+//    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
+    private static Boolean flagGetListStatus = Boolean.FALSE;
+    private static FragmentMain fragmentMain;
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
 
+//    public List<ListPageItem> getListPageItems(){return listPageItems;}
+
     public String getURL(){
         return url;
+    }
+
+    public void pauseMediaFromMainActivity(){
+        if(fragmentMain != null){
+            fragmentMain.pauseMedia();
+        }
     }
 
     public JSONArray getDJInfoArray(){
@@ -87,7 +103,7 @@ public class MainActivity extends FragmentActivity {
         getDateListMusic();
         getDataFromServer();
 
-        final FragmentMain fragmentMain = new FragmentMain();
+        fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
@@ -129,6 +145,8 @@ public class MainActivity extends FragmentActivity {
                 setFragment(fragmentLive);
             }
         });
+
+//        new GetDataListTask().execute();
     }
 
     public void setFragment(Fragment fragment){
@@ -245,4 +263,90 @@ public class MainActivity extends FragmentActivity {
             return "";
         }
     }
+
+//    public void getDateListFromServer(){
+//        try {
+//
+//            HttpClient httpClient = new DefaultHttpClient();
+//            HttpGet request = new HttpGet("http://api.seedmcot.com/api/song-details");
+//            request.setHeader("Content-Type", "text/xml");
+//            HttpResponse response;
+//            try {
+//                response = httpClient.execute(request);
+//                HttpEntity entity = response.getEntity();
+//                InputStream instream = entity.getContent();
+//                String result = convertinputStreamToString(instream);
+//                Log.e("system", "Sucess!!!!");
+//                Log.e("system", "DATA List" + result);
+//
+//                JSONArray jsonArray = new JSONArray(result);
+//                for(int x= 0 ; x < jsonArray.length() ; ++x){
+//                    JSONObject object = jsonArray.getJSONObject(x);
+//                    Gson gson = new Gson();
+//                    ListPageItem listPageItem = gson.fromJson(object.toString(), ListPageItem.class);
+//                    listPageItems.add(listPageItem);
+//                }
+//
+//                if(fragmentMain != null){
+//                    fragmentMain.updateListViewFragmentListPageFromFragmentMain();
+//                }
+//            } catch (Exception e) {
+//                Log.e("system", "Error!!!!");
+//                Log.e("system", e.getMessage());
+//            }
+//
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+//    public void getDataList(){
+//        if(flagGetListStatus){
+//            new Handler().postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    getDateListFromServer();
+//                    new GetDataListTask().execute();
+//                }
+//            }, SPLASH_TIMEOUT);
+//        }else{
+//            getDateListFromServer();
+//            flagGetListStatus = Boolean.TRUE;
+//            new GetDataListTask().execute();
+//        }
+//    }
+
+//    class GetDataListTask extends AsyncTask<String, String, String> {
+//
+//        /**
+//         * Before starting background thread Show Progress Dialog
+//         * */
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... args) {
+//
+//
+//            return null;
+//        }
+//
+//        /**
+//         * After completing background task Dismiss the progress dialog
+//         * **/
+//        @Override
+//        protected void onPostExecute(String file_url) {
+//            runOnUiThread(new Runnable() {
+//                public void run() {
+//                    getDataList();
+//                }
+//            });
+//        }
+//    }
 }

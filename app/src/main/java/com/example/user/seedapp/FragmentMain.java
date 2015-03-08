@@ -32,10 +32,30 @@ public class FragmentMain extends Fragment {
     private static View view;
     private Button bt_youtube;
     private Button bt_lyrics;
+    private Button bt_list;
     private Button bt_play;
     private MainActivity mainActivity;
-    private PlayMedia play;
-    private static int SPLASH_TIMEOUT = 3000;
+    private static PlayMedia play;
+    private static FragmentListPage fragmentListPage;
+
+    public void updateListViewFragmentListPageFromFragmentMain(){
+        if(fragmentListPage != null){
+            fragmentListPage.updateListView();
+        }
+    }
+
+    public void playMedia(){
+        if(play != null){
+            play.playMedia(false);
+        }
+    }
+
+    public void pauseMedia(){
+        if(play != null){
+            play.playMedia(false);
+        }
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -62,6 +82,7 @@ public class FragmentMain extends Fragment {
             bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
             bt_play = (Button) view.findViewById(R.id.bt_play);
+            bt_list = (Button) view.findViewById(R.id.bt_list);
 
 //            bt_play.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -93,7 +114,20 @@ public class FragmentMain extends Fragment {
                 }
             });
 
+            bt_list.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    fragmentListPage = new FragmentListPage();
+                    mainActivity.setFragment(fragmentListPage);
+                }
+            });
+
             new PlayMediaTask().execute();
+
+            if(play != null && play.returnIsPlating()){
+                bt_play.setBackgroundColor(Color.WHITE);
+                bt_play.setTextColor(Color.BLACK);
+                bt_play.setText("Pause");
+            }
 
 
         }catch (Exception e){
@@ -102,42 +136,6 @@ public class FragmentMain extends Fragment {
         return view;
     }
 
-    public void getDateListFromServer(){
-        URL url = null;
-        try {
-            url = new URL("http://192.168./testServer/");
-            URLConnection conn = url.openConnection();
-
-            HttpURLConnection httpConn = (HttpURLConnection) conn;
-            httpConn.setAllowUserInteraction(false);
-            httpConn.setInstanceFollowRedirects(true);
-            httpConn.setRequestMethod("POST");
-            httpConn.connect();
-
-            InputStream is = httpConn.getInputStream();
-            String parsedString = mainActivity.convertinputStreamToString(is);
-
-            Log.e("system", "DATA List" + parsedString);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getDataList(Boolean flag){
-        if(flag){
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    getDateListFromServer();
-                    getDataList(true);
-                }
-            }, SPLASH_TIMEOUT);
-        }else{
-            getDateListFromServer();
-        }
-    }
 
     class PlayMediaTask extends AsyncTask<String, String, String> {
 
@@ -152,7 +150,8 @@ public class FragmentMain extends Fragment {
         @Override
         protected String doInBackground(String... args) {
 
-            play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext());
+            if(play == null)
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext());
 
             return null;
         }
@@ -185,37 +184,6 @@ public class FragmentMain extends Fragment {
                             }
                         }
                     });
-                }
-            });
-        }
-    }
-
-
-    class getDataListTask extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... args) {
-
-
-            return null;
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        @Override
-        protected void onPostExecute(String file_url) {
-            mainActivity.runOnUiThread(new Runnable() {
-                public void run() {
-                    getDataList(false);
                 }
             });
         }

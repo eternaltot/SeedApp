@@ -8,14 +8,14 @@
         android:layout_height="match_parent"
         android:background="#ffffffff"
         android:paddingLeft="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Rerun : "
+            android:text=" "
             android:id="@+id/textView"
-            android:paddingLeft="20dp"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:gravity="center_vertical"
             android:textColor="@android:color/black" />
 

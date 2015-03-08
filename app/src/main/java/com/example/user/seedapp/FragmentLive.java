@@ -56,6 +56,8 @@ public class FragmentLive extends Fragment {
             TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
 
+            ((MainActivity)getActivity()).pauseMediaFromMainActivity();
+
             ListView expandableListView = (ListView) view.findViewById(R.id.listView);
 
             final Resources res =getResources();

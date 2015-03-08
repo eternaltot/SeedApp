@@ -64,6 +64,8 @@ public class FragmentYouTube extends Fragment {
 
             getDataFromServer();
 
+            ((MainActivity)getActivity()).pauseMediaFromMainActivity();
+
             tv_name.setText(tv_name.getText() + musicName);
 
             YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
