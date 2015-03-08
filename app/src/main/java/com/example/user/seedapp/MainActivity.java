@@ -132,7 +132,6 @@ public class MainActivity extends FragmentActivity {
             Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
             Log.d("system" , "Set Image " + bmp.toString() );
             imageView.setImageBitmap(bmp);
-            fragmentMain = new FragmentMain();
         } catch (IOException e) {
             Log.e("system",e.getMessage());
         }
@@ -146,6 +145,7 @@ public class MainActivity extends FragmentActivity {
         animationSlideInLeft.setAnimationListener(animationSlideInLeftListener);
         animationSlideOutRight.setAnimationListener(animationSlideOutRightListener);
 
+  
         imageView.startAnimation(animationSlideInLeft);
 
 
