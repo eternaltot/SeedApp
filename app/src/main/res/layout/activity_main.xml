@@ -14,8 +14,7 @@
             android:background="#1083d4"
             android:layout_weight="0.8"
             android:src="@drawable/vivo"
-            android:scaleType="center"
-            android:paddingTop="5dp" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:layout_width="match_parent"

@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
@@ -46,12 +47,19 @@ public class MainActivity extends FragmentActivity {
     FragmentTransaction transaction;
     JSONArray dj_info_array;
     private String url = "http://203.147.16.93:8000/seedcave.mp3";
+    private Bitmap image;
+    private ArrayList<String> arrBanner = new ArrayList<String>();
+    private static String banner = "http://api.seedmcot.com/api/top-banners";
+    private static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
+    private ImageView imageView;
     private static int SPLASH_TIMEOUT = 3000;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private static Boolean flagGetListStatus = Boolean.FALSE;
     private static FragmentMain fragmentMain;
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
+
+    private JSONArray jsonBanner;
 
 //    public List<ListPageItem> getListPageItems(){return listPageItems;}
 
@@ -88,6 +96,12 @@ public class MainActivity extends FragmentActivity {
             djInfos.add(djInfo);
         }
     }
+    public void setBanner() throws Exception {
+        for(int x= 0 ; x < jsonBanner.length() ; ++x){
+            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
+            arrBanner.add(jsonBanner.getJSONObject(x).get("image").toString());
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +116,27 @@ public class MainActivity extends FragmentActivity {
 
         getDateListMusic();
         getDataFromServer();
+        getDataBanner();
+        try {
+            setBanner();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        imageView = (ImageView) findViewById(R.id.imageView4);
+        String urbaner = path_Image_Topbanner + arrBanner.get(0);
+        try {
+            URL urlBanner = new URL(urbaner);
+            Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
+            Log.d("system" , "Set Image " + bmp.toString() );
+            imageView.setImageBitmap(bmp);
 
         fragmentMain = new FragmentMain();
+        } catch (IOException e) {
+            Log.e("system",e.getMessage());
+        }
+
+
+        final FragmentMain fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
@@ -187,14 +220,48 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.e("system", "Sucess!!!!");
-                Log.e("system", result);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     url = (String) jsonObject.get("url");
-                    Log.e("system", "url :: " + url);
+                    Log.d("system", "url :: " + url);
+                    Log.d("system", "url :: " + url);
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getDataBanner(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet(banner);
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = convertinputStreamToString(instream);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
+
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    jsonBanner = jsonArray;
+                    Log.d("system", "banner :: " + jsonBanner.toString());
                 }
 
             } catch (Exception e) {
@@ -349,4 +416,5 @@ public class MainActivity extends FragmentActivity {
 //            });
 //        }
 //    }
+
 }
