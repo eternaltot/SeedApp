@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity {
 
 
 
-        final FragmentMain fragmentMain = new FragmentMain();
+        fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
