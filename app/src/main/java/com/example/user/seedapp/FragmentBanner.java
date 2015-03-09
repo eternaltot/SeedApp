@@ -1,5 +1,7 @@
 package com.example.user.seedapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,6 +35,16 @@ public class FragmentBanner extends Fragment {
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
 
             imageView.setImageBitmap(banner.getBitmap());
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(banner.getUrl()));
+                    startActivity(intent);
+                }
+            });
 
             return view;
         }catch (Exception e){

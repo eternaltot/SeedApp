@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity {
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
     private static String banner = "http://api.seedmcot.com/api/top-banners";
-    private static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
+    public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 3000;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
@@ -100,12 +100,12 @@ public class MainActivity extends FragmentActivity {
             djInfos.add(djInfo);
         }
     }
-    public void setBanner() throws Exception {
-        for(int x= 0 ; x < jsonBanner.length() ; ++x){
-            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
-            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
-        }
-    }
+//    public void setBanner() throws Exception {
+//        for(int x= 0 ; x < jsonBanner.length() ; ++x){
+//            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
+//            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,16 +121,14 @@ public class MainActivity extends FragmentActivity {
         getDateListMusic();
         getDataFromServer();
         getDataBanner();
-        try {
-            setBanner();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 //        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
         try {
-            adapter = new BannerAdapter(getSupportFragmentManager(),arrBanner );
+            adapter = new BannerAdapter(getSupportFragmentManager(),jsonBanner );
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         AutoScrollViewPager pager = (AutoScrollViewPager)findViewById(R.id.pagebanner);

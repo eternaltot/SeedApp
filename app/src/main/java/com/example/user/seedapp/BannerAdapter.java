@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.user.seedapp.com.add.model.Banner;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,18 +23,24 @@ import java.util.ArrayList;
  */
 public class BannerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<String> list_url_banner;
+    private JSONArray list_url_banner;
     private ArrayList<Banner> list_banner = new ArrayList<Banner>();
 
-    public BannerAdapter(FragmentManager fm,ArrayList<String> list_url_banner) throws IOException {
+    public BannerAdapter(FragmentManager fm,JSONArray list_url_banner) throws IOException, JSONException {
         super(fm);
         this.list_url_banner = list_url_banner;
-        for(String s : list_url_banner){
+
+        for(int i = 0 ;i<list_url_banner.length();++i){
+            JSONObject obj = list_url_banner.getJSONObject(i);
+            String s = MainActivity.path_Image_Topbanner + (String)obj.get("image");
+            String url = (String)obj.get("url_web");
             URL newurl = new URL(s);
             Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
             Banner banner = new Banner();
             banner.setBitmap(mIcon_val);
+            banner.setUrl(url != null && !url.isEmpty() ? url:"http://www.google.com");
             list_banner.add(banner);
+
         }
     }
 
