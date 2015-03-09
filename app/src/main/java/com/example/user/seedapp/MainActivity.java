@@ -129,14 +129,12 @@ public class MainActivity extends FragmentActivity {
             Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
             Log.d("system" , "Set Image " + bmp.toString() );
             imageView.setImageBitmap(bmp);
-
-        fragmentMain = new FragmentMain();
         } catch (IOException e) {
             Log.e("system",e.getMessage());
         }
 
 
-        final FragmentMain fragmentMain = new FragmentMain();
+        fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
