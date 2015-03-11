@@ -11,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -24,8 +28,8 @@ public class FragmentPrivilege extends Fragment {
     private static View view;
     private ArrayList<String> listitem = new ArrayList<String>();
     private ArrayList<String> listchild = new ArrayList<String>();
-    private ListView expandableListView;
-    private CustomAdapter adapter;
+    private ExpandableListView expandableListView;
+    private ExpandableAdapter adapter;
     FragmentTransaction transaction;
 
     public FragmentPrivilege() {
@@ -41,9 +45,9 @@ public class FragmentPrivilege extends Fragment {
         try{
             view = inflater.inflate(R.layout.fragment_list_privilege, container, false);
             setListData();
-            expandableListView = (ListView) view.findViewById(R.id.listView);
+            expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
             final Resources res =getResources();
-            adapter = new CustomAdapter(getActivity(),listitem,res);
+            adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,7 +66,13 @@ public class FragmentPrivilege extends Fragment {
                         @Override
                         public void run() {
                             swipeRefreshLayout.setRefreshing(false);
-                            adapter = new CustomAdapter(getActivity(),listitem,res);
+                            try {
+                                adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             expandableListView.setAdapter(adapter);
                         }
                     },5000);
@@ -71,6 +81,10 @@ public class FragmentPrivilege extends Fragment {
 
         }catch (InflateException e){
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return view;

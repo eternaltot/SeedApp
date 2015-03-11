@@ -2,11 +2,14 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/swipeLayout"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
-    <ListView
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:clickable="true" />
+        android:clickable="true"
+        android:headerDividersEnabled="false"
+        android:groupIndicator="@null" />
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -55,7 +55,10 @@ public class MainActivity extends FragmentActivity {
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
     private static String banner = "http://api.seedmcot.com/api/top-banners";
+    public static String list_privilege = "http://api.seedmcot.com/api/privileges";
     public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
+    public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
+    public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 3000;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
@@ -65,6 +68,7 @@ public class MainActivity extends FragmentActivity {
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
 
     private JSONArray jsonBanner;
+    private JSONArray jsonPrivillege;
 
 //    public List<ListPageItem> getListPageItems(){return listPageItems;}
 
@@ -350,6 +354,40 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    public JSONArray getDataPrivillege(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet(list_privilege);
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = convertinputStreamToString(instream);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
+
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    jsonPrivillege = jsonArray;
+                    Log.d("system", "listPrivillege :: " + jsonPrivillege.toString());
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  jsonPrivillege;
+    }
+
     public void getDateDJListMusicFromServer(){
         try {
 
@@ -503,42 +541,6 @@ public class MainActivity extends FragmentActivity {
 //            });
 //        }
 //    }
-    Animation.AnimationListener animationSlideInLeftListener
-            = new Animation.AnimationListener() {
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-
-            imageView.startAnimation(animationSlideOutRight);
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    };
-
-    Animation.AnimationListener animationSlideOutRightListener
-            = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationEnd(Animation animation) {
-
-            imageView.startAnimation(animationSlideInLeft);
-        }
-
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-
-        public void onAnimationStart(Animation animation) {
-
-        }
-    };
 
 
 }
