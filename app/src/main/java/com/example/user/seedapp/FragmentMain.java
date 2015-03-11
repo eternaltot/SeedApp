@@ -3,8 +3,11 @@ package com.example.user.seedapp;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +44,7 @@ public class FragmentMain extends Fragment {
     }
 
     public void pauseMedia(){
-        if(play != null){
+        if(play != null && play.returnIsPlating()){
             play.playMedia(false);
         }
     }
@@ -63,6 +66,7 @@ public class FragmentMain extends Fragment {
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
             pager.startAutoScroll();
+            pager.setCycle(true);
             pager.setInterval(15000);
 
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
@@ -93,21 +97,21 @@ public class FragmentMain extends Fragment {
                 public void onClick(View v) {
                     FragmentYouTube fragmentYouTube = new FragmentYouTube();
                     fragmentYouTube.setYoutubeName("VT8uLDauarc");
-                    mainActivity.setFragment(fragmentYouTube);
+                    mainActivity.setFragmentNoBack(fragmentYouTube);
                 }
             });
 
             bt_lyrics.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     FragmentLyrics fragmentLyrics = new FragmentLyrics();
-                    mainActivity.setFragment(fragmentLyrics);
+                    mainActivity.setFragmentNoBack(fragmentLyrics);
                 }
             });
 
             bt_list.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     fragmentListPage = new FragmentListPage();
-                    mainActivity.setFragment(fragmentListPage);
+                    mainActivity.setFragmentNoBack(fragmentListPage);
                 }
             });
 

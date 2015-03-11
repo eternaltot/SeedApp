@@ -10,6 +10,51 @@ import org.json.JSONObject;
 public class DJInfo {
     private JSONObject JSONObject;
     private Bitmap bitmap;
+    private Integer djId;
+    private String startTime;
+    private String stopTime;
+    private String name;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStartTime(){
+        return this.startTime;
+    }
+
+    public String getStopTime(){
+        return this.stopTime;
+    }
+
+    public void setStartTime(String startTime){
+        this.startTime = startTime;
+    }
+
+    public void setStopTime(String stopTime){
+        this.stopTime = stopTime;
+    }
+
+    public void setDjId(Integer djId){
+        this.djId = djId;
+    }
+
+    public Integer getDjId(){
+        return this.djId;
+    }
 
     public void setJSONObject(JSONObject JSONObject){
         this.JSONObject = JSONObject;

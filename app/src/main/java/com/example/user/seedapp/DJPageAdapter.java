@@ -51,17 +51,11 @@ public class DJPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        try {
-            DJInfo object =  djInfos.get(i);
+        DJInfo object =  djInfos.get(i);
 
-            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
-            fragmentDJIndoPage.setObject(object);
-
-            return fragmentDJIndoPage;
-        }catch (Exception e){
-            return null;
-        }
-
+        FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
+        fragmentDJIndoPage.setObject(object);
+        return fragmentDJIndoPage;
     }
 
     @Override

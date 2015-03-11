@@ -2,6 +2,8 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import java.io.InputStreamReader;
 public class FragmentLyrics extends Fragment {
     private static View view;
     private Music music;
+    private MainActivity mainActivity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -43,6 +46,8 @@ public class FragmentLyrics extends Fragment {
             TextView lyrics = (TextView) view.findViewById(R.id.lyrics);
 
             getDataFromServer();
+
+            mainActivity = (MainActivity) getActivity();
 
             if(music != null){
                 if(music.getName() != null)
@@ -71,7 +76,27 @@ public class FragmentLyrics extends Fragment {
 
         }
 
+        setBackEvent();
+
         return view;
+    }
+
+    public void setBackEvent(){
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("system", "keyCode: " + keyCode);
+                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+                    Log.e("system", "onKey Back listener is working!!!");
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 
     public void getDataFromServer(){

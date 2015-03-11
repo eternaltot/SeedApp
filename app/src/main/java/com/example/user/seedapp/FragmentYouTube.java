@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.InflateException;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class FragmentYouTube extends Fragment {
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     private static String youtubeName = "l8Iu9PEKMmw";
     private static String musicName = "-";
+    private MainActivity mainActivity;
 
     public void setYoutubeName(String youtubeName){
         this.youtubeName = youtubeName;
@@ -62,9 +65,11 @@ public class FragmentYouTube extends Fragment {
 
             TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
 
+            mainActivity = (MainActivity) getActivity();
+
             getDataFromServer();
 
-            ((MainActivity)getActivity()).pauseMediaFromMainActivity();
+            mainActivity.pauseMediaFromMainActivity();
 
             tv_name.setText(tv_name.getText() + musicName);
 
@@ -94,7 +99,27 @@ public class FragmentYouTube extends Fragment {
 
         }
 
+        setBackEvent();
+
         return view;
+    }
+
+    public void setBackEvent(){
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("system", "keyCode: " + keyCode);
+                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+                    Log.e("system", "onKey Back listener is working!!!");
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 
     public void getDataFromServer(){

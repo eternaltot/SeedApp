@@ -72,8 +72,8 @@ public class FragmentDJIndoPage extends Fragment {
                     dialog.show();
                 }
             });
-            nameDJ.setText(nameDJ.getText().toString() + " " + djInfo.getJSONObject().getString("name"));
-            online_time.setText(djInfo.getJSONObject().getString("time_online"));
+            nameDJ.setText(djInfo.getName());
+            online_time.setText(djInfo.getStartTime() + " : " + djInfo.getStopTime());
 
 //            URL newurl = new URL(jsonObject.getString("image"));
 //            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,8 @@ public class MainActivity extends FragmentActivity {
         return url;
     }
 
+    public FragmentMain getFragmentMain(){ return fragmentMain; };
+
     public void pauseMediaFromMainActivity(){
         if(fragmentMain != null){
             fragmentMain.pauseMedia();
@@ -81,6 +84,7 @@ public class MainActivity extends FragmentActivity {
         return dj_info_array;
     }
 
+
     public List<DJInfo> getDJInfos(){
         return djInfos;
     }
@@ -90,6 +94,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setDjInfos() throws Exception {
+        djInfos.clear();
+
         for(int x= 0 ; x < dj_info_array.length() ; ++x){
             JSONObject jsonObject = dj_info_array.getJSONObject(x);
             DJInfo djInfo = new DJInfo();
@@ -98,6 +104,9 @@ public class MainActivity extends FragmentActivity {
             Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
             djInfo.setBitmap(mIcon_val);
             djInfos.add(djInfo);
+
+            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
+            fragmentDJIndoPage.setObject(djInfo);
         }
     }
 //    public void setBanner() throws Exception {
@@ -119,7 +128,7 @@ public class MainActivity extends FragmentActivity {
         }
 
         getDateListMusic();
-        getDataFromServer();
+        getDateDJListMusicFromServer();
         getDataBanner();
 
 //        imageView = (ImageView) findViewById(R.id.imageView4);
@@ -209,10 +218,49 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setFragment(Fragment fragment){
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        try {
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            if (f.getClass() != fragment.getClass()) {
+//            if(fragment instanceof FragmentYouTube || fragment instanceof FragmentLyrics || fragment instanceof FragmentListPage) {
+//                if (fragment instanceof FragmentMain) {
+//                    transaction.setCustomAnimations(R.anim.slide_in_down, R.anim.slide_out_down);
+//                } else {
+//                    transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
+//                }
+//            }
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        } catch (Exception ex){
+
+        }
+//        transaction.add(R.id.fragment_container, fragment).commit();
+    }
+
+
+    public void setFragmentNoBack(Fragment fragment){
+        try {
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            if(f.getClass() != fragment.getClass()) {
+                if (fragment instanceof FragmentMain) {
+                    transaction.setCustomAnimations(R.anim.slide_in_down, R.anim.slide_out_down);
+                } else {
+                    transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
+                }
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.commit();
+            }
+        }catch (Exception ex){
+
+        }
+
 //        transaction.add(R.id.fragment_container, fragment).commit();
     }
 
@@ -302,35 +350,48 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    public void getDataFromServer(){
+    public void getDateDJListMusicFromServer(){
         try {
 
-//            URL url = new URL("http://192.168.43.174/testServer/");
-//            URLConnection conn = url.openConnection();
-//
-//            HttpURLConnection httpConn = (HttpURLConnection) conn;
-//            httpConn.setAllowUserInteraction(false);
-//            httpConn.setInstanceFollowRedirects(true);
-//            httpConn.setRequestMethod("POST");
-//            httpConn.connect();
-//
-//            InputStream is = httpConn.getInputStream();
-//            String parsedString = convertinputStreamToString(is);
-//
-//            JSONObject jsonObject = new JSONObject(parsedString);
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://api.seedmcot.com/api/dj-schedules?expand=dj");
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = convertinputStreamToString(instream);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
 
-            String parsedString = "{\"dj_info\":[{\"name\":\"TOT\",\"image\":\"http:\\/\\/i.ytimg.com\\/vi\\/SehciaH-pBo\\/maxresdefault.jpg\",\"time_online\":\"07.00 - 09.00\"},{\"name\":\"Bank\",\"image\":\"http:\\/\\/image.dek-d.com\\/24\\/2172565\\/105557011\",\"time_online\":\"09.00 - 12.00\"},{\"name\":\"Top\",\"image\":\"http:\\/\\/inkjet.weloveshopping.com\\/shop\\/client\\/000032\\/inkjet\\/webboard\\/N2975877.jpg\",\"time_online\":\"13.00 - 15.00\"},{\"name\":\"Poo\",\"image\":\"http:\\/\\/www.dmc.tv\\/images\\/reli-550-2.jpg\",\"time_online\":\"16.00 - 20.00\"},{\"name\":\"WoW!!\",\"image\":\"http:\\/\\/static.playinter.com\\/data\\/attachment\\/image\\/2012\\/07\\/19\\/1602-r-1342643168501.jpg\",\"time_online\":\"20.00 - 22.00\"}],\"a\":\"111\"}";
-            JSONObject jsonObject = new JSONObject(parsedString);
-            dj_info_array = (JSONArray) jsonObject.get("dj_info");
-            if(dj_info_array != null){
-                setDjInfos();
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    for(int x= 0 ; x < jsonArray.length() ; ++x){
+                        JSONObject object = jsonArray.getJSONObject(x);
+
+                        DJInfo djInfo = new DJInfo();
+                        djInfo.setDjId((Integer) object.get("dj_id"));
+                        djInfo.setStartTime(object.getString("start_time"));
+                        djInfo.setStopTime(object.getString("stop_time"));
+
+                        JSONObject djJSON = (JSONObject) object.get("dj");
+                        if(djJSON != null) {
+                            djInfo.setName(djJSON.getString("name"));
+                            djInfo.setImage("http://api.seedmcot.com/backoffice/uploads/dj/2x_" + djJSON.getString("image"));
+                            URL newurl = new URL(djInfo.getImage());
+                            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                            djInfo.setBitmap(mIcon_val);
+                        }
+                        djInfo.setJSONObject(object);
+                        djInfos.add(djInfo);
+                    }
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
             }
-
-//            for(int x= 0 ; x < dj_info_array.length() ; ++x){
-//                JSONObject object = dj_info_array.getJSONObject(x);
-//                Log.d("system", object.getString("name"));
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

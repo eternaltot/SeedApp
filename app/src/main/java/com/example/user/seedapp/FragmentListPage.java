@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.InflateException;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class FragmentListPage extends Fragment {
     private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private TextView number_tv;
     private TextView name;
+    private MainActivity mainActivity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -51,6 +53,8 @@ public class FragmentListPage extends Fragment {
             number_tv = (TextView) view.findViewById(R.id.number_tv);
             name = (TextView) view.findViewById(R.id.name);
 
+            mainActivity = (MainActivity) getActivity();
+
             getDateListFromServer();
 
             number_tv.setText("Last " + listPageItems.size() + " songs");
@@ -62,7 +66,27 @@ public class FragmentListPage extends Fragment {
 
         }
 
+        setBackEvent();
+
         return view;
+    }
+
+    public void setBackEvent(){
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("system", "keyCode: " + keyCode);
+                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+                    Log.e("system", "onKey Back listener is working!!!");
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 
     public void updateListView(){

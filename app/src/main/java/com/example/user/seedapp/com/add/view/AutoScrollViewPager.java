@@ -10,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
 /**
@@ -143,18 +144,23 @@ public class AutoScrollViewPager extends ViewPager {
             return;
         }
 
-        int nextItem = (direction == LEFT) ? --currentItem : ++currentItem;
-        if (nextItem < 0) {
-            if (isCycle) {
-                setCurrentItem(totalCount - 1, isBorderAnimation);
+        try {
+            int nextItem = (direction == LEFT) ? --currentItem : ++currentItem;
+            if (nextItem < 0) {
+                if (isCycle) {
+                    setCurrentItem(totalCount - 1, isBorderAnimation);
+                }
+            } else if (nextItem == totalCount) {
+                if (isCycle) {
+                    setCurrentItem(0, isBorderAnimation);
+                }
+            } else {
+                setCurrentItem(nextItem, true);
             }
-        } else if (nextItem == totalCount) {
-            if (isCycle) {
-                setCurrentItem(0, isBorderAnimation);
-            }
-        } else {
-            setCurrentItem(nextItem, true);
+        } catch (Exception e){
+
         }
+
     }
 
     /**
