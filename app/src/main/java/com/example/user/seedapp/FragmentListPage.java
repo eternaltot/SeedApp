@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class FragmentListPage extends Fragment {
     private TextView number_tv;
     private TextView name;
     private MainActivity mainActivity;
+    private ImageView back_bt;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -52,6 +54,13 @@ public class FragmentListPage extends Fragment {
             expandableListView = (ListView) view.findViewById(R.id.listView);
             number_tv = (TextView) view.findViewById(R.id.number_tv);
             name = (TextView) view.findViewById(R.id.name);
+            back_bt = (ImageView) view.findViewById(R.id.back_bt);
+
+            back_bt.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                }
+            });
 
             mainActivity = (MainActivity) getActivity();
 

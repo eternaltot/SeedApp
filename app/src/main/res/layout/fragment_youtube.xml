@@ -19,6 +19,21 @@
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:layout_weight="2">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/back_bt"
+            android:src="@android:drawable/arrow_down_float"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/youtube_fragment"
         android:layout_width="match_parent"
@@ -26,7 +41,7 @@
         android:visibility="visible"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_weight="18">
+        android:layout_weight="16">
 
     </FrameLayout>
 

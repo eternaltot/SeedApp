@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.seedapp.com.add.model.Music;
@@ -39,6 +40,7 @@ public class FragmentYouTube extends Fragment {
     private static String youtubeName = "l8Iu9PEKMmw";
     private static String musicName = "-";
     private MainActivity mainActivity;
+    private ImageView back_bt;
 
     public void setYoutubeName(String youtubeName){
         this.youtubeName = youtubeName;
@@ -72,6 +74,14 @@ public class FragmentYouTube extends Fragment {
             mainActivity.pauseMediaFromMainActivity();
 
             tv_name.setText(tv_name.getText() + musicName);
+
+            back_bt = (ImageView) view.findViewById(R.id.back_bt);
+
+            back_bt.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                }
+            });
 
             YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

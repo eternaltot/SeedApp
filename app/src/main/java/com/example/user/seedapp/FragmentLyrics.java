@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.seedapp.com.add.model.Music;
@@ -28,6 +29,7 @@ public class FragmentLyrics extends Fragment {
     private static View view;
     private Music music;
     private MainActivity mainActivity;
+    private ImageView back_bt;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -40,10 +42,17 @@ public class FragmentLyrics extends Fragment {
             view = inflater.inflate(R.layout.fragment_lyrics, container, false);
 
             TextView name = (TextView) view.findViewById(R.id.name);
-            TextView author = (TextView) view.findViewById(R.id.author);
-            TextView tempo = (TextView) view.findViewById(R.id.tempo);
-            TextView compose = (TextView) view.findViewById(R.id.compose);
+//            TextView author = (TextView) view.findViewById(R.id.author);
+//            TextView tempo = (TextView) view.findViewById(R.id.tempo);
+//            TextView compose = (TextView) view.findViewById(R.id.compose);
             TextView lyrics = (TextView) view.findViewById(R.id.lyrics);
+            back_bt = (ImageView) view.findViewById(R.id.back_bt);
+
+            back_bt.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+                }
+            });
 
             getDataFromServer();
 
@@ -54,18 +63,18 @@ public class FragmentLyrics extends Fragment {
                     name.setText(name.getText() + music.getName());
                 else
                     name.setText(name.getText() + "-");
-                if(music.getAuthor() != null)
-                    author.setText(author.getText() + music.getAuthor());
-                else
-                    author.setText(author.getText() + "-");
-                if(music.getTempo() != null)
-                    tempo.setText(tempo.getText() + music.getTempo());
-                else
-                    tempo.setText(tempo.getText() + "-");
-                if(music.getCompose() != null)
-                    compose.setText(compose.getText() + music.getCompose());
-                else
-                    compose.setText(compose.getText() + "-");
+//                if(music.getAuthor() != null)
+//                    author.setText(author.getText() + music.getAuthor());
+//                else
+//                    author.setText(author.getText() + "-");
+//                if(music.getTempo() != null)
+//                    tempo.setText(tempo.getText() + music.getTempo());
+//                else
+//                    tempo.setText(tempo.getText() + "-");
+//                if(music.getCompose() != null)
+//                    compose.setText(compose.getText() + music.getCompose());
+//                else
+//                    compose.setText(compose.getText() + "-");
                 if(music.getLyrics() != null)
                     lyrics.setText(lyrics.getText() + music.getLyrics());
                 else
