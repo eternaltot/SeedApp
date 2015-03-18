@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
     public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
     private ImageView imageView;
-    private static int SPLASH_TIMEOUT = 3000;
+    private static int SPLASH_TIMEOUT = 15000;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private static Boolean flagGetListStatus = Boolean.FALSE;
     private static FragmentMain fragmentMain;
@@ -115,23 +115,6 @@ public class MainActivity extends FragmentActivity {
         return getBaseContext();
     }
 
-    public void setDjInfos() throws Exception {
-        djInfos.clear();
-
-        for(int x= 0 ; x < dj_info_array.length() ; ++x){
-            JSONObject jsonObject = dj_info_array.getJSONObject(x);
-            DJInfo djInfo = new DJInfo();
-            djInfo.setJSONObject(jsonObject);
-            URL newurl = new URL(jsonObject.getString("image"));
-            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            djInfo.setBitmap(mIcon_val);
-            djInfos.add(djInfo);
-
-            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
-            fragmentDJIndoPage.setObject(djInfo);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +126,8 @@ public class MainActivity extends FragmentActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        getDataNowPlayingFromServer();
+        new GetDataNowPlayingTask().execute();
+//        getDataNowPlayingFromServer();
         getDataListMusic();
         getDataDJListMusicFromServer();
         getDataBanner();
@@ -206,8 +190,6 @@ public class MainActivity extends FragmentActivity {
                 setFragment(fragmentLive);
             }
         });
-
-//        new GetDataListTask().execute();
     }
 
     public void setFragment(Fragment fragment){
@@ -512,52 +494,50 @@ public class MainActivity extends FragmentActivity {
 //    }
 
 
-//    public void getDataList(){
-//        if(flagGetListStatus){
-//            new Handler().postDelayed(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    getDateListFromServer();
-//                    new GetDataListTask().execute();
-//                }
-//            }, SPLASH_TIMEOUT);
-//        }else{
-//            getDateListFromServer();
-//            flagGetListStatus = Boolean.TRUE;
-//            new GetDataListTask().execute();
-//        }
-//    }
+    public void getDataList(){
+        if(flagGetListStatus){
+            new Handler().postDelayed(new Runnable() {
 
-//    class GetDataListTask extends AsyncTask<String, String, String> {
-//
-//        /**
-//         * Before starting background thread Show Progress Dialog
-//         * */
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... args) {
-//
-//
-//            return null;
-//        }
-//
-//        /**
-//         * After completing background task Dismiss the progress dialog
-//         * **/
-//        @Override
-//        protected void onPostExecute(String file_url) {
-//            runOnUiThread(new Runnable() {
-//                public void run() {
-//                    getDataList();
-//                }
-//            });
-//        }
-//    }
+                @Override
+                public void run() {
+                    getDataNowPlayingFromServer();
+                    new GetDataNowPlayingTask().execute();
+                }
+            }, SPLASH_TIMEOUT);
+        }else{
+            getDataNowPlayingFromServer();
+            flagGetListStatus = Boolean.TRUE;
+            new GetDataNowPlayingTask().execute();
+        }
+    }
+
+    class GetDataNowPlayingTask extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
 
 
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        @Override
+        protected void onPostExecute(String file_url) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    getDataList();
+                }
+            });
+        }
+    }
 }
