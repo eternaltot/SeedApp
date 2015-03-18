@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -27,9 +29,21 @@ public class FragmentMain extends Fragment {
     private Button bt_lyrics;
     private Button bt_list;
     private Button bt_play;
+    private TextView textNowPlaying;
+    private TextView textNameSong;
     private MainActivity mainActivity;
     private static PlayMedia play;
     private static FragmentListPage fragmentListPage;
+
+    public void updateNowPlayingAndNext(String now, String next){
+        try {
+            Log.e("system", "textNowPlaying" + now);
+            Log.e("system", "textNameSong" + next);
+            textNowPlaying.setText(now);
+            textNameSong.setText(next);
+        }catch (Exception ex) {
+        }
+    }
 
     public void updateListViewFragmentListPageFromFragmentMain(){
         if(fragmentListPage != null){
@@ -65,39 +79,40 @@ public class FragmentMain extends Fragment {
             DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
-            pager.startAutoScroll();
-            pager.setCycle(true);
-            pager.setInterval(15000);
-
-            CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-            indicator .setViewPager(pager);
-            indicator.setSnap(true);
+            if(mainActivity.getDJInfos().size() != 0 && mainActivity.getDJInfos().size() != 1) {
+                pager.startAutoScroll();
+                pager.setCycle(true);
+                pager.setInterval(15000);
+            }
 
             bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
             bt_play = (Button) view.findViewById(R.id.bt_play);
             bt_list = (Button) view.findViewById(R.id.bt_list);
+            textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
+            textNameSong = (TextView) view.findViewById(R.id.textNameSong);
 
-//            bt_play.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (bt_play.getText().equals("Play")){
-//                        bt_play.setBackgroundColor(Color.WHITE);
-//                        bt_play.setTextColor(Color.BLACK);
-//                        bt_play.setText("Pause");
-//                    }else {
-//                        bt_play.setBackgroundColor(Color.BLACK);
-//                        bt_play.setTextColor(Color.WHITE);
-//                        bt_play.setText("Play");
-//                    }
-//                }
-//            });
+
+            updateNowPlayingAndNext(mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "", mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
+
+            CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+            indicator .setViewPager(pager);
+            indicator.setSnap(true);
 
             bt_youtube.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
-                    fragmentYouTube.setYoutubeName("VT8uLDauarc");
-                    mainActivity.setFragmentNoBack(fragmentYouTube);
+                    if (mainActivity.getCurrentPlay().getNowMv() != null) {
+                        String url = mainActivity.getCurrentPlay().getNowMv();
+                        String[] strings = url.split(mainActivity.getCutURLYoutube());
+
+                        FragmentYouTube fragmentYouTube = new FragmentYouTube();
+                        if (strings.length > 0) {
+                            fragmentYouTube.setYoutubeName(strings[strings.length - 1]);
+                        }
+                        mainActivity.setFragmentNoBack(fragmentYouTube);
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(), "No", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
@@ -125,7 +140,8 @@ public class FragmentMain extends Fragment {
 
 
         }catch (Exception e){
-
+            Log.e("system", "Error onCreateView FragmentMain!!!!");
+            Log.e("system", e.getMessage());
         }
         return view;
     }

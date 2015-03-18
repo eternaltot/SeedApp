@@ -24,6 +24,7 @@ public class PlayMedia {
         mediaPlayer = new MediaPlayer();
 
         try {
+            mediaPlayer.reset();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepare();

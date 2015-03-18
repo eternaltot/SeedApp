@@ -4,16 +4,27 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.user.seedapp.com.add.model.ItemLive;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.gson.Gson;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LacNoito on 2/25/2015.
@@ -29,18 +41,47 @@ public class FragmentLive extends Fragment {
     private static View view;
     private static String youtubeName = "l8Iu9PEKMmw";
     private static String musicName = "-";
-    private YouTubePlayer YPlayer;
-    private ArrayList<String> listitem = new ArrayList<String>();
+    private static YouTubePlayer YPlayer;
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
-    private CustomAdapter adapter;
+    private LiveAdapter adapter;
+    private static YouTubePlayerSupportFragment youTubePlayerFragment;
+    private List<ItemLive> itemLiveList = new ArrayList<ItemLive>();
+    private MainActivity mainActivity;
+    private TextView tv_name;
 
-    public void setListData(){
-        listitem = new ArrayList<String>();
-        listitem.add("VDO1");
-        listitem.add("VDO2");
-        listitem.add("VDO3");
-        listitem.add("VDO4");
-        listitem.add("VDO5");
+    public void getDateLiveFromServer(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://api.seedmcot.com/api/lives");
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = mainActivity.convertinputStreamToString(instream);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
+
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    for(int x= 0 ; x < jsonArray.length() ; ++x){
+                        JSONObject object = jsonArray.getJSONObject(x);
+
+                        Gson gson = new Gson();
+                        ItemLive itemLive = gson.fromJson(object.toString(), ItemLive.class);
+                        itemLiveList.add(itemLive);
+                    }
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,20 +94,43 @@ public class FragmentLive extends Fragment {
         try{
             view = inflater.inflate(R.layout.fragment_live, container, false);
             getDataFromServer();
-            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+            tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
 
-            ((MainActivity)getActivity()).pauseMediaFromMainActivity();
+            mainActivity = (MainActivity)getActivity();
+
+            mainActivity.pauseMediaFromMainActivity();
 
             ListView expandableListView = (ListView) view.findViewById(R.id.listView);
 
             final Resources res =getResources();
-            setListData();
-            adapter = new CustomAdapter(getActivity(),listitem, res,true);
+            getDateLiveFromServer();
+            adapter = new LiveAdapter(getActivity(), res, itemLiveList);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
 
-            YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+            expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ItemLive live = itemLiveList.get(position);
+
+                    Toast.makeText(getActivity().getApplicationContext(), "Play " + live.getTitle(), Toast.LENGTH_LONG).show();
+
+                    if(YPlayer != null){
+                        String url = live.getUrl();
+                        String[] strings = url.split(mainActivity.getCutURLYoutube());
+                        if(strings.length > 0) {
+                            YPlayer.loadVideo(strings[strings.length - 1]);
+                            tv_name.setText("LIVE : " + live.getTitle());
+                            if(!YPlayer.isPlaying()){
+                                YPlayer.play();
+                            }
+                        }
+                    }
+                }
+            });
+
+            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
 
@@ -129,27 +193,6 @@ public class FragmentLive extends Fragment {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public static String convertinputStreamToString(InputStream ists)
-            throws IOException {
-        if (ists != null) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            try {
-                BufferedReader r1 = new BufferedReader(new InputStreamReader(
-                        ists, "UTF-8"));
-                while ((line = r1.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-            } finally {
-                ists.close();
-            }
-            return sb.toString();
-        } else {
-            return "";
         }
     }
 }

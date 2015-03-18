@@ -23,6 +23,7 @@ import android.widget.ImageView;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
+import com.example.user.seedapp.com.add.model.PlayAndNext;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.google.gson.Gson;
 
@@ -64,13 +65,23 @@ public class MainActivity extends FragmentActivity {
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private static Boolean flagGetListStatus = Boolean.FALSE;
     private static FragmentMain fragmentMain;
+    private PlayAndNext currentPlay;
+    private PlayAndNext nextPlay;
+    private Gson gson = new Gson();
+    private String cutURLYoutube = "v=";
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
 
     private JSONArray jsonBanner;
     private JSONArray jsonPrivillege;
 
-//    public List<ListPageItem> getListPageItems(){return listPageItems;}
+    public String getCutURLYoutube() {
+        return cutURLYoutube;
+    }
+
+    public Gson getGson() {
+        return gson;
+    }
 
     public String getURL(){
         return url;
@@ -88,6 +99,13 @@ public class MainActivity extends FragmentActivity {
         return dj_info_array;
     }
 
+    public PlayAndNext getNextPlay() {
+        return nextPlay;
+    }
+
+    public PlayAndNext getCurrentPlay() {
+        return currentPlay;
+    }
 
     public List<DJInfo> getDJInfos(){
         return djInfos;
@@ -113,12 +131,6 @@ public class MainActivity extends FragmentActivity {
             fragmentDJIndoPage.setObject(djInfo);
         }
     }
-//    public void setBanner() throws Exception {
-//        for(int x= 0 ; x < jsonBanner.length() ; ++x){
-//            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
-//            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +143,9 @@ public class MainActivity extends FragmentActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        getDateListMusic();
-        getDateDJListMusicFromServer();
+        getDataNowPlayingFromServer();
+        getDataListMusic();
+        getDataDJListMusicFromServer();
         getDataBanner();
 
 //        imageView = (ImageView) findViewById(R.id.imageView4);
@@ -150,30 +163,6 @@ public class MainActivity extends FragmentActivity {
         pager.setInterval(1000);
         pager.setCycle(true);
         pager.setAutoScrollDurationFactor(200);
-//        String urbaner = path_Image_Topbanner + arrBanner.get(0);
-//        try {
-//            URL urlBanner = new URL(urbaner);
-//            Bitmap bmp = BitmapFactory.decodeStream(urlBanner.openConnection().getInputStream());
-//            Log.d("system" , "Set Image " + bmp.toString() );
-//            imageView.setImageBitmap(bmp);
-//        } catch (IOException e) {
-//            Log.e("system",e.getMessage());
-//        }
-
-//        animationSlideInLeft = AnimationUtils.loadAnimation(this,
-//                R.anim.slide_left);
-//        animationSlideOutRight = AnimationUtils.loadAnimation(this,
-//                R.anim.slide_right);
-//        animationSlideInLeft.setDuration(15000);
-//        animationSlideOutRight.setDuration(15000);
-//        animationSlideInLeft.setAnimationListener(animationSlideInLeftListener);
-//        animationSlideOutRight.setAnimationListener(animationSlideOutRightListener);
-
-  
-//        imageView.startAnimation(animationSlideInLeft);
-
-
-
 
         fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -228,13 +217,6 @@ public class MainActivity extends FragmentActivity {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
             if (f.getClass() != fragment.getClass()) {
-//            if(fragment instanceof FragmentYouTube || fragment instanceof FragmentLyrics || fragment instanceof FragmentListPage) {
-//                if (fragment instanceof FragmentMain) {
-//                    transaction.setCustomAnimations(R.anim.slide_in_down, R.anim.slide_out_down);
-//                } else {
-//                    transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
-//                }
-//            }
                 transaction.replace(R.id.fragment_container, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -286,7 +268,7 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getDateListMusic(){
+    public void getDataListMusic(){
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
@@ -388,7 +370,7 @@ public class MainActivity extends FragmentActivity {
         return  jsonPrivillege;
     }
 
-    public void getDateDJListMusicFromServer(){
+    public void getDataDJListMusicFromServer(){
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
@@ -453,6 +435,41 @@ public class MainActivity extends FragmentActivity {
             return sb.toString();
         } else {
             return "";
+        }
+    }
+
+
+    public void getDataNowPlayingFromServer(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3");
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response = httpClient.execute(request);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            String result = convertinputStreamToString(instream);
+            Log.d("system", "Sucess!!!!");
+            Log.d("system", result);
+
+            JSONArray jsonArray = new JSONArray(result);
+            if(jsonArray != null){
+                for(int x= 0 ; x < jsonArray.length() ; ++x){
+                    JSONObject object = jsonArray.getJSONObject(x);
+
+                    Log.e("system", "object.toString() :: " + object.toString());
+
+                    if(x == 0) {
+                        currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
+                    }
+                    else if(x == 1) {
+                        nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("system", "Error getDataNowPlayingFromServer!!!!");
+            Log.e("system", e.getMessage());
         }
     }
 
