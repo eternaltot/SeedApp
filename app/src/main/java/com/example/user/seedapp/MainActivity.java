@@ -60,6 +60,12 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
     public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
     public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
+    public static String path_Image_dj = "http://api.seedmcot.com/backoffice/uploads/dj/2x_";
+    public static String list_dj = "http://api.seedmcot.com/api/dj-schedules?expand=dj";
+    public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3";
+    public static String path_radio = "http://api.seedmcot.com/api/radio-urls";
+    public static String list_song_details = "http://api.seedmcot.com/api/song-details";
+    public static String list_lives = "http://api.seedmcot.com/api/lives";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 15000;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
@@ -254,7 +260,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://api.seedmcot.com/api/radio-urls");
+            HttpGet request = new HttpGet(path_radio);
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -356,7 +362,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://api.seedmcot.com/api/dj-schedules?expand=dj");
+            HttpGet request = new HttpGet(list_dj);
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -380,7 +386,7 @@ public class MainActivity extends FragmentActivity {
                         JSONObject djJSON = (JSONObject) object.get("dj");
                         if(djJSON != null) {
                             djInfo.setName(djJSON.getString("name"));
-                            djInfo.setImage("http://api.seedmcot.com/backoffice/uploads/dj/2x_" + djJSON.getString("image"));
+                            djInfo.setImage(path_Image_dj + djJSON.getString("image"));
                             URL newurl = new URL(djInfo.getImage());
                             Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
                             djInfo.setBitmap(mIcon_val);
@@ -425,7 +431,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3");
+            HttpGet request = new HttpGet(path_nowPlaying);
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response = httpClient.execute(request);
             HttpEntity entity = response.getEntity();
@@ -454,45 +460,6 @@ public class MainActivity extends FragmentActivity {
             Log.e("system", e.getMessage());
         }
     }
-
-//    public void getDateListFromServer(){
-//        try {
-//
-//            HttpClient httpClient = new DefaultHttpClient();
-//            HttpGet request = new HttpGet("http://api.seedmcot.com/api/song-details");
-//            request.setHeader("Content-Type", "text/xml");
-//            HttpResponse response;
-//            try {
-//                response = httpClient.execute(request);
-//                HttpEntity entity = response.getEntity();
-//                InputStream instream = entity.getContent();
-//                String result = convertinputStreamToString(instream);
-//                Log.e("system", "Sucess!!!!");
-//                Log.e("system", "DATA List" + result);
-//
-//                JSONArray jsonArray = new JSONArray(result);
-//                for(int x= 0 ; x < jsonArray.length() ; ++x){
-//                    JSONObject object = jsonArray.getJSONObject(x);
-//                    Gson gson = new Gson();
-//                    ListPageItem listPageItem = gson.fromJson(object.toString(), ListPageItem.class);
-//                    listPageItems.add(listPageItem);
-//                }
-//
-//                if(fragmentMain != null){
-//                    fragmentMain.updateListViewFragmentListPageFromFragmentMain();
-//                }
-//            } catch (Exception e) {
-//                Log.e("system", "Error!!!!");
-//                Log.e("system", e.getMessage());
-//            }
-//
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     public void getDataList(){
         if(flagGetListStatus){

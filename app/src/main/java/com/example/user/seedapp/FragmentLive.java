@@ -53,7 +53,7 @@ public class FragmentLive extends Fragment {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://api.seedmcot.com/api/lives");
+            HttpGet request = new HttpGet(mainActivity.list_lives);
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {

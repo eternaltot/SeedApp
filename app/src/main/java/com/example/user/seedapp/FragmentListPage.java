@@ -110,7 +110,7 @@ public class FragmentListPage extends Fragment {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet("http://api.seedmcot.com/api/song-details");
+            HttpGet request = new HttpGet(mainActivity.list_song_details);
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
