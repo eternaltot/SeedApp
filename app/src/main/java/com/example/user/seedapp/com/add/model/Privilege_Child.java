@@ -8,6 +8,15 @@ import android.graphics.Bitmap;
 public class Privilege_Child {
     private String url;
     private Bitmap bitmap;
+    private String urlImage;
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 
     public String getUrl() {
         return url;

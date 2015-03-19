@@ -30,17 +30,18 @@ public class BannerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.list_url_banner = list_url_banner;
 
-        for(int i = 0 ;i<list_url_banner.length();++i){
-            JSONObject obj = list_url_banner.getJSONObject(i);
-            String s = MainActivity.path_Image_Topbanner + (String)obj.get("image");
-            String url = (String)obj.get("url_web");
-            URL newurl = new URL(s);
-            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            Banner banner = new Banner();
-            banner.setBitmap(mIcon_val);
-            banner.setUrl(url != null && !url.isEmpty() ? url:"http://www.google.com");
-            list_banner.add(banner);
-
+        if(list_url_banner != null){
+            for(int i = 0 ;i<list_url_banner.length();++i) {
+                JSONObject obj = list_url_banner.getJSONObject(i);
+                String s = MainActivity.path_Image_Topbanner + (String) obj.get("image");
+                String url = (String) obj.get("url_web");
+                URL newurl = new URL(s);
+                Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                Banner banner = new Banner();
+                banner.setBitmap(mIcon_val);
+                banner.setUrl(url != null && !url.isEmpty() ? url : "http://www.google.com");
+                list_banner.add(banner);
+            }
         }
     }
 

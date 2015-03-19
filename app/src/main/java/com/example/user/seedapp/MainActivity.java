@@ -25,6 +25,7 @@ import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
 import com.example.user.seedapp.com.add.model.PlayAndNext;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
+import com.example.user.seedapp.com.add.view.DrawableManagerTT;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
@@ -75,6 +76,7 @@ public class MainActivity extends FragmentActivity {
     private PlayAndNext nextPlay;
     private Gson gson = new Gson();
     private String cutURLYoutube = "v=";
+    public static DrawableManagerTT drawableManagerTT;
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
 
@@ -132,6 +134,9 @@ public class MainActivity extends FragmentActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+        drawableManagerTT = new DrawableManagerTT();
+
+        new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
         getDataListMusic();
@@ -343,15 +348,19 @@ public class MainActivity extends FragmentActivity {
                 if(jsonArray != null){
                     jsonPrivillege = jsonArray;
                     Log.d("system", "listPrivillege :: " + jsonPrivillege.toString());
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String s = MainActivity.path_Image_Privilege + (String) jsonArray.getJSONObject(i).get("small_image");
+                        drawableManagerTT.drawableBitMapOnThread(s);
+                        String image_big = MainActivity.path_Image_Privilege_Child + (String) jsonArray.getJSONObject(i).get("big_image");
+                        drawableManagerTT.fetchOnThread(image_big);
+                    }
                 }
 
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
+                Log.e("system", "getDataPrivillege");
                 Log.e("system", e.getMessage());
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -503,6 +512,37 @@ public class MainActivity extends FragmentActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     getDataList();
+                }
+            });
+        }
+    }
+
+
+    class GetDataPrivilegeTask extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        @Override
+        protected void onPostExecute(String file_url) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    getDataPrivillege();
                 }
             });
         }

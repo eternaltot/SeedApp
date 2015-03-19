@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,23 +69,17 @@ public class FragmentPrivilege extends Fragment {
                             swipeRefreshLayout.setRefreshing(false);
                             try {
                                 adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             expandableListView.setAdapter(adapter);
                         }
-                    },5000);
+                    },50000);
                 }
             });
-
-        }catch (InflateException e){
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("system", "Error onCreateView FragmentPrivilege");
+            Log.e("system", e.getMessage());
         }
 
         return view;
