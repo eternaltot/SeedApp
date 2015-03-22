@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,12 @@ public class FragmentBanner extends Fragment {
     private Banner banner;
     private static View view;
 
+
+
     public void setBanner(Banner banner){
         this.banner = banner;
     }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -30,25 +34,26 @@ public class FragmentBanner extends Fragment {
             }
         }
         try {
-            View view = inflater.inflate(R.layout.fragment_banner, container, false);
+            View view = null;
+                 view = inflater.inflate(R.layout.fragment_banner, container, false);
 
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+                ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
 
-            imageView.setImageBitmap(banner.getBitmap());
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse(banner.getUrl()));
-                    startActivity(intent);
-                }
-            });
+                imageView.setImageBitmap(banner.getBitmap());
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                        intent.setData(Uri.parse(banner.getUrl()));
+                        startActivity(intent);
+                    }
+                });
 
             return view;
         }catch (Exception e){
-
+            Log.e("system",e.getMessage());
         }
         return view;
     }

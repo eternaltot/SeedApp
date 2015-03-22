@@ -1,9 +1,12 @@
 package com.example.user.seedapp;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -13,14 +16,19 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.user.seedapp.com.add.model.Banner;
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
 import com.example.user.seedapp.com.add.model.PlayAndNext;
@@ -46,6 +54,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends FragmentActivity {
@@ -57,8 +66,10 @@ public class MainActivity extends FragmentActivity {
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
     private static String banner = "http://api.seedmcot.com/api/top-banners";
+    private static String big_banner = "http://api.seedmcot.com/api/big-banners";
     public static String list_privilege = "http://api.seedmcot.com/api/privileges";
     public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
+    public static String path_Image_Bigbanner = "http://api.seedmcot.com/backoffice/uploads/bigbanner/1x_";
     public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
     public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
     public static String path_Image_dj = "http://api.seedmcot.com/backoffice/uploads/dj/2x_";
@@ -80,7 +91,7 @@ public class MainActivity extends FragmentActivity {
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
 
-    private JSONArray jsonBanner;
+    private JSONArray jsonBanner,jsonBigBanner;
     private JSONArray jsonPrivillege;
 
     public String getCutURLYoutube() {
@@ -123,6 +134,29 @@ public class MainActivity extends FragmentActivity {
         return getBaseContext();
     }
 
+    public void setDjInfos() throws Exception {
+        djInfos.clear();
+
+        for(int x= 0 ; x < dj_info_array.length() ; ++x){
+            JSONObject jsonObject = dj_info_array.getJSONObject(x);
+            DJInfo djInfo = new DJInfo();
+            djInfo.setJSONObject(jsonObject);
+            URL newurl = new URL(jsonObject.getString("image"));
+            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            djInfo.setBitmap(mIcon_val);
+            djInfos.add(djInfo);
+
+            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
+            fragmentDJIndoPage.setObject(djInfo);
+        }
+    }
+//    public void setBanner() throws Exception {
+//        for(int x= 0 ; x < jsonBanner.length() ; ++x){
+//            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
+//            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
+//        }
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,15 +176,16 @@ public class MainActivity extends FragmentActivity {
         getDataListMusic();
         getDataDJListMusicFromServer();
         getDataBanner();
+        getDataBigBanner();
 
 //        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
         try {
-            adapter = new BannerAdapter(getSupportFragmentManager(),jsonBanner );
+            adapter = new BannerAdapter(getSupportFragmentManager(),jsonBanner);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("system",e.getMessage());
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("system",e.getMessage());
         }
         AutoScrollViewPager pager = (AutoScrollViewPager)findViewById(R.id.pagebanner);
         pager.setAdapter(adapter);
@@ -158,6 +193,7 @@ public class MainActivity extends FragmentActivity {
         pager.setInterval(1000);
         pager.setCycle(true);
         pager.setAutoScrollDurationFactor(200);
+        Log.d("system","Set Top Banner Success");
 
         fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -201,6 +237,49 @@ public class MainActivity extends FragmentActivity {
                 setFragment(fragmentLive);
             }
         });
+        final Dialog dialog_banner = new Dialog(MainActivity.this);
+        dialog_banner.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View convertView = layoutInflater.inflate(R.layout.alert_banner,null,false);
+        ImageView imgCloseBtn = (ImageView) convertView.findViewById(R.id.close_dialog);
+        ImageView imgBigBanner = (ImageView)convertView.findViewById(R.id.imgBigBanner);
+        Random rand = new Random();
+        final int n = rand.nextInt(jsonBigBanner.length());
+        Banner bann = new Banner();
+        Log.d("system","Random Number :: " + n);
+        try {
+            Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) jsonBigBanner.getJSONObject(n).get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
+            imgBigBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    try {
+                        intent.setData(Uri.parse(jsonBigBanner.getJSONObject(n).get("url_web").toString()));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(intent);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        imgCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog_banner != null && dialog_banner.isShowing()) {
+                    dialog_banner.dismiss();
+                }
+            }
+        });
+        dialog_banner.setContentView(convertView);
+        dialog_banner.show();
+
+
+
+//        new GetDataListTask().execute();
     }
 
     public void setFragment(Fragment fragment){
@@ -315,6 +394,40 @@ public class MainActivity extends FragmentActivity {
                 if(jsonArray != null){
                     jsonBanner = jsonArray;
                     Log.d("system", "banner :: " + jsonBanner.toString());
+                }
+
+            } catch (Exception e) {
+                Log.e("system", "Error!!!!");
+                Log.e("system", e.getMessage());
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getDataBigBanner(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet(big_banner);
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response;
+            try {
+                response = httpClient.execute(request);
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                String result = convertinputStreamToString(instream);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", result);
+
+                JSONArray jsonArray = new JSONArray(result);
+                if(jsonArray != null){
+                    jsonBigBanner = jsonArray;
+                    Log.d("system", "big banner :: " + jsonBigBanner.toString());
+                    Log.d("system", "big banner lenght :: " + jsonBigBanner.length());
                 }
 
             } catch (Exception e) {

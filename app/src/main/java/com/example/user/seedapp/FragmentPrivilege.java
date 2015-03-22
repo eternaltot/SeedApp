@@ -54,7 +54,7 @@ public class FragmentPrivilege extends Fragment {
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Click " + position,Toast.LENGTH_LONG).show();
+
                     SelectItemFragment fragment = new SelectItemFragment();
                     ((MainActivity)getActivity()).setFragment(fragment);
                 }
@@ -74,7 +74,7 @@ public class FragmentPrivilege extends Fragment {
                             }
                             expandableListView.setAdapter(adapter);
                         }
-                    },50000);
+                    },3000);
                 }
             });
         } catch (Exception e) {
