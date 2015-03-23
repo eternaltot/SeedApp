@@ -371,7 +371,8 @@ public class MainActivity extends FragmentActivity {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("system", "Error!!!!");
+            Log.e("system", e.getMessage());
         }
     }
 

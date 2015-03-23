@@ -45,7 +45,6 @@ public class FragmentPrivilege extends Fragment {
         }
         try{
             view = inflater.inflate(R.layout.fragment_list_privilege, container, false);
-            setListData();
             expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
             final Resources res =getResources();
             adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
@@ -85,14 +84,5 @@ public class FragmentPrivilege extends Fragment {
         return view;
     }
 
-    public void setListData(){
-        listitem = new ArrayList<String>();
-        listchild = new ArrayList<String>();
-        listitem.add("PRIVILEGE");
-        listitem.add("PRIVILEGE");
-        listitem.add("PRIVILEGE");
-        listitem.add("PRIVILEGE");
-        listitem.add("PRIVILEGE");
-        listitem.add("PRIVILEGE");
-    }
+
 }

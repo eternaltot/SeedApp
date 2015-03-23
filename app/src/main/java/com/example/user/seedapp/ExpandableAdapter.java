@@ -2,7 +2,9 @@ package com.example.user.seedapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Privilege;
 import com.example.user.seedapp.com.add.model.Privilege_Child;
 
@@ -127,16 +131,21 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         }else{
 //            convertView.setBackgroundColor(Color.parseColor("#f38d76"));
         }
-
+        final int gposition=groupPosition;
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageChildItem);
-        mainActivity.drawableManagerTT.fetchDrawableOnThread(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
+        Glide.with(mainActivity.getApplicationContext()).load(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+//        mainActivity.drawableManagerTT.fetchDrawableOnThread(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageLoader.DisplayImage(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageView.setImageBitmap(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getBitmap());
 //        String url = ((ArrayList<Privilege_Child>)hashMap.get(groupPosition)).get(0).getUrl();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(gposition))).get(0).getUrl()));
+                activity.startActivity(intent);
             }
         });
 //        Log.d("system","Render List Child :: " + url);
