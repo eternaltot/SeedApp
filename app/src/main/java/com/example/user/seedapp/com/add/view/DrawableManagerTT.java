@@ -82,7 +82,6 @@ public class DrawableManagerTT {
             public void run() {
                 //TODO : set imageView to a "pending" image
                 if (!drawableBitMap.containsKey(urlString) || drawableBitMap.get(urlString) == null) {
-                    Log.e("system", "000000000000000000000000000000");
                     Bitmap newurl = getBitMap(urlString);
                     drawableBitMap.put(urlString, newurl);
                     Message message = handler.obtainMessage(1, newurl);
@@ -98,7 +97,7 @@ public class DrawableManagerTT {
             return drawableMap.get(urlString);
         }
 
-        Log.e("system", "image url:" + urlString);
+//        Log.e("system", "image url:" + urlString);
         try {
             InputStream is = fetch(urlString);
             Bitmap drawable = BitmapFactory.decodeStream(is);

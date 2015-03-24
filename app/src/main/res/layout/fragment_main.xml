@@ -147,7 +147,10 @@
             android:layout_marginTop="5dp"
             android:id="@+id/seekBar"
             android:layout_below="@+id/imageView3"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:max="100"
+            android:progress="0"
+            android:indeterminate="false" />
         <View
             android:layout_width="300dp"
             android:layout_height="2dp"

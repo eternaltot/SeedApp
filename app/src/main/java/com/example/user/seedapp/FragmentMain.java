@@ -1,6 +1,8 @@
 package com.example.user.seedapp;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,14 +37,17 @@ public class FragmentMain extends Fragment {
     private MainActivity mainActivity;
     private static PlayMedia play;
     private static FragmentListPage fragmentListPage;
+    private SeekBar seekbar;
+    private AudioManager audioManager;
 
     public void updateNowPlayingAndNext(String now, String next){
         try {
-            Log.e("system", "textNowPlaying" + now);
-            Log.e("system", "textNameSong" + next);
+            Log.d("system Update Fragment Main", "textNowPlaying ::" + now);
+            Log.d("system Update Fragment Main", "textNextSong :: " + next);
             textNowPlaying.setText(now);
             textNameSong.setText(next);
         }catch (Exception ex) {
+
         }
     }
 
@@ -76,6 +82,7 @@ public class FragmentMain extends Fragment {
 
             mainActivity = (MainActivity)getActivity();
 
+            Log.d("system","DJ List : " + mainActivity.getDJInfos().size());
             DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
@@ -91,9 +98,52 @@ public class FragmentMain extends Fragment {
             bt_list = (Button) view.findViewById(R.id.bt_list);
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
+            seekbar = (SeekBar) view.findViewById(R.id.seekBar);
+            audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
+            seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+            seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                }
+            };
+            audioManager.requestAudioFocus(onAudioFocusChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+            seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
 
 
-            updateNowPlayingAndNext(mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "", mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
+            String now="";
+            String next="";
+            if(mainActivity!=null){
+                if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
+                    now = "Now Playing : " + (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
+                }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
+                    now = "Link : " + (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+                }
+                if(mainActivity.getNextPlay()!=null && mainActivity.getNextPlay().getEvent_type().equals("song")){
+                    next = "Next Song : " + (mainActivity.getNextPlay().getSongTitle()!=null ? mainActivity.getNextPlay().getSongTitle():"");
+                }else if(mainActivity.getNextPlay().getEvent_type().equals("link")){
+                    next = "Link : " + (mainActivity.getNextPlay().getLink_title()!=null ? mainActivity.getNextPlay().getLink_title():"");
+                }
+            }
+
+            updateNowPlayingAndNext(now,next);
+//            updateNowPlayingAndNext(mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "", mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
 
             CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
             indicator .setViewPager(pager);
@@ -104,7 +154,7 @@ public class FragmentMain extends Fragment {
                     if (mainActivity.getCurrentPlay().getNowMv() != null) {
                         String url = mainActivity.getCurrentPlay().getNowMv();
                         String[] strings = url.split(mainActivity.getCutURLYoutube());
-
+                        Log.d("system" , "url MV :: " + url);
                         FragmentYouTube fragmentYouTube = new FragmentYouTube();
                         if (strings.length > 0) {
                             fragmentYouTube.setYoutubeName(strings[strings.length - 1]);
@@ -140,8 +190,7 @@ public class FragmentMain extends Fragment {
 
 
         }catch (Exception e){
-            Log.e("system", "Error onCreateView FragmentMain!!!!");
-            Log.e("system", e.getMessage());
+
         }
         return view;
     }

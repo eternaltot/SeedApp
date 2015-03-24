@@ -30,6 +30,7 @@ public class FragmentLyrics extends Fragment {
     private Music music;
     private MainActivity mainActivity;
     private ImageView back_bt;
+    private String lyric;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -98,7 +99,7 @@ public class FragmentLyrics extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("system", "keyCode: " + keyCode);
                 if( keyCode == KeyEvent.KEYCODE_BACK ) {
-                    Log.e("system", "onKey Back listener is working!!!");
+                    Log.d("system", "onKey Back listener is working!!!");
                     mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
                     return true;
                 } else {

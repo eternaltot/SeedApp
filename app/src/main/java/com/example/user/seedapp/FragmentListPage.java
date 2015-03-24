@@ -88,7 +88,7 @@ public class FragmentListPage extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("system", "keyCode: " + keyCode);
                 if( keyCode == KeyEvent.KEYCODE_BACK ) {
-                    Log.e("system", "onKey Back listener is working!!!");
+                    Log.d("system", "onKey Back listener is working!!!");
                     mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
                     return true;
                 } else {
@@ -118,8 +118,8 @@ public class FragmentListPage extends Fragment {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = ((MainActivity) getActivity()).convertinputStreamToString(instream);
-                Log.e("system", "Sucess!!!!");
-                Log.e("system", "DATA List" + result);
+                Log.d("system", "Sucess!!!!");
+                Log.d("system", "DATA List" + result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 for(int x= 0 ; x < jsonArray.length() ; ++x){

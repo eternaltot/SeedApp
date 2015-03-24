@@ -177,6 +177,7 @@ public class MainActivity extends FragmentActivity {
         getDataDJListMusicFromServer();
         getDataBanner();
         getDataBigBanner();
+        getDataNowPlayingFromServer();
 
 //        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
@@ -199,6 +200,7 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
+        setNowPlaying();
 
         final ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
         final ImageButton btnSeed = (ImageButton) findViewById(R.id.btnSeed);
@@ -316,7 +318,7 @@ public class MainActivity extends FragmentActivity {
                 transaction.commit();
             }
         }catch (Exception ex){
-
+            Log.e("Error", ex.getMessage());
         }
 
 //        transaction.add(R.id.fragment_container, fragment).commit();
@@ -568,13 +570,15 @@ public class MainActivity extends FragmentActivity {
                 for(int x= 0 ; x < jsonArray.length() ; ++x){
                     JSONObject object = jsonArray.getJSONObject(x);
 
-                    Log.e("system", "object.toString() :: " + object.toString());
+                    Log.d("system", "Now Playing :: " + object.toString());
 
                     if(x == 0) {
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
+                        Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
                     }
                     else if(x == 1) {
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
+                        Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
                 }
             }
@@ -585,18 +589,28 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void getDataList(){
+
         if(flagGetListStatus){
             new Handler().postDelayed(new Runnable() {
-
                 @Override
                 public void run() {
                     getDataNowPlayingFromServer();
+                    if(fragmentMain!=null && fragmentMain.isVisible()){
+                        Log.d("system","ON Fragment Main Other Time");
+                        setNowPlaying();
+                    }
                     new GetDataNowPlayingTask().execute();
                 }
             }, SPLASH_TIMEOUT);
         }else{
             getDataNowPlayingFromServer();
             flagGetListStatus = Boolean.TRUE;
+            if(fragmentMain!=null && fragmentMain.isVisible()){
+                Log.d("system","ON Fragment Main First Time");
+                setNowPlaying();
+//                fragmentMain.updateNowPlayingAndNext(getCurrentPlay() != null && getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "", getNextPlay() != null && getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "");
+            }
+
             new GetDataNowPlayingTask().execute();
         }
     }
@@ -660,5 +674,21 @@ public class MainActivity extends FragmentActivity {
                 }
             });
         }
+    }
+
+    public void setNowPlaying(){
+        String now="Now Playing : ";
+        String next="Next Song :";
+        if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
+            now = "Now Playing : " + (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+        }else if(getCurrentPlay().getEvent_type().equals("link")){
+            now = "Link : " + (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
+        }
+        if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
+            next = "Next Song : " + (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
+        }else if(getNextPlay().getEvent_type().equals("link")){
+            next = "Link : " + (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
+        }
+        fragmentMain.updateNowPlayingAndNext(now,next);
     }
 }
