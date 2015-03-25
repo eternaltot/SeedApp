@@ -225,7 +225,7 @@ public class FragmentMain extends Fragment {
                     bt_play.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btnplay).getConstantState())){
+                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btn_play).getConstantState())){
                                 bt_play.setBackgroundColor(Color.WHITE);
                                 bt_play.setImageResource(R.drawable.pause_button);
 
@@ -234,7 +234,7 @@ public class FragmentMain extends Fragment {
                                 play.playMedia(true);
                             }else {
                                 bt_play.setBackgroundColor(Color.WHITE);
-                                bt_play.setImageResource(R.drawable.btnplay);
+                                bt_play.setImageResource(R.drawable.btn_play);
 
                                 play.playMedia(false);
                             }

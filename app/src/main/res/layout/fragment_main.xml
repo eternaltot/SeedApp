@@ -117,7 +117,7 @@
             android:id="@+id/bt_play"
             android:background="@android:color/white"
             android:layout_marginRight="20dp"
-            android:src="@drawable/btnplay"
+            android:src="@drawable/btn_play"
             android:shadowColor="@android:color/darker_gray"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
             android:scaleType="fitXY"
