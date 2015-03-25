@@ -92,7 +92,7 @@
             android:background="@android:color/black"
             android:textColor="@android:color/white"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:shadowColor="@android:color/darker_gray"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -102,30 +102,27 @@
             android:layout_height="35dp"
             android:text="List"
             android:id="@+id/bt_list"
-            android:layout_alignBottom="@+id/imageView3"
-            android:layout_alignEnd="@+id/bt_youtube"
             android:background="@android:color/black"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="20dp"
             android:shadowColor="@android:color/darker_gray"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_below="@+id/bt_youtube"
+            android:layout_alignStart="@+id/bt_youtube"
+            android:layout_marginTop="10dp" />
 
-        <Button
+        <ImageButton
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="35dp"
-            android:text="Play"
             android:id="@+id/bt_play"
-            android:layout_alignTop="@+id/imageView3"
-            android:textColor="@android:color/white"
-            android:background="@android:color/black"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false"
-            android:layout_toStartOf="@+id/imageView3"
-            android:layout_marginTop="20dp"
+            android:background="@android:color/white"
             android:layout_marginRight="20dp"
+            android:src="@drawable/btnplay"
             android:shadowColor="@android:color/darker_gray"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:scaleType="fitXY"
+            android:layout_above="@+id/bt_lyrics"
+            android:layout_alignStart="@+id/viewseparate" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -133,13 +130,13 @@
             android:layout_height="35dp"
             android:text="Lyrics"
             android:id="@+id/bt_lyrics"
-            android:layout_alignBottom="@+id/imageView3"
-            android:layout_alignEnd="@+id/bt_play"
             android:background="@android:color/black"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="20dp"
             android:shadowColor="@android:color/darker_gray"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_below="@+id/bt_list"
+            android:layout_alignStart="@+id/bt_list"
+            android:layout_marginTop="10dp" />
 
         <SeekBar
             android:layout_width="200dp"

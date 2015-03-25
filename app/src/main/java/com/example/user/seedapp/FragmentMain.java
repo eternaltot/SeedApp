@@ -5,15 +5,13 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +29,7 @@ public class FragmentMain extends Fragment {
     private Button bt_youtube;
     private Button bt_lyrics;
     private Button bt_list;
-    private Button bt_play;
+    private ImageButton bt_play;
     private TextView textNowPlaying;
     private TextView textNameSong;
     private MainActivity mainActivity;
@@ -94,7 +92,7 @@ public class FragmentMain extends Fragment {
 
             bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
-            bt_play = (Button) view.findViewById(R.id.bt_play);
+            bt_play = (ImageButton) view.findViewById(R.id.bt_play);
             bt_list = (Button) view.findViewById(R.id.bt_list);
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
@@ -184,8 +182,8 @@ public class FragmentMain extends Fragment {
 
             if(play != null && play.returnIsPlating()){
                 bt_play.setBackgroundColor(Color.WHITE);
-                bt_play.setTextColor(Color.BLACK);
-                bt_play.setText("Pause");
+                bt_play.setImageResource(R.drawable.pause_button);
+
             }
 
 
@@ -227,18 +225,16 @@ public class FragmentMain extends Fragment {
                     bt_play.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            if (bt_play.getText().equals("Play")){
+                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btnplay).getConstantState())){
                                 bt_play.setBackgroundColor(Color.WHITE);
-                                bt_play.setTextColor(Color.BLACK);
-                                bt_play.setText("Pause");
+                                bt_play.setImageResource(R.drawable.pause_button);
 
 //                                MediaPlayer mediaPlayer = MediaPlayer.create(mainActivity.returnBaseContext(), R.raw.body_slam);
 //                                mediaPlayer.start();
                                 play.playMedia(true);
                             }else {
-                                bt_play.setBackgroundColor(Color.BLACK);
-                                bt_play.setTextColor(Color.WHITE);
-                                bt_play.setText("Play");
+                                bt_play.setBackgroundColor(Color.WHITE);
+                                bt_play.setImageResource(R.drawable.btnplay);
 
                                 play.playMedia(false);
                             }

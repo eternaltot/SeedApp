@@ -55,7 +55,6 @@ public class FragmentListPage extends Fragment {
             number_tv = (TextView) view.findViewById(R.id.number_tv);
             name = (TextView) view.findViewById(R.id.name);
             back_bt = (ImageView) view.findViewById(R.id.back_bt);
-
             back_bt.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());

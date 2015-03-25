@@ -2,6 +2,7 @@ package com.example.user.seedapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,8 @@ public class ListPageAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
-        textView.setText("#" + (position+1) + " : " + listPageItems.get(position).getTitle());
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        textView.setText((position+1) + " : " + listPageItems.get(position).getTitle());
 
         return convertView;
     }
