@@ -30,7 +30,14 @@ public class FragmentLyrics extends Fragment {
     private Music music;
     private MainActivity mainActivity;
     private ImageView back_bt;
-    private String lyric;
+
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -55,7 +62,7 @@ public class FragmentLyrics extends Fragment {
                 }
             });
 
-            getDataFromServer();
+//            getDataFromServer();
 
             mainActivity = (MainActivity) getActivity();
 
@@ -175,4 +182,5 @@ public class FragmentLyrics extends Fragment {
             return "";
         }
     }
+
 }

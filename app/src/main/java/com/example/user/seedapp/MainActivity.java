@@ -201,6 +201,9 @@ public class MainActivity extends FragmentActivity {
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
         setNowPlaying();
+        final FragmentListPage fragmentListPage = new FragmentListPage();
+        final FragmentYouTube fragmentYouTube = new FragmentYouTube();
+        final FragmentLyrics fragmentLyrics = new FragmentLyrics();
 
         final ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
         final ImageButton btnSeed = (ImageButton) findViewById(R.id.btnSeed);
@@ -210,16 +213,21 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
-                btnSeed.setImageResource(R.drawable.icon_seed_app_logo_75px_white);
+                btnSeed.setImageResource(R.drawable.menu2);
                 btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-                setFragment(fragmentMain);
+                if(fragmentMain.isVisible() || fragmentListPage.isVisible() || fragmentLyrics.isVisible() || fragmentYouTube.isVisible()){
+
+                }else{
+                    setFragment(fragmentMain);
+                }
+
             }
         });
 
         btnSeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSeed.setImageResource(R.drawable.icon_seed_app_logo_75px_red);
+                btnSeed.setImageResource(R.drawable.menu2_on);
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 FragmentPrivilege fragmentPrivilege = new FragmentPrivilege();
@@ -234,7 +242,7 @@ public class MainActivity extends FragmentActivity {
             public void onClick(View v) {
                 btnStream.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-                btnSeed.setImageResource(R.drawable.icon_seed_app_logo_75px_white);
+                btnSeed.setImageResource(R.drawable.menu2);
                 FragmentLive fragmentLive = new FragmentLive();
                 setFragment(fragmentLive);
             }
@@ -572,11 +580,11 @@ public class MainActivity extends FragmentActivity {
 
                     Log.d("system", "Now Playing :: " + object.toString());
 
-                    if(x == 0) {
+                    if(x == 1) {
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
                     }
-                    else if(x == 1) {
+                    else if(x == 0) {
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
@@ -598,6 +606,7 @@ public class MainActivity extends FragmentActivity {
                     if(fragmentMain!=null && fragmentMain.isVisible()){
                         Log.d("system","ON Fragment Main Other Time");
                         setNowPlaying();
+                        setComponentInFragmentMain();
                     }
                     new GetDataNowPlayingTask().execute();
                 }
@@ -608,6 +617,7 @@ public class MainActivity extends FragmentActivity {
             if(fragmentMain!=null && fragmentMain.isVisible()){
                 Log.d("system","ON Fragment Main First Time");
                 setNowPlaying();
+                setComponentInFragmentMain();
 //                fragmentMain.updateNowPlayingAndNext(getCurrentPlay() != null && getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "", getNextPlay() != null && getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "");
             }
 
@@ -690,5 +700,23 @@ public class MainActivity extends FragmentActivity {
             next = "Link : " + (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
         }
         fragmentMain.updateNowPlayingAndNext(now,next);
+    }
+
+    public void setComponentInFragmentMain(){
+        if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()!=null && !getCurrentPlay().getNowLyric().equals(""))){
+            fragmentMain.setDisableButtonLyric(true);
+        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()==null || getCurrentPlay().getNowLyric().equals(""))){
+            fragmentMain.setDisableButtonLyric(false);
+        }
+        if(getCurrentPlay()!=null && (getCurrentPlay().getNowMv()!=null && !getCurrentPlay().getNowMv().equals(""))){
+            fragmentMain.setDisableButtonMV(true);
+        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowMv()==null || getCurrentPlay().getNowMv().equals(""))){
+            fragmentMain.setDisableButtonMV(false);
+        }
+//        if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()!=null || !getCurrentPlay().getNowLyric().equals(""))){
+//            fragmentMain.setDisableButtonLyric(true);
+//        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()==null || getCurrentPlay().getNowLyric().equals(""))){
+//            fragmentMain.setDisableButtonLyric(false);
+//        }
     }
 }

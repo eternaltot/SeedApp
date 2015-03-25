@@ -28,20 +28,6 @@
             android:layout_height="match_parent"
             android:paddingBottom="10dp"
             />
-
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            app:radius="4dp"
-            app:fillColor="#88FF0000"
-            app:pageColor="#FF888888"
-            app:strokeColor="#FF000000"
-            app:strokeWidth="2dp"
-            app:centered="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"/>
     </RelativeLayout >
 
     <RelativeLayout

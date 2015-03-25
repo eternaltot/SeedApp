@@ -65,7 +65,7 @@ public class FragmentListPage extends Fragment {
 
             getDateListFromServer();
 
-            number_tv.setText("Last " + listPageItems.size() + " songs");
+            number_tv.setText("SEED LIST");
 
             updateListView();
 

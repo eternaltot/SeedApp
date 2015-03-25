@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -40,8 +41,8 @@ public class FragmentMain extends Fragment {
 
     public void updateNowPlayingAndNext(String now, String next){
         try {
-            Log.d("system Update Fragment Main", "textNowPlaying ::" + now);
-            Log.d("system Update Fragment Main", "textNextSong :: " + next);
+            Log.d("system ", "textNowPlaying ::" + now);
+            Log.d("system ", "textNextSong :: " + next);
             textNowPlaying.setText(now);
             textNameSong.setText(next);
         }catch (Exception ex) {
@@ -67,6 +68,21 @@ public class FragmentMain extends Fragment {
         }
     }
 
+    public void setDisableButtonMV(Boolean isEnable){
+        if(bt_youtube!=null)
+            bt_youtube.setEnabled(isEnable);
+    }
+    public void setDisableButtonList(Boolean isEnable){
+        if (bt_list!=null){
+            bt_list.setEnabled(isEnable);
+        }
+    }
+    public void setDisableButtonLyric(Boolean isEnable){
+        if (bt_lyrics!=null){
+            bt_lyrics.setEnabled(isEnable);
+        }
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -81,7 +97,7 @@ public class FragmentMain extends Fragment {
             mainActivity = (MainActivity)getActivity();
 
             Log.d("system","DJ List : " + mainActivity.getDJInfos().size());
-            DJPageAdapter adapter = new DJPageAdapter(mainActivity.getSupportFragmentManager(), mainActivity.getDJInfos());
+            DJPageAdapter adapter = new DJPageAdapter(getChildFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
             if(mainActivity.getDJInfos().size() != 0 && mainActivity.getDJInfos().size() != 1) {
@@ -131,21 +147,19 @@ public class FragmentMain extends Fragment {
                 if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
                     now = "Now Playing : " + (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
                 }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
-                    now = "Link : " + (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+                    now = "Now Playing : " + (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
                 }
                 if(mainActivity.getNextPlay()!=null && mainActivity.getNextPlay().getEvent_type().equals("song")){
-                    next = "Next Song : " + (mainActivity.getNextPlay().getSongTitle()!=null ? mainActivity.getNextPlay().getSongTitle():"");
+                    next = "Next : " + (mainActivity.getNextPlay().getSongTitle()!=null ? mainActivity.getNextPlay().getSongTitle():"");
                 }else if(mainActivity.getNextPlay().getEvent_type().equals("link")){
-                    next = "Link : " + (mainActivity.getNextPlay().getLink_title()!=null ? mainActivity.getNextPlay().getLink_title():"");
+                    next = "Next : "  + (mainActivity.getNextPlay().getLink_title()!=null ? mainActivity.getNextPlay().getLink_title():"");
                 }
             }
 
             updateNowPlayingAndNext(now,next);
 //            updateNowPlayingAndNext(mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "", mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
 
-            CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-            indicator .setViewPager(pager);
-            indicator.setSnap(true);
+
 
             bt_youtube.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -159,7 +173,7 @@ public class FragmentMain extends Fragment {
                         }
                         mainActivity.setFragmentNoBack(fragmentYouTube);
                     }else{
-                        Toast.makeText(getActivity().getApplicationContext(), "No", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity().getApplicationContext(), "No", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -167,6 +181,14 @@ public class FragmentMain extends Fragment {
             bt_lyrics.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     FragmentLyrics fragmentLyrics = new FragmentLyrics();
+                    if(mainActivity!=null){
+                        if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
+                            Music music = new Music();
+                            music.setLyrics(mainActivity.getCurrentPlay().getNowLyric());
+                            music.setName(mainActivity.getCurrentPlay().getSongTitle() + " - " + mainActivity.getCurrentPlay().getNowAuthor());
+                            fragmentLyrics.setMusic(music);
+                        }
+                    }
                     mainActivity.setFragmentNoBack(fragmentLyrics);
                 }
             });
@@ -189,6 +211,10 @@ public class FragmentMain extends Fragment {
 
         }catch (Exception e){
 
+        }
+        if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btn_play).getConstantState())){
+            Log.d("system","before click button when create fragment");
+            bt_play.callOnClick();
         }
         return view;
     }
@@ -224,6 +250,7 @@ public class FragmentMain extends Fragment {
 
                     bt_play.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+                            Log.d("system","in onclick btn play");
 
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btn_play).getConstantState())){
                                 bt_play.setBackgroundColor(Color.WHITE);

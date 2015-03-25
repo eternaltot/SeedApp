@@ -1,5 +1,8 @@
 package com.example.user.seedapp;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,11 +46,11 @@ public class FragmentBanner extends Fragment {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        intent.setData(Uri.parse(banner.getUrl()));
-                        startActivity(intent);
+                        Context mainActivity = getActivity();
+                        Intent intent = new Intent(mainActivity,WebviewActivity.class);
+                        intent.putExtra("URL", banner.getUrl());
+                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                        mainActivity.startActivity(intent, bundle);
                     }
                 });
 

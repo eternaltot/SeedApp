@@ -1,10 +1,12 @@
 package com.example.user.seedapp;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,11 +143,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(gposition))).get(0).getUrl()));
-                activity.startActivity(intent);
+                Intent intent = new Intent(mainActivity,WebviewActivity.class);
+                intent.putExtra("URL", ((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(gposition))).get(0).getUrl());
+                Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                activity.startActivity(intent, bundle);
             }
         });
 //        Log.d("system","Render List Child :: " + url);

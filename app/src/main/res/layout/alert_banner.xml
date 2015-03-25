@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imgBigBanner"/>
+        android:id="@+id/imgBigBanner" />
 
     <ImageView
         android:id="@+id/close_dialog"
@@ -21,9 +21,7 @@
         android:scaleType="fitCenter"
         android:src="@android:drawable/presence_offline"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false"
-        android:cropToPadding="false" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:cropToPadding="true" />
 </RelativeLayout>
