@@ -1,5 +1,6 @@
 package com.example.user.seedapp;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -31,9 +32,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Banner;
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.model.ListPageItem;
+import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.model.PlayAndNext;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.example.user.seedapp.com.add.view.DrawableManagerTT;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
@@ -72,6 +77,8 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Bigbanner = "http://api.seedmcot.com/backoffice/uploads/bigbanner/1x_";
     public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
     public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
+    public static String path_Thumbnail_Youtube = "http://img.youtube.com/vi/";
+    public static String path_Image_Cover_NowPlaying = "http://api.seedmcot.com/backoffice/uploads/";
     public static String path_Image_dj = "http://api.seedmcot.com/backoffice/uploads/dj/2x_";
     public static String list_dj = "http://api.seedmcot.com/api/dj-schedules?expand=dj";
     public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3";
@@ -80,9 +87,15 @@ public class MainActivity extends FragmentActivity {
     public static String list_lives = "http://api.seedmcot.com/api/lives";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 15000;
+    private static YouTubePlayer YPlayer;
+    private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
+    private static YouTubePlayerSupportFragment youTubePlayerFragment;
 //    private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private static Boolean flagGetListStatus = Boolean.FALSE;
     private static FragmentMain fragmentMain;
+    private static FragmentYouTube fragmentYouTube;
+    private static FragmentLyrics fragmentLyrics;
+    private static FragmentListPage fragmentListPage;
     private PlayAndNext currentPlay;
     private PlayAndNext nextPlay;
     private Gson gson = new Gson();
@@ -201,9 +214,9 @@ public class MainActivity extends FragmentActivity {
         transaction.add(R.id.fragment_container, fragmentMain);
         transaction.commit();
         setNowPlaying();
-        final FragmentListPage fragmentListPage = new FragmentListPage();
-        final FragmentYouTube fragmentYouTube = new FragmentYouTube();
-        final FragmentLyrics fragmentLyrics = new FragmentLyrics();
+        fragmentListPage = new FragmentListPage();
+        fragmentYouTube = new FragmentYouTube();
+        fragmentLyrics = new FragmentLyrics();
 
         final ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
         final ImageButton btnSeed = (ImageButton) findViewById(R.id.btnSeed);
@@ -244,6 +257,7 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnSeed.setImageResource(R.drawable.menu2);
                 FragmentLive fragmentLive = new FragmentLive();
+                fragmentLive.setYouTubePlayerFragment(YPlayer);
                 setFragment(fragmentLive);
             }
         });
@@ -262,15 +276,16 @@ public class MainActivity extends FragmentActivity {
             imgBigBanner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                    Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
                     try {
-                        intent.setData(Uri.parse(jsonBigBanner.getJSONObject(n).get("url_web").toString()));
+                        intent.putExtra("URL", jsonBigBanner.getJSONObject(n).get("url_web").toString());
                     } catch (JSONException e) {
+                        intent.putExtra("URL", "");
                         e.printStackTrace();
                     }
-                    startActivity(intent);
+                    Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                    startActivity(intent, bundle);
                 }
             });
         } catch (JSONException e) {
@@ -286,6 +301,9 @@ public class MainActivity extends FragmentActivity {
         });
         dialog_banner.setContentView(convertView);
         dialog_banner.show();
+        fragmentMain.sendEventClickPlay();
+
+
 
 
 
@@ -608,6 +626,17 @@ public class MainActivity extends FragmentActivity {
                         setNowPlaying();
                         setComponentInFragmentMain();
                     }
+                    if(fragmentYouTube!=null && fragmentYouTube.isVisible()){
+                        String s = "Now Playing : " + (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+                        fragmentYouTube.setTv_name(s);
+                    }
+                    if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
+                        Music music = new Music();
+                        music.setLyrics(getCurrentPlay().getNowLyric());
+                        music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
+                        fragmentLyrics.setMusic(music);
+                    }
+
                     new GetDataNowPlayingTask().execute();
                 }
             }, SPLASH_TIMEOUT);
@@ -689,17 +718,22 @@ public class MainActivity extends FragmentActivity {
     public void setNowPlaying(){
         String now="Now Playing : ";
         String next="Next Song :";
+        String pathImage_Cover = "";
+        String url_Link = "";
         if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
             now = "Now Playing : " + (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+            pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
         }else if(getCurrentPlay().getEvent_type().equals("link")){
-            now = "Link : " + (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
+            now = "Now Playing : " + (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
+            pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
+            url_Link = getCurrentPlay().getLinkUrl();
         }
         if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = "Next Song : " + (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
+            next = "Next : " + (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
         }else if(getNextPlay().getEvent_type().equals("link")){
-            next = "Link : " + (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
+            next = "Next : " + (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
         }
-        fragmentMain.updateNowPlayingAndNext(now,next);
+        fragmentMain.updateNowPlayingAndNext(now,next,pathImage_Cover,url_Link);
     }
 
     public void setComponentInFragmentMain(){

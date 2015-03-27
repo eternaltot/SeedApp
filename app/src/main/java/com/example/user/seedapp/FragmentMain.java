@@ -1,6 +1,8 @@
 package com.example.user.seedapp;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
@@ -12,13 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import org.json.JSONException;
 
 
 /**
@@ -38,13 +45,29 @@ public class FragmentMain extends Fragment {
     private static FragmentListPage fragmentListPage;
     private SeekBar seekbar;
     private AudioManager audioManager;
+    private ImageView imageView3;
 
-    public void updateNowPlayingAndNext(String now, String next){
+    public void updateNowPlayingAndNext(String now, String next,String pathImage,String url){
+        final String url_Link = url;
         try {
             Log.d("system ", "textNowPlaying ::" + now);
             Log.d("system ", "textNextSong :: " + next);
             textNowPlaying.setText(now);
             textNameSong.setText(next);
+            if(pathImage!=null && !pathImage.equals(""))
+                Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
+
+            if(url != null && !url.equals("")){
+                imageView3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mainActivity,WebviewActivity.class);
+                        intent.putExtra("URL", url_Link);
+                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                        mainActivity.startActivity(intent, bundle);
+                    }
+                });
+            }
         }catch (Exception ex) {
 
         }
@@ -62,6 +85,11 @@ public class FragmentMain extends Fragment {
         }
     }
 
+    public void sendEventClickPlay(){
+        if(bt_play!=null)
+        bt_play.performClick();
+    }
+
     public void pauseMedia(){
         if(play != null && play.returnIsPlating()){
             play.playMedia(false);
@@ -71,15 +99,24 @@ public class FragmentMain extends Fragment {
     public void setDisableButtonMV(Boolean isEnable){
         if(bt_youtube!=null)
             bt_youtube.setEnabled(isEnable);
+        if (!isEnable){
+            bt_youtube.setBackgroundColor(Color.DKGRAY);
+        }
     }
     public void setDisableButtonList(Boolean isEnable){
         if (bt_list!=null){
             bt_list.setEnabled(isEnable);
+            if (!isEnable){
+                bt_list.setBackgroundColor(Color.DKGRAY);
+            }
         }
     }
     public void setDisableButtonLyric(Boolean isEnable){
         if (bt_lyrics!=null){
             bt_lyrics.setEnabled(isEnable);
+            if (!isEnable){
+                bt_lyrics.setBackgroundColor(Color.DKGRAY);
+            }
         }
     }
 
@@ -110,6 +147,7 @@ public class FragmentMain extends Fragment {
             bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
             bt_play = (ImageButton) view.findViewById(R.id.bt_play);
             bt_list = (Button) view.findViewById(R.id.bt_list);
+            imageView3 = (ImageView) view.findViewById(R.id.imageView3);
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
             seekbar = (SeekBar) view.findViewById(R.id.seekBar);
@@ -143,20 +181,35 @@ public class FragmentMain extends Fragment {
 
             String now="";
             String next="";
+            String pathImage="";
+            String url_Link = "";
             if(mainActivity!=null){
                 if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
                     now = "Now Playing : " + (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
+                    pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
                 }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
                     now = "Now Playing : " + (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+                    pathImage = mainActivity.getCurrentPlay().getLinkCover() != null ? mainActivity.getCurrentPlay().getLinkCover() : "";
+                    url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
                 if(mainActivity.getNextPlay()!=null && mainActivity.getNextPlay().getEvent_type().equals("song")){
                     next = "Next : " + (mainActivity.getNextPlay().getSongTitle()!=null ? mainActivity.getNextPlay().getSongTitle():"");
                 }else if(mainActivity.getNextPlay().getEvent_type().equals("link")){
                     next = "Next : "  + (mainActivity.getNextPlay().getLink_title()!=null ? mainActivity.getNextPlay().getLink_title():"");
                 }
+                if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowLyric()!=null && !mainActivity.getCurrentPlay().getNowLyric().equals(""))){
+                    setDisableButtonLyric(true);
+                }else if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowLyric()==null || mainActivity.getCurrentPlay().getNowLyric().equals(""))){
+                    setDisableButtonLyric(false);
+                }
+                if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowMv()!=null && !mainActivity.getCurrentPlay().getNowMv().equals(""))){
+                    setDisableButtonMV(true);
+                }else if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowMv()==null || mainActivity.getCurrentPlay().getNowMv().equals(""))){
+                    setDisableButtonMV(false);
+                }
             }
 
-            updateNowPlayingAndNext(now,next);
+            updateNowPlayingAndNext(now,next,pathImage,url_Link);
 //            updateNowPlayingAndNext(mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "", mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
 
 

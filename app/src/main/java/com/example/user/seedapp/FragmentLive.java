@@ -1,6 +1,8 @@
 package com.example.user.seedapp;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -49,6 +51,10 @@ public class FragmentLive extends Fragment {
     private MainActivity mainActivity;
     private TextView tv_name;
 
+    public void setYouTubePlayerFragment(YouTubePlayer y){
+        YPlayer = y;
+    }
+
     public void getDateLiveFromServer(){
         try {
 
@@ -93,7 +99,7 @@ public class FragmentLive extends Fragment {
         }
         try{
             view = inflater.inflate(R.layout.fragment_live, container, false);
-            getDataFromServer();
+//            getDataFromServer();
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
 
@@ -108,7 +114,12 @@ public class FragmentLive extends Fragment {
             adapter = new LiveAdapter(getActivity(), res, itemLiveList);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
-
+            String type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
+            tv_name.setText(type +" : " + itemLiveList.get(0).getTitle());
+            String[] s = itemLiveList.get(0).getUrl().split(mainActivity.getCutURLYoutube());
+            if(s.length>0){
+                youtubeName = s[s.length - 1];
+            }
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,7 +132,8 @@ public class FragmentLive extends Fragment {
                         String[] strings = url.split(mainActivity.getCutURLYoutube());
                         if(strings.length > 0) {
                             YPlayer.loadVideo(strings[strings.length - 1]);
-                            tv_name.setText("LIVE : " + live.getTitle());
+                            String type_name = live.getType()=="0" ? "Rerun" : "Live";
+                            tv_name.setText(type_name + " : " + live.getTitle());
                             if(!YPlayer.isPlaying()){
                                 YPlayer.play();
                             }
@@ -129,29 +141,9 @@ public class FragmentLive extends Fragment {
                     }
                 }
             });
+            new InitialYoutube().execute();
 
-            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
 
-            youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
-
-                @Override
-                public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
-                    if (!b) {
-                        YPlayer = youTubePlayer;
-                        YPlayer.setFullscreen(false);
-                        YPlayer.loadVideo(youtubeName);
-                        YPlayer.play();
-                    }
-                }
-
-                @Override
-                public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
-                    // TODO Auto-generated method stub
-
-                }
-            });
 
         }catch (Exception e){
 
@@ -193,6 +185,59 @@ public class FragmentLive extends Fragment {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private class InitialYoutube extends AsyncTask{
+
+        private ProgressDialog progressDialog;
+
+        private InitialYoutube() {
+            progressDialog = new ProgressDialog(getActivity());
+        }
+
+        protected void onPreExecute() {
+            this.progressDialog.setMessage("Please Wait");
+            this.progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            Log.d("Youtube","On Post Exe");
+            if (YPlayer!=null){
+                YPlayer.play();
+
+            }
+            if(this.progressDialog.isShowing()){
+                this.progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
+
+            youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
+
+                @Override
+                public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
+                    if (!b) {
+                        YPlayer = youTubePlayer;
+                        YPlayer.setFullscreen(false);
+                        YPlayer.loadVideo(youtubeName);
+
+                    }
+                }
+
+                @Override
+                public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+            return YPlayer;
         }
     }
 }

@@ -8,15 +8,21 @@
         android:layout_height="match_parent"
         android:background="#ffffffff"
         android:paddingLeft="20dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView2"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Rerun : "
             android:id="@+id/textView"
-            android:paddingLeft="20dp"
+            android:paddingLeft="60dp"
             android:textSize="14dp"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
             android:textColor="@android:color/black" />
 
         <LinearLayout
@@ -26,6 +32,7 @@
             android:background="#c9000000"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"></LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

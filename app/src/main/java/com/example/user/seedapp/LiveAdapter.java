@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.ItemLive;
 
 import java.util.ArrayList;
@@ -58,6 +61,9 @@ public class LiveAdapter extends BaseAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setText(itemLiveList.get(position).getTitle());
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView2);
+        Glide.with(convertView.getContext().getApplicationContext()).load(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg").diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+
 
         return convertView;
     }

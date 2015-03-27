@@ -41,9 +41,16 @@ public class FragmentYouTube extends Fragment {
     private static String musicName = "-";
     private MainActivity mainActivity;
     private ImageView back_bt;
+    private TextView tv_name;
 
     public void setYoutubeName(String youtubeName){
         this.youtubeName = youtubeName;
+    }
+
+    public void setTv_name(String text){
+        if(tv_name!=null && text!=null){
+            tv_name.setText(text);
+        }
     }
 
     @Override
@@ -65,7 +72,7 @@ public class FragmentYouTube extends Fragment {
         try{
             view = inflater.inflate(R.layout.fragment_youtube, container, false);
 
-            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+            tv_name = (TextView) view.findViewById(R.id.tv_name);
 
             mainActivity = (MainActivity) getActivity();
 
