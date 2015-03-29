@@ -258,7 +258,6 @@ public class FragmentMain extends Fragment {
             if(play != null && play.returnIsPlating()){
                 bt_play.setBackgroundColor(Color.WHITE);
                 bt_play.setImageResource(R.drawable.pause_button);
-
             }
 
 
@@ -320,6 +319,12 @@ public class FragmentMain extends Fragment {
                             }
                         }
                     });
+
+                    if(play != null && !play.returnIsPlating()) {
+                        play.playMedia(Boolean.TRUE);
+                        bt_play.setBackgroundColor(Color.WHITE);
+                        bt_play.setImageResource(R.drawable.pause_button);
+                    }
                 }
             });
         }
