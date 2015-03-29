@@ -624,11 +624,11 @@ public class MainActivity extends FragmentActivity {
 
                     Log.d("system", "Now Playing :: " + object.toString());
 
-                    if(x == 0) {
+                    if(x == 1) {
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
                     }
-                    else if(x == 1) {
+                    else if(x == 0) {
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
