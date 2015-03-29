@@ -2,8 +2,10 @@ package com.example.user.seedapp;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -15,17 +17,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -70,6 +78,7 @@ public class MainActivity extends FragmentActivity {
     FragmentTransaction transaction;
     JSONArray dj_info_array;
     Animation animationSlideInLeft, animationSlideOutRight;
+    private android.app.ActionBar.Tab main,privi,live;
     private String url = "http://203.147.16.93:8000/seedcave.mp3";
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
@@ -88,6 +97,8 @@ public class MainActivity extends FragmentActivity {
     public static String path_radio = "http://api.seedmcot.com/api/radio-urls";
     public static String list_song_details = "http://api.seedmcot.com/api/song-details";
     public static String list_lives = "http://api.seedmcot.com/api/lives";
+    public static String list_menu = "http://api.seedmcot.com/api/tab-menus";
+    public static String path_Image_Menu = "http://api.seedmcot.com/backoffice/uploads/tabmenu/3x_";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 15000;
     private static YouTubePlayer YPlayer;
@@ -99,6 +110,8 @@ public class MainActivity extends FragmentActivity {
     private static FragmentYouTube fragmentYouTube;
     private static FragmentLyrics fragmentLyrics;
     private static FragmentListPage fragmentListPage;
+    private FragmentPrivilege fragmentPrivilege = new FragmentPrivilege();
+    private FragmentLive fragmentLive = new FragmentLive();
     private PlayAndNext currentPlay;
     private PlayAndNext nextPlay;
     private Gson gson = new Gson();
@@ -130,6 +143,7 @@ public class MainActivity extends FragmentActivity {
 
     private JSONArray jsonBanner,jsonBigBanner;
     private JSONArray jsonPrivillege;
+    private JSONArray jsonMenu;
 
     public String getCutURLYoutube() {
         return cutURLYoutube;
@@ -215,6 +229,7 @@ public class MainActivity extends FragmentActivity {
         getDataBanner();
         getDataBigBanner();
         getDataNowPlayingFromServer();
+        getDataMenu();
 
 //        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
@@ -325,6 +340,11 @@ public class MainActivity extends FragmentActivity {
         dialog_banner.setContentView(convertView);
         dialog_banner.show();
         fragmentMain.sendEventClickPlay();
+        setMenu();
+
+
+
+
 
 
 
@@ -778,5 +798,65 @@ public class MainActivity extends FragmentActivity {
 //        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()==null || getCurrentPlay().getNowLyric().equals(""))){
 //            fragmentMain.setDisableButtonLyric(false);
 //        }
+    }
+
+    public void getDataMenu(){
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet request = new HttpGet(list_menu);
+            request.setHeader("Content-Type", "text/xml");
+            HttpResponse response = httpClient.execute(request);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            String result = convertinputStreamToString(instream);
+            Log.d("system", "Load Menu Sucess!!!!");
+            Log.d("system", result);
+
+            JSONArray jsonArray = new JSONArray(result);
+            jsonMenu = jsonArray;
+        } catch (Exception e) {
+            Log.e("system", "Error getDataNowPlayingFromServer!!!!");
+            Log.e("system", e.getMessage());
+        }
+    }
+
+    public void setMenu(){
+        if(jsonMenu != null){
+            for(int i=0;i<jsonMenu.length();i++){
+                try {
+                    JSONObject json = jsonMenu.getJSONObject(i);
+                    String icon = json.getString("selected_icon");
+                    String pic = path_Image_Menu+icon;
+                    LinearLayout linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
+                    for(int x=0;x<1;x++) {
+                        ImageButton imageButton = new ImageButton(this);
+
+//                        Glide.with(this).load(pic).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton);
+                        URL newurl = new URL(pic);
+                        Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                        imageButton.setImageBitmap(mIcon_val);
+                        imageButton.setBackground(null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        params.gravity = Gravity.CENTER;
+                        Resources r = this.getResources();
+                        int px = (int) TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_DIP,
+                                30,
+                                r.getDisplayMetrics()
+                        );
+                        params.leftMargin = px;
+                        imageButton.setLayoutParams(params);
+                        imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
+                        linearMenu.addView(imageButton);
+                    }
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
