@@ -58,7 +58,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -101,8 +104,29 @@ public class MainActivity extends FragmentActivity {
     private Gson gson = new Gson();
     private String cutURLYoutube = "v=";
     public static DrawableManagerTT drawableManagerTT;
+    private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
+
+    public Map<Object, Object> getDrawableTypeRequestLive() {
+        return drawableTypeRequestLive;
+    }
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
+
+    public static YouTubePlayer getYPlayer() {
+        return YPlayer;
+    }
+
+    public static YouTubePlayerSupportFragment getYouTubePlayerFragment() {
+        return youTubePlayerFragment;
+    }
+
+    public static void setYouTubePlayerFragment(YouTubePlayerSupportFragment youTubePlayerFragment) {
+        MainActivity.youTubePlayerFragment = youTubePlayerFragment;
+    }
+
+    public static void setYPlayer(YouTubePlayer YPlayer) {
+        MainActivity.YPlayer = YPlayer;
+    }
 
     private JSONArray jsonBanner,jsonBigBanner;
     private JSONArray jsonPrivillege;
@@ -257,7 +281,6 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnSeed.setImageResource(R.drawable.menu2);
                 FragmentLive fragmentLive = new FragmentLive();
-                fragmentLive.setYouTubePlayerFragment(YPlayer);
                 setFragment(fragmentLive);
             }
         });
@@ -317,6 +340,9 @@ public class MainActivity extends FragmentActivity {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
             if (f.getClass() != fragment.getClass()) {
+                if(fragment.getClass() == FragmentMain.class && (f.getClass() == FragmentLyrics.class || f.getClass() == FragmentYouTube.class || f.getClass() == FragmentListPage.class)){
+                    return;
+                }
                 transaction.replace(R.id.fragment_container, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -598,11 +624,11 @@ public class MainActivity extends FragmentActivity {
 
                     Log.d("system", "Now Playing :: " + object.toString());
 
-                    if(x == 1) {
+                    if(x == 0) {
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
                     }
-                    else if(x == 0) {
+                    else if(x == 1) {
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
