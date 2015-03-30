@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +24,14 @@ import java.util.List;
 public class LiveAdapter extends BaseAdapter {
 
     private Activity activity;
+    private MainActivity mainActivity;
     public Resources res;
     private static LayoutInflater inflater=null;
     private List<ItemLive> itemLiveList = new ArrayList<ItemLive>();
 
     public LiveAdapter(Activity a,Resources resLocal, List<ItemLive> itemLiveList) {
         activity = a;
+        mainActivity = (MainActivity) a;
         res = resLocal;
         this.itemLiveList = itemLiveList;
 

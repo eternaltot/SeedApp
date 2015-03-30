@@ -297,6 +297,7 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnSeed.setImageResource(R.drawable.menu2);
                 FragmentLive fragmentLive = new FragmentLive();
+                fragmentLive.setYouTubePlayerFragment(YPlayer);
                 setFragment(fragmentLive);
             }
         });
