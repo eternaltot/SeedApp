@@ -52,6 +52,7 @@ public class FragmentLive extends Fragment {
     private TextView tv_name;
     private String list_type;
     private static StreamFragment streamFragment;
+    private ItemLive live;
 
     public void setYouTubePlayerFragment(YouTubePlayer y){
         YPlayer = y;
@@ -126,7 +127,7 @@ public class FragmentLive extends Fragment {
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    final ItemLive live = itemLiveList.get(position);
+                    live = itemLiveList.get(position);
 
                     Toast.makeText(getActivity().getApplicationContext(), "Play " + live.getTitle(), Toast.LENGTH_LONG).show();
 
@@ -136,7 +137,7 @@ public class FragmentLive extends Fragment {
                     list_type = live.getType();
 
                     if(list_type!=null && list_type.equals("0")) {
-                        if(youTubePlayerFragment == null){
+                        if(youTubePlayerFragment == null || YPlayer == null){
                             youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
                             transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
                             transaction.remove(streamFragment);
@@ -214,10 +215,7 @@ public class FragmentLive extends Fragment {
         @Override
         protected void onPostExecute(Object o) {
             Log.d("Youtube","On Post Exe");
-            if (YPlayer!=null){
-                YPlayer.play();
 
-            }
             if(this.progressDialog.isShowing()){
                 this.progressDialog.dismiss();
             }
@@ -236,6 +234,7 @@ public class FragmentLive extends Fragment {
                             YPlayer = youTubePlayer;
                             YPlayer.setFullscreen(false);
                             YPlayer.loadVideo(youtubeName);
+                            YPlayer.play();
                         }
                     }
                     @Override
