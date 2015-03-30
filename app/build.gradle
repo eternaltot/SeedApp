@@ -25,6 +25,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libraries/YouTubeAndroidPlayerApi.jar')
     compile project(':pager-indicator-lib')
+    compile project(':vitamio')
     compile 'com.github.bumptech.glide:glide:3.5.2'
-    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:support-v4:22.+'
 }
