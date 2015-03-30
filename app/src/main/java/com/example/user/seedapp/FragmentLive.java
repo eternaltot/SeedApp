@@ -51,6 +51,7 @@ public class FragmentLive extends Fragment {
     private MainActivity mainActivity;
     private TextView tv_name;
     private String list_type;
+    private static StreamFragment streamFragment;
 
     public void setYouTubePlayerFragment(YouTubePlayer y){
         YPlayer = y;
@@ -125,69 +126,71 @@ public class FragmentLive extends Fragment {
             expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ItemLive live = itemLiveList.get(position);
+                    final ItemLive live = itemLiveList.get(position);
 
                     Toast.makeText(getActivity().getApplicationContext(), "Play " + live.getTitle(), Toast.LENGTH_LONG).show();
 
-                    if(YPlayer != null){
-                        String url = live.getUrl();
-                        String[] strings = url.split(mainActivity.getCutURLYoutube());
-                        if(strings.length > 0) {
-                            YPlayer.loadVideo(strings[strings.length - 1]);
-                            String type_name = live.getType()=="0" ? "Rerun" : "Live";
-                            tv_name.setText(type_name + " : " + live.getTitle());
-                            if(!YPlayer.isPlaying()){
-                                YPlayer.play();
+
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+                    list_type = live.getType();
+
+                    if(list_type!=null && list_type.equals("0")) {
+                        if(youTubePlayerFragment == null){
+                            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+                            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
+                            transaction.remove(streamFragment);
+                            streamFragment = null;
+                            youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
+                                @Override
+                                public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
+                                    if (!b) {
+                                        YPlayer = youTubePlayer;
+                                        YPlayer.setFullscreen(false);
+                                        String url = live.getUrl();
+                                        String[] strings = url.split(mainActivity.getCutURLYoutube());
+                                        if(strings.length > 0) {
+                                            YPlayer.loadVideo(strings[strings.length - 1]);
+                                            String type_name = live.getType()=="0" ? "Rerun" : "Live";
+                                            tv_name.setText(type_name + " : " + live.getTitle());
+                                            if(!YPlayer.isPlaying()){
+                                                YPlayer.play();
+                                            }
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
+                                    // TODO Auto-generated method stub
+                                }
+                            });
+                        }else{
+                            String url = live.getUrl();
+                            String[] strings = url.split(mainActivity.getCutURLYoutube());
+                            if(strings.length > 0) {
+                                YPlayer.loadVideo(strings[strings.length - 1]);
+                                String type_name = live.getType()=="0" ? "Rerun" : "Live";
+                                tv_name.setText(type_name + " : " + live.getTitle());
+                                if(!YPlayer.isPlaying()){
+                                    YPlayer.play();
+                                }
                             }
                         }
+                    }else{
+                        streamFragment = new StreamFragment();
+                        streamFragment.setUrl(live.getUrl());
+                        transaction.add(R.id.youtube_fragment, streamFragment).commit();
+                        transaction.remove(youTubePlayerFragment);
+                        youTubePlayerFragment = null;
                     }
                 }
             });
             new InitialYoutube().execute();
-
-
-
         }catch (Exception e){
 
         }
 
         return view;
-    }
-
-    public void getDataFromServer(){
-        try {
-
-//            URL url = new URL("http://192.168.43.174/testServer/");
-//            URLConnection conn = url.openConnection();
-//
-//            HttpURLConnection httpConn = (HttpURLConnection) conn;
-//            httpConn.setAllowUserInteraction(false);
-//            httpConn.setInstanceFollowRedirects(true);
-//            httpConn.setRequestMethod("POST");
-//            httpConn.connect();
-//
-//            InputStream is = httpConn.getInputStream();
-//            String parsedString = convertinputStreamToString(is);
-//
-//            JSONObject jsonObject = new JSONObject(parsedString);
-
-            String parsedString = "{\"youtube\":{\"name_music\":\"คิดถึง - bodyslam\",\"youtube_name\":\"_3kZzIfTt0o\"}}";
-            JSONObject jsonObject = new JSONObject(parsedString);
-            JSONObject youtube = (JSONObject) jsonObject.get("youtube");
-            if(youtube != null){
-                musicName = youtube.getString("name_music");
-                youtubeName = youtube.getString("youtube_name");
-            }
-
-
-//            for(int x= 0 ; x < dj_info_array.length() ; ++x){
-//                JSONObject object = dj_info_array.getJSONObject(x);
-//                Log.d("system", object.getString("name"));
-//            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private class InitialYoutube extends AsyncTask{
@@ -222,35 +225,28 @@ public class FragmentLive extends Fragment {
 
         @Override
         protected Object doInBackground(Object[] params) {
-
             if(list_type!=null && list_type.equals("0")) {
                 youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
-
                 youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
-
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
                         if (!b) {
                             YPlayer = youTubePlayer;
                             YPlayer.setFullscreen(false);
                             YPlayer.loadVideo(youtubeName);
-
                         }
                     }
-
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
                         // TODO Auto-generated method stub
-
                     }
                 });
                 return YPlayer;
             }else{
-
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                StreamFragment streamFragment = new StreamFragment();
+                streamFragment = new StreamFragment();
                 streamFragment.setUrl(youtubeName);
                 transaction.add(R.id.youtube_fragment, streamFragment).commit();
 
