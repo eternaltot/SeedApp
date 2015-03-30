@@ -34,6 +34,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -125,6 +126,16 @@ public class MainActivity extends FragmentActivity {
     }
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
+
+    private static SeekBar seekBar;
+
+    public SeekBar getSeekBar() {
+        return seekBar;
+    }
+
+    public void setSeekBar(SeekBar seekBar) {
+        this.seekBar = seekBar;
+    }
 
     public static YouTubePlayer getYPlayer() {
         return YPlayer;
@@ -861,5 +872,21 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         }
+    }
+
+    @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(seekBar != null) {
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                int val = seekBar.getProgress();
+                seekBar.setProgress(val + 1);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                int val = seekBar.getProgress();
+                seekBar.setProgress(val - 1);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
