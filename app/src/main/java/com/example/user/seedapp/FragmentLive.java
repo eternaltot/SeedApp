@@ -58,6 +58,13 @@ public class FragmentLive extends Fragment {
         YPlayer = y;
     }
 
+    @Override
+    public void onDestroyView() {
+        youTubePlayerFragment = null;
+        YPlayer = null;
+        super.onDestroyView();
+    }
+
     public void getDateLiveFromServer(){
         try {
 
