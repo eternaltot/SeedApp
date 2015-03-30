@@ -115,8 +115,9 @@ public class FragmentLive extends Fragment {
             adapter = new LiveAdapter(getActivity(), res, itemLiveList);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
-            list_type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
-            tv_name.setText(list_type +" : " + itemLiveList.get(0).getTitle());
+            list_type=itemLiveList.get(0).getType();
+            String type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
+            tv_name.setText(type +" : " + itemLiveList.get(0).getTitle());
             String[] s = itemLiveList.get(0).getUrl().split(mainActivity.getCutURLYoutube());
             if(s.length>0){
                 youtubeName = s[s.length - 1];
@@ -222,7 +223,7 @@ public class FragmentLive extends Fragment {
         @Override
         protected Object doInBackground(Object[] params) {
 
-            if(list_type!=null && list_type.equals("Rerun")) {
+            if(list_type!=null && list_type.equals("0")) {
                 youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
