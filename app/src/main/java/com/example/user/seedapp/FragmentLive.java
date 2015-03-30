@@ -50,6 +50,7 @@ public class FragmentLive extends Fragment {
     private List<ItemLive> itemLiveList = new ArrayList<ItemLive>();
     private MainActivity mainActivity;
     private TextView tv_name;
+    private String list_type;
 
     public void setYouTubePlayerFragment(YouTubePlayer y){
         YPlayer = y;
@@ -114,8 +115,8 @@ public class FragmentLive extends Fragment {
             adapter = new LiveAdapter(getActivity(), res, itemLiveList);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
-            String type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
-            tv_name.setText(type +" : " + itemLiveList.get(0).getTitle());
+            list_type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
+            tv_name.setText(list_type +" : " + itemLiveList.get(0).getTitle());
             String[] s = itemLiveList.get(0).getUrl().split(mainActivity.getCutURLYoutube());
             if(s.length>0){
                 youtubeName = s[s.length - 1];
@@ -199,6 +200,11 @@ public class FragmentLive extends Fragment {
         protected void onPreExecute() {
             this.progressDialog.setMessage("Please Wait");
             this.progressDialog.show();
+            try {
+                wait(3000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -215,29 +221,40 @@ public class FragmentLive extends Fragment {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
 
-            youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
+            if(list_type!=null && list_type.equals("Rerun")) {
+                youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
 
-                @Override
-                public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
-                    if (!b) {
-                        YPlayer = youTubePlayer;
-                        YPlayer.setFullscreen(false);
-                        YPlayer.loadVideo(youtubeName);
+                youTubePlayerFragment.initialize(YoutubeDeveloperKey, new YouTubePlayer.OnInitializedListener() {
+
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider arg0, YouTubePlayer youTubePlayer, boolean b) {
+                        if (!b) {
+                            YPlayer = youTubePlayer;
+                            YPlayer.setFullscreen(false);
+                            YPlayer.loadVideo(youtubeName);
+
+                        }
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
+                        // TODO Auto-generated method stub
 
                     }
-                }
+                });
+                return YPlayer;
+            }else{
 
-                @Override
-                public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
-                    // TODO Auto-generated method stub
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                StreamFragment streamFragment = new StreamFragment();
+                streamFragment.setUrl(youtubeName);
+                transaction.add(R.id.youtube_fragment, streamFragment).commit();
 
-                }
-            });
-            return YPlayer;
+                return view;
+            }
         }
     }
 }

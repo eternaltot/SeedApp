@@ -118,6 +118,7 @@ public class MainActivity extends FragmentActivity {
     private String cutURLYoutube = "v=";
     public static DrawableManagerTT drawableManagerTT;
     private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
+    private ImageButton btnHome,btnSeed,btnStream;
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
         return drawableTypeRequestLive;
@@ -257,9 +258,9 @@ public class MainActivity extends FragmentActivity {
         fragmentYouTube = new FragmentYouTube();
         fragmentLyrics = new FragmentLyrics();
 
-        final ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
-        final ImageButton btnSeed = (ImageButton) findViewById(R.id.btnSeed);
-        final ImageButton btnStream = (ImageButton) findViewById(R.id.btnStream);
+        btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnSeed = (ImageButton) findViewById(R.id.btnSeed);
+        btnStream = (ImageButton) findViewById(R.id.btnStream);
         btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -829,6 +830,7 @@ public class MainActivity extends FragmentActivity {
                     String icon = json.getString("selected_icon");
                     String pic = path_Image_Menu+icon;
                     LinearLayout linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
+
                     for(int x=0;x<1;x++) {
                         ImageButton imageButton = new ImageButton(this);
 
@@ -848,7 +850,7 @@ public class MainActivity extends FragmentActivity {
                         params.leftMargin = px;
                         imageButton.setLayoutParams(params);
                         imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
-                        linearMenu.addView(imageButton);
+//                        linearMenu.addView(imageButton);
                     }
 
 
