@@ -213,6 +213,7 @@ public class FragmentLive extends Fragment {
             Log.d("Youtube","On Post Exe");
             if (YPlayer!=null){
                 YPlayer.play();
+
             }
             if(this.progressDialog.isShowing()){
                 this.progressDialog.dismiss();
@@ -235,6 +236,7 @@ public class FragmentLive extends Fragment {
                             YPlayer = youTubePlayer;
                             YPlayer.setFullscreen(false);
                             YPlayer.loadVideo(youtubeName);
+
                         }
                     }
 

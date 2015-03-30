@@ -1,3 +1,2 @@
 include ':app'
-include ':vitamio'
 include ':pager-indicator-lib'

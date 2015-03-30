@@ -40,8 +40,6 @@ public class DrawableManagerTT {
                 return drawableBitMap.get(urlString);
             }
 
-            Log.d("system", "000000000000000000000000000000");
-
             URL newurl = new URL(urlString);
             Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
 
