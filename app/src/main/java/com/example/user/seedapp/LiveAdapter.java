@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.ItemLive;
@@ -24,12 +25,14 @@ import java.util.List;
 public class LiveAdapter extends BaseAdapter {
 
     private Activity activity;
+    private MainActivity mainActivity;
     public Resources res;
     private static LayoutInflater inflater=null;
     private List<ItemLive> itemLiveList = new ArrayList<ItemLive>();
 
     public LiveAdapter(Activity a,Resources resLocal, List<ItemLive> itemLiveList) {
         activity = a;
+        mainActivity = (MainActivity) a;
         res = resLocal;
         this.itemLiveList = itemLiveList;
 
@@ -62,7 +65,15 @@ public class LiveAdapter extends BaseAdapter {
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setText(itemLiveList.get(position).getTitle());
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView2);
-        Glide.with(convertView.getContext().getApplicationContext()).load(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg").diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        if(mainActivity.getDrawableTypeRequestLive().get(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg") != null){
+            DrawableTypeRequest drawableTypeRequest = (DrawableTypeRequest) mainActivity.getDrawableTypeRequestLive().get(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg");
+            drawableTypeRequest.diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        }else{
+            mainActivity.getDrawableTypeRequestLive().put(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg", Glide.with(convertView.getContext().getApplicationContext()).load(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg"));
+            DrawableTypeRequest drawableTypeRequest = (DrawableTypeRequest) mainActivity.getDrawableTypeRequestLive().get(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg");
+            drawableTypeRequest.diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        }
+
 
 
         return convertView;
