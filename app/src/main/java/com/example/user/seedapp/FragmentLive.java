@@ -187,7 +187,8 @@ public class FragmentLive extends Fragment {
                     }else{
                         streamFragment = new StreamFragment();
                         streamFragment.setUrl(live.getUrl());
-                        transaction.add(R.id.youtube_fragment, streamFragment).commit();
+                        if(streamFragment != null)
+                            transaction.add(R.id.youtube_fragment, streamFragment).commit();
                         transaction.remove(youTubePlayerFragment);
                         youTubePlayerFragment = null;
                     }
