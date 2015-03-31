@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -843,26 +844,35 @@ public class MainActivity extends FragmentActivity {
                     String pic = path_Image_Menu+icon;
                     LinearLayout linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
 
+
+
+                    Bitmap bitmap = ((BitmapDrawable)btnHome.getDrawable()).getBitmap();
+
+                    Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
+                    Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
+
                     for(int x=0;x<1;x++) {
                         ImageButton imageButton = new ImageButton(this);
 
 //                        Glide.with(this).load(pic).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton);
-                        URL newurl = new URL(pic);
-                        Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                        imageButton.setImageBitmap(mIcon_val);
-                        imageButton.setBackground(null);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.gravity = Gravity.CENTER;
                         Resources r = this.getResources();
                         int px = (int) TypedValue.applyDimension(
                                 TypedValue.COMPLEX_UNIT_DIP,
-                                30,
+                                15,
                                 r.getDisplayMetrics()
                         );
                         params.leftMargin = px;
+//                        params.rightMargin = px;
                         imageButton.setLayoutParams(params);
-                        imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
-//                        linearMenu.addView(imageButton);
+                        URL newurl = new URL(pic);
+                        Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, bitmap.getWidth(), bitmap.getHeight(), true);
+                        imageButton.setImageBitmap(mIcon_val);
+                        imageButton.setBackground(null);
+//                        imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
+                        linearMenu.addView(imageButton);
                     }
 
 
