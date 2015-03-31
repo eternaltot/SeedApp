@@ -36,6 +36,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -121,6 +122,7 @@ public class MainActivity extends FragmentActivity {
     public static DrawableManagerTT drawableManagerTT;
     private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
     private ImageButton btnHome,btnSeed,btnStream;
+    private Boolean doubleBackToExitPressedOnce = false;
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
         return drawableTypeRequestLive;
@@ -415,6 +417,25 @@ public class MainActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            finish();
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//            }
+//        }, 2000);
+
     }
 
     @Override
@@ -840,8 +861,12 @@ public class MainActivity extends FragmentActivity {
             for(int i=0;i<jsonMenu.length();i++){
                 try {
                     JSONObject json = jsonMenu.getJSONObject(i);
-                    String icon = json.getString("selected_icon");
+                    String icon = json.getString("icon");
+                    String select_icon = json.getString("selected_icon");
+                    final String url_button = json.getString("url");
+
                     String pic = path_Image_Menu+icon;
+                    String pic_select = path_Image_Menu + select_icon;
                     LinearLayout linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
 
 
@@ -851,8 +876,8 @@ public class MainActivity extends FragmentActivity {
                     Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
                     Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
 
-                    for(int x=0;x<1;x++) {
-                        ImageButton imageButton = new ImageButton(this);
+                    for(int x=0;x<10;x++) {
+                        final ImageButton imageButton = new ImageButton(this);
 
 //                        Glide.with(this).load(pic).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -869,9 +894,27 @@ public class MainActivity extends FragmentActivity {
                         URL newurl = new URL(pic);
                         Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
                         mIcon_val = Bitmap.createScaledBitmap(mIcon_val, bitmap.getWidth(), bitmap.getHeight(), true);
+
                         imageButton.setImageBitmap(mIcon_val);
                         imageButton.setBackground(null);
 //                        imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                        URL newurl_select = new URL(pic_select);
+                        Bitmap mIcon_select = BitmapFactory.decodeStream(newurl_select.openConnection().getInputStream());
+                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, bitmap.getWidth(), bitmap.getHeight(), true);
+                        final Bitmap img = mIcon_select;
+
+                        imageButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                imageButton.setImageBitmap(img);
+                                Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
+                                intent.putExtra("URL", url_button);
+                                Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                                startActivity(intent, bundle);
+                            }
+                        });
                         linearMenu.addView(imageButton);
                     }
 
