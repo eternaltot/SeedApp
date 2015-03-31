@@ -255,7 +255,8 @@ public class FragmentLive extends Fragment {
                 streamFragment = new StreamFragment();
                 streamFragment.setUrl(youtubeName);
                 transaction.add(R.id.youtube_fragment, streamFragment).commit();
-
+                youTubePlayerFragment = null;
+                YPlayer = null;
                 return view;
             }
         }
