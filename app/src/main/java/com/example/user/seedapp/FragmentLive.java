@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,6 +101,25 @@ public class FragmentLive extends Fragment {
         }
     }
 
+    public void setBackEvent(){
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.i("system", "keyCode: " + keyCode);
+//                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+//                    Log.d("system", "onKey Back listener is working!!!");
+//                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+                return true;
+            }
+        });
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
             ViewGroup viewGroup = (ViewGroup) view.getParent();
@@ -116,6 +136,8 @@ public class FragmentLive extends Fragment {
             mainActivity = (MainActivity)getActivity();
 
             mainActivity.pauseMediaFromMainActivity();
+
+            setBackEvent();
 
             ListView expandableListView = (ListView) view.findViewById(R.id.listView);
 

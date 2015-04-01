@@ -104,14 +104,15 @@ public class FragmentLyrics extends Fragment {
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.i("system", "keyCode: " + keyCode);
-                if( keyCode == KeyEvent.KEYCODE_BACK ) {
-                    Log.d("system", "onKey Back listener is working!!!");
-                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
-                    return true;
-                } else {
-                    return false;
-                }
+//                Log.i("system", "keyCode: " + keyCode);
+//                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+//                    Log.d("system", "onKey Back listener is working!!!");
+//                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+                return true;
             }
         });
     }

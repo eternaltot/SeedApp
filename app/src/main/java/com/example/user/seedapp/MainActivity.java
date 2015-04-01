@@ -2,7 +2,6 @@ package com.example.user.seedapp;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -18,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -30,24 +27,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Banner;
 import com.example.user.seedapp.com.add.model.DJInfo;
-import com.example.user.seedapp.com.add.model.ListPageItem;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.model.PlayAndNext;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 import com.example.user.seedapp.com.add.view.DrawableManagerTT;
-import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.gson.Gson;
@@ -65,14 +57,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 
@@ -869,14 +858,12 @@ public class MainActivity extends FragmentActivity {
                     String pic_select = path_Image_Menu + select_icon;
                     LinearLayout linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
 
-
-
                     Bitmap bitmap = ((BitmapDrawable)btnHome.getDrawable()).getBitmap();
 
                     Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
                     Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
 
-                    for(int x=0;x<10;x++) {
+//                    for(int x=0;x<10;x++) {
                         final ImageButton imageButton = new ImageButton(this);
 
 //                        Glide.with(this).load(pic).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton);
@@ -916,9 +903,7 @@ public class MainActivity extends FragmentActivity {
                             }
                         });
                         linearMenu.addView(imageButton);
-                    }
-
-
+//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -940,6 +925,11 @@ public class MainActivity extends FragmentActivity {
                 return true;
             }
         }
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 }

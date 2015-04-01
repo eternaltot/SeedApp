@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.InflateException;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class FragmentPrivilege extends Fragment {
         try{
             view = inflater.inflate(R.layout.fragment_list_privilege, container, false);
             expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
+            setBackEvent();
             final Resources res =getResources();
             adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
             expandableListView.setAdapter(adapter);
@@ -84,5 +86,22 @@ public class FragmentPrivilege extends Fragment {
         return view;
     }
 
-
+    public void setBackEvent(){
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.i("system", "keyCode: " + keyCode);
+//                if( keyCode == KeyEvent.KEYCODE_BACK ) {
+//                    Log.d("system", "onKey Back listener is working!!!");
+//                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+                return true;
+            }
+        });
+    }
 }
