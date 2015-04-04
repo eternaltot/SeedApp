@@ -112,6 +112,16 @@ public class MainActivity extends FragmentActivity {
     private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
     private ImageButton btnHome,btnSeed,btnStream;
     private Boolean doubleBackToExitPressedOnce = false;
+    private static int bitWidth = 100;
+    private static int bitHeight = 100;
+
+    public static int getBitHeight() {
+        return bitHeight;
+    }
+
+    public static int getBitWidth() {
+        return bitWidth;
+    }
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
         return drawableTypeRequestLive;
@@ -216,6 +226,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "alpine_typeface/AlpineTypeface/Cleanlight.ttf");
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -880,7 +892,9 @@ public class MainActivity extends FragmentActivity {
                         imageButton.setLayoutParams(params);
                         URL newurl = new URL(pic);
                         Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, bitmap.getWidth(), bitmap.getHeight(), true);
+                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, getBitWidth(), getBitHeight(), true);
+
+
 
                         imageButton.setImageBitmap(mIcon_val);
                         imageButton.setBackground(null);
@@ -888,7 +902,7 @@ public class MainActivity extends FragmentActivity {
 
                         URL newurl_select = new URL(pic_select);
                         Bitmap mIcon_select = BitmapFactory.decodeStream(newurl_select.openConnection().getInputStream());
-                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, bitmap.getWidth(), bitmap.getHeight(), true);
+                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, getBitWidth(), getBitHeight(), true);
                         final Bitmap img = mIcon_select;
 
                         imageButton.setOnClickListener(new View.OnClickListener() {

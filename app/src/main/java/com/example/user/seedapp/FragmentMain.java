@@ -9,24 +9,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
-import com.viewpagerindicator.CirclePageIndicator;
-
-import org.json.JSONException;
 
 
 /**
@@ -35,9 +29,10 @@ import org.json.JSONException;
 public class FragmentMain extends Fragment {
 
     private static View view;
-    private Button bt_youtube;
-    private Button bt_lyrics;
-    private Button bt_list;
+    private ImageButton bt_youtube;
+    private ImageButton bt_lyrics;
+    private ImageButton bt_list;
+    private ImageButton bt_mute;
     private ImageButton bt_play;
     private TextView textNowPlaying;
     private TextView textNameSong;
@@ -98,17 +93,20 @@ public class FragmentMain extends Fragment {
     }
 
     public void setDisableButtonMV(Boolean isEnable){
-        if(bt_youtube!=null)
+        if(bt_youtube!=null) {
             bt_youtube.setEnabled(isEnable);
+        }
         if (!isEnable){
-            bt_youtube.setBackgroundColor(Color.DKGRAY);
+//            bt_youtube.setBackgroundColor(Color.DKGRAY);
+            bt_youtube.setImageResource(R.drawable.lock_mv);
         }
     }
     public void setDisableButtonList(Boolean isEnable){
         if (bt_list!=null){
             bt_list.setEnabled(isEnable);
             if (!isEnable){
-                bt_list.setBackgroundColor(Color.DKGRAY);
+//                bt_list.setBackgroundColor(Color.DKGRAY);
+                bt_list.setImageResource(R.drawable.lock_list);
             }
         }
     }
@@ -116,7 +114,8 @@ public class FragmentMain extends Fragment {
         if (bt_lyrics!=null){
             bt_lyrics.setEnabled(isEnable);
             if (!isEnable){
-                bt_lyrics.setBackgroundColor(Color.DKGRAY);
+//                bt_lyrics.setBackgroundColor(Color.DKGRAY);
+                bt_lyrics.setImageResource(R.drawable.lock_lylics);
             }
         }
     }
@@ -144,10 +143,11 @@ public class FragmentMain extends Fragment {
                 pager.setInterval(15000);
             }
 
-            bt_youtube = (Button) view.findViewById(R.id.bt_youtube);
-            bt_lyrics = (Button) view.findViewById(R.id.bt_lyrics);
+            bt_youtube = (ImageButton) view.findViewById(R.id.bt_youtube);
+            bt_lyrics = (ImageButton) view.findViewById(R.id.bt_lyrics);
             bt_play = (ImageButton) view.findViewById(R.id.bt_play);
-            bt_list = (Button) view.findViewById(R.id.bt_list);
+            bt_list = (ImageButton) view.findViewById(R.id.bt_list);
+            bt_mute = (ImageButton) view.findViewById(R.id.bt_mute);
             imageView3 = (ImageView) view.findViewById(R.id.imageView3);
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
@@ -155,6 +155,8 @@ public class FragmentMain extends Fragment {
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+
+
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
@@ -263,7 +265,7 @@ public class FragmentMain extends Fragment {
             new PlayMediaTask().execute();
 
             if(play != null && play.returnIsPlating()){
-                bt_play.setBackgroundColor(Color.WHITE);
+//                bt_play.setBackgroundColor(Color.WHITE);
                 bt_play.setImageResource(R.drawable.pause_button);
             }
 
@@ -271,7 +273,7 @@ public class FragmentMain extends Fragment {
         }catch (Exception e){
 
         }
-        if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btn_play).getConstantState())){
+        if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())){
             Log.d("system","before click button when create fragment");
             bt_play.callOnClick();
         }
@@ -311,16 +313,16 @@ public class FragmentMain extends Fragment {
                         public void onClick(View v) {
                             Log.d("system","in onclick btn play");
 
-                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.btn_play).getConstantState())){
-                                bt_play.setBackgroundColor(Color.WHITE);
+                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())){
+//                                bt_play.setBackgroundColor(Color.WHITE);
                                 bt_play.setImageResource(R.drawable.pause_button);
 
 //                                MediaPlayer mediaPlayer = MediaPlayer.create(mainActivity.returnBaseContext(), R.raw.body_slam);
 //                                mediaPlayer.start();
                                 play.playMedia(true);
                             }else {
-                                bt_play.setBackgroundColor(Color.WHITE);
-                                bt_play.setImageResource(R.drawable.btn_play);
+//                                bt_play.setBackgroundColor(Color.WHITE);
+                                bt_play.setImageResource(R.drawable.play_button);
 
                                 play.playMedia(false);
                             }
@@ -329,7 +331,7 @@ public class FragmentMain extends Fragment {
 
                     if(play != null && !play.returnIsPlating()) {
                         play.playMedia(Boolean.TRUE);
-                        bt_play.setBackgroundColor(Color.WHITE);
+//                        bt_play.setBackgroundColor(Color.WHITE);
                         bt_play.setImageResource(R.drawable.pause_button);
                     }
                 }
