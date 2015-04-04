@@ -886,12 +886,17 @@ public class MainActivity extends FragmentActivity {
                                 15,
                                 r.getDisplayMetrics()
                         );
+                        int img_px = (int) TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_DIP,
+                                50,
+                                r.getDisplayMetrics()
+                        );
                         params.leftMargin = px;
 //                        params.rightMargin = px;
                         imageButton.setLayoutParams(params);
                         URL newurl = new URL(pic);
                         Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, bitmap.getWidth(), bitmap.getHeight(), true);
+                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, img_px, img_px, true);
 
 
                         imageButton.setImageBitmap(mIcon_val);
@@ -900,7 +905,7 @@ public class MainActivity extends FragmentActivity {
 
                         URL newurl_select = new URL(pic_select);
                         Bitmap mIcon_select = BitmapFactory.decodeStream(newurl_select.openConnection().getInputStream());
-                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, bitmap.getWidth(), bitmap.getHeight(), true);
+                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, img_px, img_px, true);
                         final Bitmap img = mIcon_select;
 
                         imageButton.setOnClickListener(new View.OnClickListener() {
