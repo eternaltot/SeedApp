@@ -65,27 +65,30 @@
                     android:layout_gravity="left"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:id="@+id/btnHome"
-                        android:src="@drawable/iconseedappheadphone_75px"
-                        android:background="@null" />
+                        android:src="@drawable/headphone_button_active"
+                        android:background="@null"
+                        android:scaleType="fitXY"/>
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="30dp"
                         android:id="@+id/btnSeed"
-                        android:src="@drawable/menu2"
+                        android:src="@drawable/headseed_button"
+                        android:scaleType="fitXY"
                         android:background="@null" />
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="30dp"
                         android:id="@+id/btnStream"
-                        android:src="@drawable/iconseedappeye_75px"
+                        android:src="@drawable/eye_button"
+                        android:scaleType="fitXY"
                         android:background="@null" />
                 </LinearLayout>
 

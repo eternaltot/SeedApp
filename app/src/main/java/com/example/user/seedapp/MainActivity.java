@@ -112,16 +112,7 @@ public class MainActivity extends FragmentActivity {
     private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
     private ImageButton btnHome,btnSeed,btnStream;
     private Boolean doubleBackToExitPressedOnce = false;
-    private static int bitWidth = 100;
-    private static int bitHeight = 100;
 
-    public static int getBitHeight() {
-        return bitHeight;
-    }
-
-    public static int getBitWidth() {
-        return bitWidth;
-    }
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
         return drawableTypeRequestLive;
@@ -276,13 +267,15 @@ public class MainActivity extends FragmentActivity {
         btnHome = (ImageButton) findViewById(R.id.btnHome);
         btnSeed = (ImageButton) findViewById(R.id.btnSeed);
         btnStream = (ImageButton) findViewById(R.id.btnStream);
-        btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+//        btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
-                btnSeed.setImageResource(R.drawable.menu2);
-                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//                btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+                btnHome.setImageResource(R.drawable.headphone_button_active);
+                btnSeed.setImageResource(R.drawable.headseed_button);
+                btnStream.setImageResource(R.drawable.eye_button);
+//                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 if(fragmentMain.isVisible() || fragmentListPage.isVisible() || fragmentLyrics.isVisible() || fragmentYouTube.isVisible()){
 
                 }else{
@@ -295,22 +288,28 @@ public class MainActivity extends FragmentActivity {
         btnSeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSeed.setImageResource(R.drawable.menu2_on);
-                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//                btnSeed.setImageResource(R.drawable.menu2_on);
+//                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+                btnHome.setImageResource(R.drawable.headphone_button);
+                btnSeed.setImageResource(R.drawable.headseed_button_active);
+                btnStream.setImageResource(R.drawable.eye_button);
                 FragmentPrivilege fragmentPrivilege = new FragmentPrivilege();
                 setFragment(fragmentPrivilege);
 
             }
         });
 
-        btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//        btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         btnStream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnStream.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
-                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-                btnSeed.setImageResource(R.drawable.menu2);
+//                btnStream.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
+//                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//                btnSeed.setImageResource(R.drawable.menu2);
+                btnHome.setImageResource(R.drawable.headphone_button);
+                btnSeed.setImageResource(R.drawable.headseed_button);
+                btnStream.setImageResource(R.drawable.eye_button_active);
                 FragmentLive fragmentLive = new FragmentLive();
                 fragmentLive.setYouTubePlayerFragment(YPlayer);
                 setFragment(fragmentLive);
@@ -892,8 +891,7 @@ public class MainActivity extends FragmentActivity {
                         imageButton.setLayoutParams(params);
                         URL newurl = new URL(pic);
                         Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, getBitWidth(), getBitHeight(), true);
-
+                        mIcon_val = Bitmap.createScaledBitmap(mIcon_val, bitmap.getWidth(), bitmap.getHeight(), true);
 
 
                         imageButton.setImageBitmap(mIcon_val);
@@ -902,7 +900,7 @@ public class MainActivity extends FragmentActivity {
 
                         URL newurl_select = new URL(pic_select);
                         Bitmap mIcon_select = BitmapFactory.decodeStream(newurl_select.openConnection().getInputStream());
-                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, getBitWidth(), getBitHeight(), true);
+                        mIcon_select = Bitmap.createScaledBitmap(mIcon_select, bitmap.getWidth(), bitmap.getHeight(), true);
                         final Bitmap img = mIcon_select;
 
                         imageButton.setOnClickListener(new View.OnClickListener() {
