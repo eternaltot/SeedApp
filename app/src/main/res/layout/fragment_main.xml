@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="16dp"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit ="marquee_forever"
@@ -207,7 +207,8 @@
                     android:id="@+id/bt_mute"
                     android:src="@drawable/speaker"
                     android:background="@null"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="0dp" />
                 <!---->
                 <!--<ImageButton-->
                     <!--android:layout_width="30dp"-->
@@ -250,7 +251,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:singleLine="true" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

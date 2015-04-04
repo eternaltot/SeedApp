@@ -157,6 +157,7 @@ public class FragmentMain extends Fragment {
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
 
 
+
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
@@ -187,6 +188,20 @@ public class FragmentMain extends Fragment {
                 seekbar.setProgress(mainActivity.getSeekBar().getProgress());
                 mainActivity.setSeekBar(seekbar);
             }
+            bt_mute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)!=0) {
+                        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+                        bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                    }
+                    else {
+                        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                        bt_mute.setImageResource(R.drawable.speaker);
+                    }
+
+                }
+            });
 
             String now="";
             String next="";
