@@ -31,7 +31,9 @@
             android:id="@+id/imageView5"
             android:background="@drawable/shape_bg_header"
             android:layout_weight="1"
-            android:src="@drawable/seed_fm_logo" />
+            android:src="@drawable/seed_fm_logo"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
 
         <LinearLayout

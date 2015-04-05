@@ -182,14 +182,14 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_below="@+id/imageView3"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:id="@+id/layout_seekBar"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:src="@drawable/big_bar_l"
                 android:scaleType="fitXY"/>
 
@@ -197,16 +197,8 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:background="@drawable/big_bar_1px"
-                android:layout_height="45dp">
-
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:id="@+id/bt_mute"
-                    android:src="@drawable/speaker"
-                    android:background="@null"
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="12dp" />
+                android:layout_height="50dp"
+                android:paddingLeft="25dp">
 
                 <!--<ImageButton-->
                     <!--android:layout_width="30dp"-->
@@ -220,12 +212,13 @@
                     android:max="100"
                     android:layout_marginTop="15dp"
                     android:progress="0"
-                    android:thumb="@drawable/shape_seek" />
+                    android:thumb="@drawable/shape_seek"
+                    android:paddingTop="3dp" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:src="@drawable/big_bar_r"
                 android:scaleType="fitXY" />
         </LinearLayout>
@@ -234,24 +227,24 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
+            android:id="@+id/linearLayout2"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_seekBar"
             android:layout_centerHorizontal="true">
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="45dp"
+                android:layout_height="65dp"
                 android:src="@drawable/big_bar_l"
                 android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="45dp"
+                android:layout_height="65dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Next song : ไม่ต่างกัน - 25 Hours"
-                android:textSize="16dp"
-                android:paddingTop="15dp"
+                android:textSize="20dp"
+                android:paddingTop="25dp"
                 android:background="@drawable/big_bar_1px"
                 android:id="@+id/textNameSong"
                 android:textColor="@android:color/black"
@@ -259,11 +252,34 @@
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="45dp"
+                android:layout_height="65dp"
                 android:src="@drawable/big_bar_r"
                 android:scaleType="fitXY" />
 
         </LinearLayout>
+        <FrameLayout
+            android:layout_width="25dp"
+            android:layout_height="70dp"
+            android:id="@+id/framelayout"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_alignTop="@+id/layout_seekBar"
+            android:layout_alignStart="@+id/layout_seekBar"
+            android:layout_toStartOf="@+id/imageView3"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:paddingRight="5dp">
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/bt_mute"
+                android:src="@drawable/speaker"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_marginTop="14dp"
+                android:layout_gravity="right" />
+        </FrameLayout>
 
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
