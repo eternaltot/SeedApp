@@ -36,6 +36,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Banner;
 import com.example.user.seedapp.com.add.model.DJInfo;
+import com.example.user.seedapp.com.add.model.MenuBarImageButton;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.model.PlayAndNext;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
@@ -112,6 +113,7 @@ public class MainActivity extends FragmentActivity {
     private Map<Object, Object> drawableTypeRequestLive = new HashMap<>();
     private ImageButton btnHome,btnSeed,btnStream;
     private Boolean doubleBackToExitPressedOnce = false;
+    private static List<MenuBarImageButton> menuBarList = new ArrayList<>();
 
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
@@ -212,6 +214,16 @@ public class MainActivity extends FragmentActivity {
 //            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
 //        }
 //    }
+
+
+    @Override
+    protected void onResume() {
+        Log.d("system", "This onResume!!");
+        for(MenuBarImageButton menuBarImageButton : menuBarList){
+            menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
+        }
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -858,6 +870,9 @@ public class MainActivity extends FragmentActivity {
 
     public void setMenu(){
         if(jsonMenu != null){
+
+            menuBarList.clear();
+
             for(int i=0;i<jsonMenu.length();i++){
                 try {
                     JSONObject json = jsonMenu.getJSONObject(i);
@@ -920,6 +935,7 @@ public class MainActivity extends FragmentActivity {
                             }
                         });
                         linearMenu.addView(imageButton);
+                        menuBarList.add(new MenuBarImageButton(imageButton, mIcon_val));
 //                    }
 
                 } catch (Exception e) {
