@@ -26,6 +26,8 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by LacNoito on 2/22/2015.
  */
@@ -51,7 +53,7 @@ public class FragmentDJIndoPage extends Fragment {
 
             TextView nameDJ = (TextView) view.findViewById(R.id.name_dj);
             TextView online_time = (TextView) view.findViewById(R.id.online_time);
-            RoundedImageView imageDJ = (RoundedImageView) view.findViewById(R.id.imageDJ);
+            CircleImageView imageDJ = (CircleImageView) view.findViewById(R.id.imageDJ);
             Button btnTextToDJ = (Button) view.findViewById(R.id.text_dj);
 
             btnTextToDJ.setOnClickListener(new View.OnClickListener() {
