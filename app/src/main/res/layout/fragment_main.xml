@@ -5,6 +5,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@drawable/seedapp_bg"
     android:gravity="center_vertical"
+    android:weightSum="5"
     tools:context="${relativePackage}.${activityClass}">
 
     <RelativeLayout
@@ -13,7 +14,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
@@ -30,6 +31,10 @@
             />
     </RelativeLayout >
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -199,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:background="@drawable/big_bar_1px"
                 android:layout_height="30dp"
-                android:paddingLeft="20dp">
+                android:paddingLeft="5dp">
 
                 <!--<ImageButton-->
                     <!--android:layout_width="30dp"-->
@@ -207,13 +212,16 @@
                     <!--android:id="@+id/imageButton" />-->
 
                 <SeekBar
-                    android:layout_width="120dp"
+                    android:layout_width="135dp"
                     android:layout_height="15dp"
                     android:id="@+id/seekBar"
                     android:max="100"
                     android:progress="0"
                     android:thumb="@drawable/shape_seek"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="20dp"
+                    android:splitTrack="false"
+                    android:progressBackgroundTint="#fffe0909" />
             </LinearLayout>
 
             <ImageView
@@ -245,7 +253,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Next song : ไม่ต่างกัน - 25 Hours"
                 android:textSize="20dp"
-                android:paddingTop="27dp"
+                android:paddingTop="25dp"
                 android:background="@drawable/big_bar_1px"
                 android:id="@+id/textNameSong"
                 android:textColor="@android:color/black"
@@ -264,7 +272,7 @@
 
         </LinearLayout>
         <FrameLayout
-            android:layout_width="15dp"
+            android:layout_width="20dp"
             android:layout_height="30dp"
             android:id="@+id/framelayout"
             android:layout_above="@+id/linearLayout2"
@@ -279,7 +287,7 @@
                 android:background="@null"
                 android:scaleType="fitXY"
                 android:layout_marginTop="8.5dp"
-                android:layout_gravity="right" />
+                android:layout_gravity="left|right" />
         </FrameLayout>
 
         <!--<RelativeLayout-->
@@ -315,4 +323,5 @@
                 <!--android:singleLine="true" />-->
         <!--</RelativeLayout>-->
     </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

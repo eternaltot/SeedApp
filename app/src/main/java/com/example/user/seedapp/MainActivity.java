@@ -624,8 +624,8 @@ public class MainActivity extends FragmentActivity {
 
                         DJInfo djInfo = new DJInfo();
                         djInfo.setDjId((Integer) object.get("dj_id"));
-                        djInfo.setStartTime(object.getString("start_time"));
-                        djInfo.setStopTime(object.getString("stop_time"));
+                        djInfo.setStartTime(object.getString("start_time").substring(0,5));
+                        djInfo.setStopTime(object.getString("stop_time").substring(0,5));
 
                         JSONObject djJSON = (JSONObject) object.get("dj");
                         if(djJSON != null) {
