@@ -64,6 +64,18 @@ public class FragmentMain extends Fragment {
                     }
                 });
             }
+
+
+            if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowLyric()!=null && !mainActivity.getCurrentPlay().getNowLyric().equals(""))){
+                setDisableButtonLyric(true);
+            }else if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowLyric()==null || mainActivity.getCurrentPlay().getNowLyric().equals(""))){
+                setDisableButtonLyric(false);
+            }
+            if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowMv()!=null && !mainActivity.getCurrentPlay().getNowMv().equals(""))){
+                setDisableButtonMV(true);
+            }else if(mainActivity.getCurrentPlay()!=null && (mainActivity.getCurrentPlay().getNowMv()==null || mainActivity.getCurrentPlay().getNowMv().equals(""))){
+                setDisableButtonMV(false);
+            }
         }catch (Exception ex) {
 
         }
@@ -97,8 +109,9 @@ public class FragmentMain extends Fragment {
             bt_youtube.setEnabled(isEnable);
         }
         if (!isEnable){
-//            bt_youtube.setBackgroundColor(Color.DKGRAY);
             bt_youtube.setImageResource(R.drawable.lock_mv);
+        }else{
+            bt_youtube.setImageResource(R.drawable.unlock_mv);
         }
     }
     public void setDisableButtonList(Boolean isEnable){
@@ -114,9 +127,11 @@ public class FragmentMain extends Fragment {
         if (bt_lyrics!=null){
             bt_lyrics.setEnabled(isEnable);
             if (!isEnable){
-//                bt_lyrics.setBackgroundColor(Color.DKGRAY);
                 bt_lyrics.setImageResource(R.drawable.lock_lylics);
+            }else{
+                bt_lyrics.setImageResource(R.drawable.unlock_lylics);
             }
+
         }
     }
 
