@@ -34,6 +34,7 @@ public class WebviewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
+                WebviewActivity.this.overridePendingTransition(R.anim.slide_in_down,R.anim.slide_out_down);
             }
         });
     }
