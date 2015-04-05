@@ -40,7 +40,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#3c0000"
             android:id="@+id/textNowPlayingLay">
 
             <TextView
@@ -169,90 +169,133 @@
             android:layout_alignStart="@+id/bt_list"
             android:scaleType="fitXY"/>
 
-        <!--<Button-->
-            <!--style="?android:attr/buttonStyleSmall"-->
-            <!--android:layout_width="60dp"-->
-            <!--android:layout_height="35dp"-->
-            <!--android:text="Lyrics"-->
-            <!--android:id="@+id/bt_lyrics"-->
-            <!--android:background="@android:color/black"-->
-            <!--android:textColor="@android:color/white"-->
-            <!--android:shadowColor="@android:color/darker_gray"-->
-            <!--android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"-->
-            <!--android:layout_below="@+id/bt_list"-->
-            <!--android:layout_alignStart="@+id/bt_list"-->
-            <!--android:layout_marginTop="10dp" />-->
 
-        <GridLayout
+        <!--<GridLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView3"-->
+            <!--android:layout_marginTop="25dp"-->
+            <!--android:id="@+id/layout_seekBar"-->
+            <!--android:layout_centerHorizontal="true">-->
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/imageView3"
             android:layout_marginTop="25dp"
             android:id="@+id/layout_seekBar"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/my_shape">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:src="@drawable/big_bar_l"
+                android:scaleType="fitXY"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp">
+                android:background="@drawable/big_bar_1px"
+                android:layout_height="45dp">
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/bt_mute"
                     android:src="@drawable/speaker"
                     android:background="@null"
                     android:scaleType="fitXY"
-                    android:layout_marginTop="0dp" />
-                <!---->
+                    android:layout_marginTop="12dp" />
+
                 <!--<ImageButton-->
                     <!--android:layout_width="30dp"-->
                     <!--android:layout_height="30dp"-->
                     <!--android:id="@+id/imageButton" />-->
 
                 <SeekBar
-                    android:layout_width="200dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar"
                     android:max="100"
+                    android:layout_marginTop="15dp"
                     android:progress="0"
-                    android:indeterminate="false" />
+                    android:thumb="@drawable/shape_seek" />
             </LinearLayout>
 
-        </GridLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:src="@drawable/big_bar_r"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+        <!--</GridLayout>-->
 
-
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_seekBar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/my_shape">
+            android:layout_centerHorizontal="true">
 
-            <!--android:ellipsize="marquee"-->
-            <!--android:marqueeRepeatLimit ="marquee_forever"-->
-            <!--android:focusable="true"-->
-            <!--android:focusableInTouchMode="true"-->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:src="@drawable/big_bar_l"
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Next song : ไม่ต่างกัน - 25 Hours"
                 android:textSize="16dp"
+                android:paddingTop="15dp"
+                android:background="@drawable/big_bar_1px"
                 android:id="@+id/textNameSong"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:singleLine="true" />
-        </RelativeLayout>
+                android:textColor="@android:color/black"
+                android:singleLine="true"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:src="@drawable/big_bar_r"
+                android:scaleType="fitXY" />
+
+        </LinearLayout>
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/layout_seekBar"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@drawable/my_shape">-->
+
+            <!--&lt;!&ndash;android:ellipsize="marquee"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:marqueeRepeatLimit ="marquee_forever"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:focusableInTouchMode="true"&ndash;&gt;-->
+
+
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:id="@+id/imageView4" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                <!--android:text="Next song : ไม่ต่างกัน - 25 Hours"-->
+                <!--android:textSize="16dp"-->
+                <!--android:id="@+id/textNameSong"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:singleLine="true" />-->
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 </LinearLayout>
