@@ -228,10 +228,10 @@ public class FragmentMain extends Fragment {
             String url_Link = "";
             if(mainActivity!=null){
                 if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
-                    now = "Now Playing : " + (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
+                    now = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
                     pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
                 }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
-                    now = "Now Playing : " + (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+                    now = (mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
                     pathImage = mainActivity.getCurrentPlay().getLinkCover() != null ? mainActivity.getCurrentPlay().getLinkCover() : "";
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
