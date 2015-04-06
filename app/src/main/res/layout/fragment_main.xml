@@ -26,9 +26,7 @@
         <com.example.user.seedapp.com.add.view.AutoScrollViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            />
+            android:layout_height="match_parent" />
     </RelativeLayout >
 
     <ScrollView
@@ -64,6 +62,7 @@
                 android:id="@+id/textNowPlaying"
                 android:layout_centerHorizontal="true"
                 android:textColor="@android:color/white"
+                android:singleLine="true"
                 />
         </RelativeLayout>
 
@@ -217,11 +216,12 @@
                     android:id="@+id/seekBar"
                     android:max="100"
                     android:progress="0"
-                    android:thumb="@drawable/shape_seek"
+                    android:thumb="@drawable/seed_volume_button"
                     android:layout_marginTop="8dp"
                     android:paddingLeft="20dp"
                     android:splitTrack="false"
-                    android:progressBackgroundTint="#fffe0909" />
+                    android:mirrorForRtl="false"
+                    android:nestedScrollingEnabled="false" />
             </LinearLayout>
 
             <ImageView
@@ -262,7 +262,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:scrollHorizontally="true"
-                android:singleLine="true"/>
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:maxWidth="300sp"/>
 
             <ImageView
                 android:layout_width="30dp"

@@ -43,7 +43,7 @@ public class PlayAndNext {
     }
 
     public String getSongTitle() {
-        return songTitle;
+        return songTitle+"testtesttesttesttest";
     }
 
     public void setSongTitle(String songTitle) {

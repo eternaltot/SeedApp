@@ -8,8 +8,13 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -48,8 +53,8 @@ public class FragmentMain extends Fragment {
         try {
             Log.d("system ", "textNowPlaying ::" + now);
             Log.d("system ", "textNextSong :: " + next);
-            textNowPlaying.setText(now);
-            textNameSong.setText(next);
+            textNowPlaying.setText(now+"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest");
+            textNameSong.setText(next+"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest");
             if(pathImage!=null && !pathImage.equals(""))
                 Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
 
@@ -170,8 +175,6 @@ public class FragmentMain extends Fragment {
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
-
-
 
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
