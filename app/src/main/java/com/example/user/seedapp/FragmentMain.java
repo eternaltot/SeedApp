@@ -53,8 +53,8 @@ public class FragmentMain extends Fragment {
         try {
             Log.d("system ", "textNowPlaying ::" + now);
             Log.d("system ", "textNextSong :: " + next);
-            textNowPlaying.setText(now+"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest");
-            textNameSong.setText(next+"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest");
+            textNowPlaying.setText(now);
+            textNameSong.setText(next);
             if(pathImage!=null && !pathImage.equals(""))
                 Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
 
