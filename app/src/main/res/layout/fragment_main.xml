@@ -259,11 +259,12 @@
                 android:textColor="@android:color/black"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit ="marquee_forever"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
-                android:layout_centerHorizontal="true"
-                android:singleLine="true" />
+                android:freezesText="true"/>
 
             <ImageView
                 android:layout_width="30dp"

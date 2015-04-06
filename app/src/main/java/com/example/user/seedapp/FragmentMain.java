@@ -175,6 +175,7 @@ public class FragmentMain extends Fragment {
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            textNameSong.setSelected(true);
 
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
