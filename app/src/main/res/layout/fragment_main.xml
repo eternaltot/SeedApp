@@ -46,6 +46,23 @@
             android:background="#3c0000"
             android:id="@+id/textNowPlayingLay">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16dp"
+                android:text="Now Playing : "
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="5dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,12 +75,13 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:scrollHorizontally="true"
-                android:text="Now Playing : คิดถึง - Bodyslam"
+                android:text="คิดถึง - Bodyslam"
                 android:id="@+id/textNowPlaying"
                 android:layout_centerHorizontal="true"
                 android:textColor="@android:color/white"
                 android:singleLine="true"
                 />
+            </LinearLayout>
         </RelativeLayout>
 
         <View
