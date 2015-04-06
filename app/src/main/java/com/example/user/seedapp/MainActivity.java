@@ -822,9 +822,9 @@ public class MainActivity extends FragmentActivity {
             url_Link = getCurrentPlay().getLinkUrl();
         }
         if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = "Next : " + (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
+            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
         }else if(getNextPlay().getEvent_type().equals("link")){
-            next = "Next : " + (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
+            next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
         }
         fragmentMain.updateNowPlayingAndNext(now,next,pathImage_Cover,url_Link);
     }
