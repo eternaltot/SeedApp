@@ -210,20 +210,11 @@
                     <!--android:layout_height="30dp"-->
                     <!--android:id="@+id/imageButton" />-->
 
-                <SeekBar
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="135dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/seekBar"
-                    android:max="100"
-                    android:progress="0"
-                    style="@style/CustomSeekBar1"
-                    android:thumb="@drawable/seed_volume_button_small"
-                    android:layout_marginTop="8dp"
-                    android:paddingLeft="9dp"
-                    android:splitTrack="false"
-                    android:mirrorForRtl="false"
-                    android:nestedScrollingEnabled="false"
-                    android:indeterminate="false" />
+                    android:layout_height="15dp"></LinearLayout>
+
             </LinearLayout>
 
             <ImageView
@@ -293,6 +284,32 @@
                 android:layout_marginTop="8.5dp"
                 android:layout_gravity="left|right" />
         </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="155dp"
+            android:layout_height="30dp"
+            android:id="@+id/framelayout_seek"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="9dp"
+            android:layout_alignStart="@+id/framelayout"
+            android:layout_alignTop="@+id/framelayout">
+
+            <SeekBar
+                android:layout_width="155dp"
+                android:layout_height="15dp"
+                android:id="@+id/seekBar"
+                android:max="100"
+                android:progress="0"
+                style="@style/CustomSeekBar1"
+                android:thumb="@drawable/seed_volume_button_small"
+                android:layout_marginTop="6dp"
+                android:paddingLeft="9dp"
+                android:splitTrack="false"
+                android:mirrorForRtl="false"
+                android:nestedScrollingEnabled="false"
+                android:indeterminate="false" />
+        </FrameLayout>
+
 
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
