@@ -814,10 +814,10 @@ public class MainActivity extends FragmentActivity {
         String pathImage_Cover = "";
         String url_Link = "";
         if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
-            now = "Now Playing : " + (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
             pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
         }else if(getCurrentPlay().getEvent_type().equals("link")){
-            now = "Now Playing : " + (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
+            now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
             pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
             url_Link = getCurrentPlay().getLinkUrl();
         }
