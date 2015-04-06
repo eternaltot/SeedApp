@@ -216,12 +216,14 @@
                     android:id="@+id/seekBar"
                     android:max="100"
                     android:progress="0"
-                    android:thumb="@drawable/seed_volume_button"
+                    style="@style/CustomSeekBar1"
+                    android:thumb="@drawable/seed_volume_button_small"
                     android:layout_marginTop="8dp"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="9dp"
                     android:splitTrack="false"
                     android:mirrorForRtl="false"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:indeterminate="false" />
             </LinearLayout>
 
             <ImageView
