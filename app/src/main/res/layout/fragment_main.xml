@@ -295,7 +295,7 @@
             android:layout_alignTop="@+id/framelayout">
 
             <SeekBar
-                android:layout_width="155dp"
+                android:layout_width="153dp"
                 android:layout_height="15dp"
                 android:id="@+id/seekBar"
                 android:max="100"
