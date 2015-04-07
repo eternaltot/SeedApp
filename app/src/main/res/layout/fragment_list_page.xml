@@ -9,17 +9,20 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:background="#ffffffff"
-            android:layout_weight="2">
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Now Playing : "
                 android:id="@+id/now_playing"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -27,8 +30,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text=" "
                 android:id="@+id/name"
+                android:textSize="16dp"
+                android:layout_marginTop="5dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_toRightOf="@+id/name"
                 android:layout_toEndOf="@+id/name"
@@ -38,7 +43,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:focusable="true"
                 android:singleLine="true" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -68,7 +73,7 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="16"
+            android:layout_weight="15"
             android:orientation="vertical">
 
             <ListView

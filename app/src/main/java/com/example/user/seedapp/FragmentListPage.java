@@ -64,6 +64,12 @@ public class FragmentListPage extends Fragment {
 
             mainActivity = (MainActivity) getActivity();
 
+            if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
+                name.setText(mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
+            }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
+                name.setText(mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+            }
+
             getDateListFromServer();
 
             number_tv.setText("SEED LIST");
