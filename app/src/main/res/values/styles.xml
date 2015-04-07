@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CustomSeekBar1" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/style</item>
+        <item name="android:minHeight">4dip</item>
+        <item name="android:maxHeight">4dip</item>
+        <item name="android:thumbOffset">0dip</item>
+    </style>
 </resources>

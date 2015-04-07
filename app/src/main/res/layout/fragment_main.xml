@@ -46,6 +46,23 @@
             android:background="#3c0000"
             android:id="@+id/textNowPlayingLay">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16dp"
+                android:text="Now Playing : "
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="5dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,21 +75,21 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:scrollHorizontally="true"
-                android:text="Now Playing : คิดถึง - Bodyslam"
+                android:text="คิดถึง - Bodyslam"
                 android:id="@+id/textNowPlaying"
                 android:layout_centerHorizontal="true"
                 android:textColor="@android:color/white"
                 android:singleLine="true"
                 />
+            </LinearLayout>
         </RelativeLayout>
 
         <View
             android:layout_width="300dp"
             android:layout_height="2dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/textNowPlayingLay"
-            android:id="@+id/viewseparate"></View>
+            android:id="@+id/viewseparate"
+            android:layout_alignBottom="@+id/layout_seekBar"
+            android:layout_alignEnd="@+id/linearLayout2"></View>
 
         <ImageView
             android:layout_width="150dp"
@@ -210,18 +227,11 @@
                     <!--android:layout_height="30dp"-->
                     <!--android:id="@+id/imageButton" />-->
 
-                <SeekBar
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="135dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/seekBar"
-                    android:max="100"
-                    android:progress="0"
-                    android:thumb="@drawable/seed_volume_button"
-                    android:layout_marginTop="8dp"
-                    android:paddingLeft="20dp"
-                    android:splitTrack="false"
-                    android:mirrorForRtl="false"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_height="15dp"></LinearLayout>
+
             </LinearLayout>
 
             <ImageView
@@ -251,9 +261,9 @@
                 android:layout_width="250dp"
                 android:layout_height="65dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Next song : ไม่ต่างกัน - 25 Hours"
+                android:text="ม่ต่างกัน - 25 Hours"
                 android:textSize="20dp"
-                android:paddingTop="25dp"
+                android:paddingTop="26dp"
                 android:background="@drawable/big_bar_1px"
                 android:id="@+id/textNameSong"
                 android:textColor="@android:color/black"
@@ -264,7 +274,8 @@
                 android:scrollHorizontally="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:freezesText="true"/>
+                android:freezesText="true"
+                android:paddingLeft="80dp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -273,6 +284,28 @@
                 android:scaleType="centerCrop" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="65dp"
+            android:layout_below="@+id/viewseparate"
+            android:layout_alignEnd="@+id/bt_lyrics"
+            android:layout_alignStart="@+id/viewseparate">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next :"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:paddingTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:paddingLeft="20dp" />
+        </FrameLayout>
+
         <FrameLayout
             android:layout_width="20dp"
             android:layout_height="30dp"
@@ -291,6 +324,32 @@
                 android:layout_marginTop="8.5dp"
                 android:layout_gravity="left|right" />
         </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="155dp"
+            android:layout_height="30dp"
+            android:id="@+id/framelayout_seek"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="9dp"
+            android:layout_alignStart="@+id/framelayout"
+            android:layout_alignTop="@+id/framelayout">
+
+            <SeekBar
+                android:layout_width="153dp"
+                android:layout_height="15dp"
+                android:id="@+id/seekBar"
+                android:max="100"
+                android:progress="0"
+                style="@style/CustomSeekBar1"
+                android:thumb="@drawable/seed_volume_button_small"
+                android:layout_marginTop="6dp"
+                android:paddingLeft="9dp"
+                android:splitTrack="false"
+                android:mirrorForRtl="false"
+                android:nestedScrollingEnabled="false"
+                android:indeterminate="false" />
+        </FrameLayout>
+
 
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
@@ -326,4 +385,5 @@
         <!--</RelativeLayout>-->
     </RelativeLayout>
     </ScrollView>
+
 </LinearLayout>

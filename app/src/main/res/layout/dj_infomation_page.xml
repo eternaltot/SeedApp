@@ -34,18 +34,20 @@
                     android:layout_centerVertical="true" />
 
                 <!--<com.example.user.seedapp.com.add.view.RoundedImageView-->
-                    <!--android:layout_width="110dp"-->
-                    <!--android:layout_height="110dp"-->
-                    <!--android:id="@+id/imageDJ"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:scaleType="fitXY"-->
-                    <!--android:layout_centerHorizontal="true" />-->
+                <!--android:layout_width="110dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:id="@+id/imageDJ"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_centerHorizontal="true" />-->
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="2dp"
                     android:layout_height="match_parent"
                     android:id="@+id/viewsep"
                     android:background="#000"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
                     android:layout_alignParentEnd="true"></View>
 
 
@@ -74,6 +76,14 @@
                     android:id="@+id/name_dj"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"></View>
             </RelativeLayout>
 
             <RelativeLayout
@@ -90,6 +100,14 @@
                     android:id="@+id/online_time"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"></View>
             </RelativeLayout>
 
             <RelativeLayout
