@@ -2,7 +2,6 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.example.user.seedapp.com.add.model.Music;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -55,6 +53,7 @@ public class FragmentLyrics extends Fragment {
 //            TextView compose = (TextView) view.findViewById(R.id.compose);
             TextView lyrics = (TextView) view.findViewById(R.id.lyrics);
             back_bt = (ImageView) view.findViewById(R.id.back_bt);
+            name.setSelected(true);
 
             back_bt.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

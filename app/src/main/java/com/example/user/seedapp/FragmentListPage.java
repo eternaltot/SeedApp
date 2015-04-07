@@ -60,6 +60,7 @@ public class FragmentListPage extends Fragment {
                     mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
                 }
             });
+            name.setSelected(true);
 
             mainActivity = (MainActivity) getActivity();
 

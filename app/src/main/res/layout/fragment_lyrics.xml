@@ -18,15 +18,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:scrollHorizontally="true"
                 android:text="Now Playing : "
+                android:id="@+id/now_playing"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
                 android:id="@+id/name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_toRightOf="@+id/now_playing"
+                android:layout_toEndOf="@+id/now_playing"
+                android:ellipsize="marquee"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"/>
         </RelativeLayout>
 
         <RelativeLayout

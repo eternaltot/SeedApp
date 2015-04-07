@@ -73,7 +73,7 @@ public class FragmentYouTube extends Fragment {
             view = inflater.inflate(R.layout.fragment_youtube, container, false);
 
             tv_name = (TextView) view.findViewById(R.id.tv_name);
-
+            tv_name.setSelected(true);
             mainActivity = (MainActivity) getActivity();
 
 //            getDataFromServer();
