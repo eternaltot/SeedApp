@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -54,6 +55,8 @@ public class FragmentLive extends Fragment {
     private String list_type;
     private static StreamFragment streamFragment;
     private ItemLive live;
+    private ProgressDialog progressDialog_;
+    private static int YOUTUBE_TIMEOUT = 3000;
 
     public void setYouTubePlayerFragment(YouTubePlayer y){
         YPlayer = y;
@@ -137,6 +140,11 @@ public class FragmentLive extends Fragment {
 
             mainActivity.pauseMediaFromMainActivity();
 
+            progressDialog_ = new ProgressDialog(getActivity());
+            progressDialog_.setMessage("Please Wait");
+            progressDialog_.setCancelable(false);
+            progressDialog_.setCanceledOnTouchOutside(false);
+
             setBackEvent();
 
             ListView expandableListView = (ListView) view.findViewById(R.id.listView);
@@ -166,6 +174,14 @@ public class FragmentLive extends Fragment {
                     list_type = live.getType();
 
                     if(list_type!=null && list_type.equals("0")) {
+                        progressDialog_.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog_.dismiss();
+                            }
+                        }, YOUTUBE_TIMEOUT);
+
                         if(youTubePlayerFragment == null || YPlayer == null){
                             youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
                             transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
@@ -237,6 +253,16 @@ public class FragmentLive extends Fragment {
         protected void onPreExecute() {
             this.progressDialog.setMessage("Please Wait");
             this.progressDialog.show();
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.setCanceledOnTouchOutside(false);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                }
+            }, YOUTUBE_TIMEOUT);
+
             try {
                 wait(3000);
             } catch (Exception e) {
@@ -248,9 +274,9 @@ public class FragmentLive extends Fragment {
         protected void onPostExecute(Object o) {
             Log.d("Youtube","On Post Exe");
 
-            if(this.progressDialog.isShowing()){
-                this.progressDialog.dismiss();
-            }
+//            if(this.progressDialog.isShowing()){
+//                this.progressDialog.dismiss();
+//            }
         }
 
         @Override
