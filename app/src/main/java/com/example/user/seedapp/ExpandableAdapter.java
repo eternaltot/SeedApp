@@ -119,6 +119,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
         imageView.setImageBitmap(listGroup.get(groupPosition).getBitmap());
+        if (isExpanded)
+            convertView.setPadding(0, 0, 0, 0);
+        else
+            convertView.setPadding(0, 0, 0, 10);
         Log.d("system","Render List Group :: " + listGroup.get(groupPosition).getBitmap().getByteCount());
         return convertView;
     }
@@ -150,6 +154,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             }
         });
 //        Log.d("system","Render List Child :: " + url);
+        if (isLastChild) {
+            convertView.setPadding(0, 0, 0, 10);
+        } else
+            convertView.setPadding(0, 0, 0, 0);
 
         return convertView;
     }

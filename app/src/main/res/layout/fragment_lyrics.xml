@@ -38,7 +38,8 @@
                 android:focusableInTouchMode="true"
                 android:focusable="true"
                 android:singleLine="true"
-                android:marqueeRepeatLimit="marquee_forever"/>
+                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_marginLeft="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -53,7 +54,7 @@
                 android:id="@+id/back_bt"
                 android:src="@android:drawable/arrow_down_float"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
         <ScrollView

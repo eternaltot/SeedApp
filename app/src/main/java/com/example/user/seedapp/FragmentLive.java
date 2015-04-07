@@ -57,6 +57,7 @@ public class FragmentLive extends Fragment {
     private ItemLive live;
     private ProgressDialog progressDialog_;
     private static int YOUTUBE_TIMEOUT = 3000;
+    private TextView textView4;
 
     public void setYouTubePlayerFragment(YouTubePlayer y){
         YPlayer = y;
@@ -135,7 +136,8 @@ public class FragmentLive extends Fragment {
 //            getDataFromServer();
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_name.setText(tv_name.getText() + musicName);
-
+            textView4 = (TextView) view.findViewById(R.id.textView4);
+            tv_name.setSelected(true);
             mainActivity = (MainActivity)getActivity();
 
             mainActivity.pauseMediaFromMainActivity();
@@ -156,7 +158,8 @@ public class FragmentLive extends Fragment {
             expandableListView.setDivider(null);
             list_type=itemLiveList.get(0).getType();
             String type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
-            tv_name.setText(type +" : " + itemLiveList.get(0).getTitle());
+            textView4.setText(type + " : ");
+            tv_name.setText(itemLiveList.get(0).getTitle());
             String[] s = itemLiveList.get(0).getUrl().split(mainActivity.getCutURLYoutube());
             if(s.length>0){
                 youtubeName = s[s.length - 1];
@@ -198,7 +201,8 @@ public class FragmentLive extends Fragment {
                                         if(strings.length > 0) {
                                             YPlayer.loadVideo(strings[strings.length - 1]);
                                             String type_name = live.getType()=="0" ? "Rerun" : "Live";
-                                            tv_name.setText(type_name + " : " + live.getTitle());
+                                            textView4.setText(type_name + " : ");
+                                            tv_name.setText(live.getTitle());
                                             if(!YPlayer.isPlaying()){
                                                 YPlayer.play();
                                             }
@@ -216,7 +220,8 @@ public class FragmentLive extends Fragment {
                             if(strings.length > 0) {
                                 YPlayer.loadVideo(strings[strings.length - 1]);
                                 String type_name = live.getType()=="0" ? "Rerun" : "Live";
-                                tv_name.setText(type_name + " : " + live.getTitle());
+                                textView4.setText(type_name + " : ");
+                                tv_name.setText(live.getTitle());
                                 if(!YPlayer.isPlaying()){
                                     YPlayer.play();
                                 }
