@@ -5,8 +5,11 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.example.user.seedapp.com.add.model.Privilege_Child;
 
 import org.json.JSONArray;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +43,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     private ArrayList<Privilege> listGroup = new ArrayList<>();
     private ArrayList<Privilege_Child> listChild;
     private HashMap<Privilege,ArrayList<Privilege_Child>> hashMap = new HashMap<Privilege,ArrayList<Privilege_Child>>();
+    private int height;
+    private int width;
 
     public ExpandableAdapter(Activity a, JSONArray d,Resources resLocal) {
 
@@ -48,6 +54,14 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             group = d;
             res = resLocal;
             mainActivity = (MainActivity) activity;
+
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            height = displaymetrics.heightPixels;
+            width = displaymetrics.widthPixels;
+
+            Log.d("system", "height DisplayMetrics " + height);
+            Log.d("system", "width DisplayMetrics " + width);
 
             for (int i = 0; i < group.length(); i++) {
                 Privilege privilege = new Privilege();
@@ -107,6 +121,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+
+
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listitem, null);
@@ -123,6 +139,19 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             convertView.setPadding(0, 0, 0, 0);
         else
             convertView.setPadding(0, 0, 0, 10);
+
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
+        Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        float f = ((float)h)/w;
+        android.view.ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+        layoutParams.width = width;
+        layoutParams.height = (new BigDecimal((width * f))).intValue();
+        imageView.setLayoutParams(layoutParams);
+//        Log.d("system", "(new BigDecimal((width * f))).intValue()" + (new BigDecimal((width * f))).intValue());
+
         Log.d("system","Render List Group :: " + listGroup.get(groupPosition).getBitmap().getByteCount());
         return convertView;
     }
