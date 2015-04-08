@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 

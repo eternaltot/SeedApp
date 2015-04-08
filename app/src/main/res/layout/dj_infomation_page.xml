@@ -28,10 +28,19 @@
                     android:id="@+id/imageDJ"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="false"
                     android:layout_marginLeft="25dp"
                     android:layout_centerVertical="true" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/viewsep"
+                    android:background="#000"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"></View>
 
                 <!--<com.example.user.seedapp.com.add.view.RoundedImageView-->
                 <!--android:layout_width="110dp"-->
@@ -41,14 +50,6 @@
                 <!--android:layout_centerVertical="true"-->
                 <!--android:scaleType="fitXY"-->
                 <!--android:layout_centerHorizontal="true" />-->
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/viewsep"
-                    android:background="#000"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_alignParentEnd="true"></View>
 
 
             </RelativeLayout>
@@ -83,7 +84,8 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"></View>
+                    android:id="@+id/view"></View>
+
             </RelativeLayout>
 
             <RelativeLayout
