@@ -37,6 +37,7 @@ public class FragmentListPage extends Fragment {
     private static ListView expandableListView;
     private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>();
     private TextView number_tv;
+    private TextView nowPlaying;
     private TextView name;
     private MainActivity mainActivity;
     private ImageView back_bt;
@@ -53,6 +54,7 @@ public class FragmentListPage extends Fragment {
 
             expandableListView = (ListView) view.findViewById(R.id.listView);
             number_tv = (TextView) view.findViewById(R.id.number_tv);
+            nowPlaying = (TextView) view.findViewById(R.id.now_playing);
             name = (TextView) view.findViewById(R.id.name);
             back_bt = (ImageView) view.findViewById(R.id.back_bt);
             back_bt.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,8 @@ public class FragmentListPage extends Fragment {
             name.setSelected(true);
 
             mainActivity = (MainActivity) getActivity();
+            mainActivity.setTypeFace(nowPlaying);
+            mainActivity.setTypeFace(number_tv);
 
             if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
                 name.setText(mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");

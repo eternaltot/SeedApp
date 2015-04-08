@@ -62,7 +62,8 @@
                 android:text="Now Playing : "
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="5dp"
-                android:gravity="center" />
+                android:gravity="center"
+                android:id="@+id/now_playing" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"

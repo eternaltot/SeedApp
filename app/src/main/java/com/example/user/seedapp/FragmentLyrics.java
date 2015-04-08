@@ -48,6 +48,8 @@ public class FragmentLyrics extends Fragment {
             view = inflater.inflate(R.layout.fragment_lyrics, container, false);
 
             TextView name = (TextView) view.findViewById(R.id.name);
+            TextView nowPlaying = (TextView) view.findViewById(R.id.now_playing);
+
 //            TextView author = (TextView) view.findViewById(R.id.author);
 //            TextView tempo = (TextView) view.findViewById(R.id.tempo);
 //            TextView compose = (TextView) view.findViewById(R.id.compose);
@@ -64,6 +66,7 @@ public class FragmentLyrics extends Fragment {
 //            getDataFromServer();
 
             mainActivity = (MainActivity) getActivity();
+            mainActivity.setTypeFace(nowPlaying);
 
             if(music != null){
                 if(music.getName() != null)

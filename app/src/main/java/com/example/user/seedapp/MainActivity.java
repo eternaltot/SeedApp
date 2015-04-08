@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -31,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -151,6 +153,7 @@ public class MainActivity extends FragmentActivity {
     private JSONArray jsonBanner,jsonBigBanner;
     private JSONArray jsonPrivillege;
     private JSONArray jsonMenu;
+    private Typeface typeface;
 
     public String getCutURLYoutube() {
         return cutURLYoutube;
@@ -230,7 +233,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "alpine_typeface/AlpineTypeface/Cleanlight.ttf");
+        //ReplaceFont.replaceDefaultFont(this, "DEFAULT", "alpine_typeface/AlpineTypeface/Cleanlight.ttf");
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -943,6 +946,18 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         }
+    }
+
+    public void setTypeFace(TextView textView){
+        if(textView!=null){
+            textView.setTypeface(getFontTypeface());
+        }
+    }
+    private Typeface getFontTypeface(){
+        if(typeface==null){
+            typeface = Typeface.createFromAsset(getAssets(),"alpine_typeface/AlpineTypeface/Cleanlight.ttf");
+        }
+        return typeface;
     }
 
     @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง

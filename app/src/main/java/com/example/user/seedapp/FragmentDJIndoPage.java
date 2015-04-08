@@ -35,6 +35,7 @@ public class FragmentDJIndoPage extends Fragment {
 
     private DJInfo djInfo;
     private static View view;
+    private MainActivity mainActivity;
 
     public void setObject(DJInfo djInfo){
         this.djInfo = djInfo;
@@ -50,11 +51,13 @@ public class FragmentDJIndoPage extends Fragment {
 
         try {
             View view = inflater.inflate(R.layout.dj_infomation_page, container, false);
+            mainActivity = (MainActivity) getActivity();
 
             TextView nameDJ = (TextView) view.findViewById(R.id.name_dj);
             TextView online_time = (TextView) view.findViewById(R.id.online_time);
             CircleImageView imageDJ = (CircleImageView) view.findViewById(R.id.imageDJ);
             Button btnTextToDJ = (Button) view.findViewById(R.id.text_dj);
+            mainActivity.setTypeFace(nameDJ);
 
             btnTextToDJ.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,6 +78,7 @@ public class FragmentDJIndoPage extends Fragment {
                 }
             });
             nameDJ.setText(djInfo.getName());
+
             online_time.setText(djInfo.getStartTime() + " - " + djInfo.getStopTime());
 
 //            URL newurl = new URL(jsonObject.getString("image"));

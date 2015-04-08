@@ -41,6 +41,8 @@ public class FragmentMain extends Fragment {
     private ImageButton bt_play;
     private TextView textNowPlaying;
     private TextView textNameSong;
+    private TextView nowPlaying;
+    private TextView next;
     private MainActivity mainActivity;
     private static PlayMedia play;
     private static FragmentListPage fragmentListPage;
@@ -150,8 +152,12 @@ public class FragmentMain extends Fragment {
         }
         try{
             view = inflater.inflate(R.layout.fragment_main, container, false);
+            nowPlaying = (TextView) view.findViewById(R.id.now_playing);
+            next = (TextView) view.findViewById(R.id.textView3);
 
             mainActivity = (MainActivity)getActivity();
+            mainActivity.setTypeFace(nowPlaying);
+            mainActivity.setTypeFace(next);
 
             Log.d("system","DJ List : " + mainActivity.getDJInfos().size());
             DJPageAdapter adapter = new DJPageAdapter(getChildFragmentManager(), mainActivity.getDJInfos());
