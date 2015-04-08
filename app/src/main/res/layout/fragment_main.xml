@@ -19,9 +19,9 @@
         android:id="@+id/linearMenu" >
 
         <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/pager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="120dp"/>-->
+        <!--android:id="@+id/pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp"/>-->
 
         <com.example.user.seedapp.com.add.view.AutoScrollViewPager
             android:id="@+id/pager"
@@ -33,89 +33,88 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
-
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#3c0000"
-            android:id="@+id/textNowPlayingLay">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true">
+                android:background="#3c0000"
+                android:id="@+id/textNowPlayingLay">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="16dp"
-                android:text="Now Playing : "
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="5dp"
-                android:gravity="center"
-                android:id="@+id/now_playing" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="10dp"
-                android:textSize="16dp"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
-                android:text="คิดถึง - Bodyslam"
-                android:id="@+id/textNowPlaying"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="16dp"
+                        android:text="Now Playing : "
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:id="@+id/now_playing" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="16dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit ="marquee_forever"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:scrollHorizontally="true"
+                        android:text="คิดถึง - Bodyslam"
+                        android:id="@+id/textNowPlaying"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@android:color/white"
+                        android:singleLine="true"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:id="@+id/viewseparate"
+                android:layout_alignBottom="@+id/layout_seekBar"></View>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/textNowPlayingLay"
+                android:id="@+id/imageView3"
+                android:src="@drawable/seed_head"
+                android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
-                android:textColor="@android:color/white"
-                android:singleLine="true"
-                android:gravity="center"
-                android:layout_marginTop="10dp" />
-            </LinearLayout>
-        </RelativeLayout>
+                android:layout_marginTop="30dp"
+                android:scaleType="fitXY" />
 
-        <View
-            android:layout_width="300dp"
-            android:layout_height="2dp"
-            android:id="@+id/viewseparate"
-            android:layout_alignBottom="@+id/layout_seekBar"
-            android:layout_alignEnd="@+id/linearLayout2"></View>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/bt_youtube"
+                android:src="@drawable/unlock_mv"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_alignTop="@+id/imageView3"
+                android:layout_toRightOf="@+id/layout_seekBar"
+                android:layout_toEndOf="@+id/layout_seekBar"
+                android:layout_marginBottom="10dp" />
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_below="@+id/textNowPlayingLay"
-            android:id="@+id/imageView3"
-            android:src="@drawable/seed_head"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_alignStart="@id/imageView3"
-            android:layout_marginTop="30dp"
-            android:scaleType="fitXY" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/bt_youtube"
-            android:layout_alignTop="@+id/imageView3"
-            android:layout_toEndOf="@+id/imageView3"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/unlock_mv"
-            android:background="@null"
-            android:scaleType="fitXY"/>
-
-        <!--<Button-->
+            <!--<Button-->
             <!--style="?android:attr/buttonStyleSmall"-->
             <!--android:layout_width="60dp"-->
             <!--android:layout_height="35dp"-->
@@ -130,18 +129,18 @@
             <!--android:shadowColor="@android:color/darker_gray"-->
             <!--android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />-->
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/bt_list"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/unlock_list"
-            android:background="@null"
-            android:layout_below="@+id/bt_youtube"
-            android:layout_alignStart="@+id/bt_youtube"
-            android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/bt_list"
+                android:src="@drawable/unlock_list"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_above="@+id/bt_lyrics"
+                android:layout_toRightOf="@+id/layout_seekBar"
+                android:layout_toEndOf="@+id/layout_seekBar" />
 
-        <!--<Button-->
+            <!--<Button-->
             <!--style="?android:attr/buttonStyleSmall"-->
             <!--android:layout_width="60dp"-->
             <!--android:layout_height="35dp"-->
@@ -155,18 +154,18 @@
             <!--android:layout_alignStart="@+id/bt_youtube"-->
             <!--android:layout_marginTop="10dp" />-->
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/bt_play"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/play_button"
-            android:background="@null"
-            android:layout_above="@+id/bt_lyrics"
-            android:layout_alignStart="@+id/viewseparate"
-            android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/bt_play"
+                android:src="@drawable/play_button"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_alignTop="@+id/bt_list"
+                android:layout_toLeftOf="@+id/layout_seekBar"
+                android:layout_toStartOf="@+id/layout_seekBar" />
 
-        <!--<ImageButton-->
+            <!--<ImageButton-->
             <!--style="?android:attr/buttonStyleSmall"-->
             <!--android:layout_width="50dp"-->
             <!--android:layout_height="35dp"-->
@@ -180,19 +179,19 @@
             <!--android:layout_above="@+id/bt_lyrics"-->
             <!--android:layout_alignStart="@+id/viewseparate" />-->
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/bt_lyrics"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/unlock_lylics"
-            android:background="@null"
-            android:layout_below="@+id/bt_list"
-            android:layout_alignStart="@+id/bt_list"
-            android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/bt_lyrics"
+                android:src="@drawable/unlock_lylics"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_above="@+id/framelayout_seek"
+                android:layout_toRightOf="@+id/layout_seekBar"
+                android:layout_toEndOf="@+id/layout_seekBar" />
 
 
-        <!--<GridLayout-->
+            <!--<GridLayout-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_below="@+id/imageView3"-->
@@ -200,159 +199,162 @@
             <!--android:id="@+id/layout_seekBar"-->
             <!--android:layout_centerHorizontal="true">-->
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/imageView3"
-            android:layout_marginTop="15dp"
-            android:id="@+id/layout_seekBar"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/big_bar_l"
-                android:scaleType="centerInside"
-                android:paddingLeft="16dp" />
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:background="@drawable/big_bar_1px"
-                android:layout_height="30dp"
-                android:paddingLeft="5dp">
+                android:layout_below="@+id/imageView3"
+                android:layout_marginTop="15dp"
+                android:id="@+id/layout_seekBar"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content">
 
-                <!--<ImageButton-->
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/big_bar_l"
+                    android:scaleType="centerInside"
+                    android:paddingLeft="16dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/big_bar_1px"
+                    android:layout_height="30dp"
+                    android:paddingLeft="5dp">
+
+                    <!--<ImageButton-->
                     <!--android:layout_width="30dp"-->
                     <!--android:layout_height="30dp"-->
                     <!--android:id="@+id/imageButton" />-->
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="135dp"
-                    android:layout_height="15dp"></LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="135dp"
+                        android:layout_height="15dp"></LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/big_bar_r"
+                    android:scaleType="centerInside"
+                    android:paddingRight="15dp" />
+            </LinearLayout>
+            <!--</GridLayout>-->
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:id="@+id/linearLayout2"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_seekBar"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/big_bar_l"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="65dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="ม่ต่างกัน - 25 Hours"
+                    android:textSize="20dp"
+                    android:background="@drawable/big_bar_1px"
+                    android:id="@+id/textNameSong"
+                    android:textColor="@android:color/black"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit ="marquee_forever"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:paddingLeft="80dp"
+                    android:gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/big_bar_r"
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="30dp"
+            <FrameLayout
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_below="@+id/viewseparate"
+                android:layout_alignLeft="@+id/bt_play"
+                android:layout_alignStart="@+id/bt_play">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next :"
+                    android:id="@+id/textView3"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:textIsSelectable="false"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingLeft="20dp"
+                    android:layout_marginLeft="10dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="20dp"
                 android:layout_height="30dp"
-                android:src="@drawable/big_bar_r"
-                android:scaleType="centerInside"
-                android:paddingRight="15dp" />
-        </LinearLayout>
-        <!--</GridLayout>-->
+                android:id="@+id/framelayout"
+                android:layout_below="@+id/imageView3"
+                android:layout_alignLeft="@+id/framelayout_seek"
+                android:layout_alignStart="@+id/framelayout_seek"
+                android:layout_marginTop="15dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:id="@+id/linearLayout2"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_seekBar"
-            android:layout_centerHorizontal="true">
+                <ImageButton
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/bt_mute"
+                    android:src="@drawable/speaker"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="8.5dp"
+                    android:layout_gravity="left|right"
+                    android:layout_marginLeft="3dp" />
+            </FrameLayout>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="65dp"
-                android:src="@drawable/big_bar_l"
-                android:scaleType="centerCrop"/>
-
-            <TextView
-                android:layout_width="250dp"
-                android:layout_height="65dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="ม่ต่างกัน - 25 Hours"
-                android:textSize="20dp"
-                android:background="@drawable/big_bar_1px"
-                android:id="@+id/textNameSong"
-                android:textColor="@android:color/black"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
+            <FrameLayout
+                android:layout_width="155dp"
+                android:layout_height="30dp"
+                android:id="@+id/framelayout_seek"
+                android:layout_below="@+id/imageView3"
                 android:layout_centerHorizontal="true"
-                android:singleLine="true"
-                android:scrollHorizontally="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:paddingLeft="80dp"
-                android:gravity="center_vertical" />
+                android:layout_marginTop="17dp">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="65dp"
-                android:src="@drawable/big_bar_r"
-                android:scaleType="centerCrop" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="200dp"
-            android:layout_height="65dp"
-            android:layout_below="@+id/viewseparate"
-            android:layout_alignEnd="@+id/bt_lyrics"
-            android:layout_alignStart="@+id/viewseparate">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next :"
-                android:id="@+id/textView3"
-                android:layout_gravity="center_vertical"
-                android:textColor="@android:color/black"
-                android:textSize="20dp"
-                android:textIsSelectable="false"
-                android:paddingTop="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingLeft="20dp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:id="@+id/framelayout"
-            android:layout_above="@+id/linearLayout2"
-            android:layout_alignTop="@+id/layout_seekBar"
-            android:layout_alignStart="@+id/imageView3">
-
-            <ImageButton
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:id="@+id/bt_mute"
-                android:src="@drawable/speaker"
-                android:background="@null"
-                android:scaleType="fitXY"
-                android:layout_marginTop="8.5dp"
-                android:layout_gravity="left|right" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="155dp"
-            android:layout_height="30dp"
-            android:id="@+id/framelayout_seek"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="9dp"
-            android:layout_alignStart="@+id/framelayout"
-            android:layout_alignTop="@+id/framelayout">
-
-            <SeekBar
-                android:layout_width="153dp"
-                android:layout_height="15dp"
-                android:id="@+id/seekBar"
-                android:max="100"
-                android:progress="0"
-                style="@style/CustomSeekBar1"
-                android:thumb="@drawable/seed_volume_button_small"
-                android:layout_marginTop="6dp"
-                android:paddingLeft="9dp"
-                android:splitTrack="false"
-                android:mirrorForRtl="false"
-                android:nestedScrollingEnabled="false"
-                android:indeterminate="false" />
-        </FrameLayout>
+                <SeekBar
+                    android:layout_width="153dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/seekBar"
+                    android:max="100"
+                    android:progress="0"
+                    style="@style/CustomSeekBar1"
+                    android:thumb="@drawable/seed_volume_button_small"
+                    android:layout_marginTop="6dp"
+                    android:paddingLeft="9dp"
+                    android:splitTrack="false"
+                    android:mirrorForRtl="false"
+                    android:nestedScrollingEnabled="false"
+                    android:indeterminate="false"
+                    android:layout_marginLeft="10dp" />
+            </FrameLayout>
 
 
-        <!--<RelativeLayout-->
+            <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_below="@+id/layout_seekBar"-->
@@ -367,24 +369,24 @@
 
 
             <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:id="@+id/imageView4" />-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:id="@+id/imageView4" />-->
 
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--android:text="Next song : ไม่ต่างกัน - 25 Hours"-->
-                <!--android:textSize="16dp"-->
-                <!--android:id="@+id/textNameSong"-->
-                <!--android:textColor="@android:color/black"-->
-                <!--android:layout_marginLeft="15dp"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_marginRight="15dp"-->
-                <!--android:singleLine="true" />-->
-        <!--</RelativeLayout>-->
-    </RelativeLayout>
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+            <!--android:text="Next song : ไม่ต่างกัน - 25 Hours"-->
+            <!--android:textSize="16dp"-->
+            <!--android:id="@+id/textNameSong"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:singleLine="true" />-->
+            <!--</RelativeLayout>-->
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>
