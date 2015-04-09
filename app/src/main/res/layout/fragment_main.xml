@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="9"
+        android:layout_weight="10"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
@@ -56,8 +56,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
                         android:textSize="16dp"
                         android:text="Now Playing : "
                         android:textColor="@android:color/white"
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="7dp"
                         android:textSize="16dp"
                         android:ellipsize="marquee"
                         android:marqueeRepeatLimit ="marquee_forever"
@@ -81,7 +81,7 @@
                         android:textColor="@android:color/white"
                         android:singleLine="true"
                         android:gravity="center"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="7dp" />
                 </LinearLayout>
             </RelativeLayout>
 
