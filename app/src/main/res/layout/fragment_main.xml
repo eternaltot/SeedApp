@@ -56,8 +56,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16dp"
                         android:text="Now Playing : "
                         android:textColor="@android:color/white"
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16dp"
                         android:ellipsize="marquee"
                         android:marqueeRepeatLimit ="marquee_forever"
@@ -81,7 +81,7 @@
                         android:textColor="@android:color/white"
                         android:singleLine="true"
                         android:gravity="center"
-                        android:layout_marginTop="7dp" />
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -99,7 +99,7 @@
                 android:src="@drawable/seed_head"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:scaleType="fitXY" />
 
             <ImageButton
@@ -203,7 +203,7 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/imageView3"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/layout_seekBar"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content">
@@ -323,7 +323,7 @@
                     android:src="@drawable/speaker"
                     android:background="@null"
                     android:scaleType="fitXY"
-                    android:layout_marginTop="8.5dp"
+                    android:layout_marginTop="3.5dp"
                     android:layout_gravity="left|right"
                     android:layout_marginLeft="3dp" />
             </FrameLayout>
@@ -334,7 +334,7 @@
                 android:id="@+id/framelayout_seek"
                 android:layout_below="@+id/imageView3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="17dp">
+                android:layout_marginTop="12dp">
 
                 <SeekBar
                     android:layout_width="153dp"
