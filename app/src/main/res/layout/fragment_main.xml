@@ -5,8 +5,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@drawable/seedapp_bg"
     android:gravity="center_vertical"
-    android:weightSum="5"
-    tools:context="${relativePackage}.${activityClass}">
+    tools:context="${relativePackage}.${activityClass}"
+    android:weightSum="10">
 
     <RelativeLayout
         android:orientation="horizontal"
@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="5"
+        android:layout_weight="9"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
