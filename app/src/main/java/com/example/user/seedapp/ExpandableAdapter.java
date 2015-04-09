@@ -184,9 +184,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         });
 //        Log.d("system","Render List Child :: " + url);
         if (isLastChild) {
-            convertView.setPadding(0, 0, 0, 10);
+            convertView.setPadding(0, 10, 0, 10);
         } else
-            convertView.setPadding(0, 0, 0, 0);
+            convertView.setPadding(0, 10, 0, 0);
 
         return convertView;
     }

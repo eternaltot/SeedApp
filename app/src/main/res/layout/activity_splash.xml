@@ -10,6 +10,6 @@
         android:layout_height="300dp"
         android:id="@+id/splashImage"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/logo"
+        android:src="@drawable/logo_splash"
         android:contentDescription="@string/logo" />
 </LinearLayout>

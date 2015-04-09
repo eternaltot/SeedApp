@@ -54,7 +54,7 @@ public class ListPageAdapter extends BaseAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        textView.setText((position+1) + " : " + listPageItems.get(position).getTitle());
+        textView.setText(listPageItems.get(position).getTitle());
 
         return convertView;
     }
