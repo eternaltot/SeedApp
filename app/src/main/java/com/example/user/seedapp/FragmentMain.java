@@ -196,6 +196,10 @@ public class FragmentMain extends Fragment {
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
                     audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                     bt_mute.setImageResource(R.drawable.speaker);
+
+                    if(progress == 0){
+                        bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                    }
                 }
 
                 @Override
