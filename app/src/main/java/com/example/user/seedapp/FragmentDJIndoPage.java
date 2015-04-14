@@ -16,15 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.view.RoundedImageView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,6 +46,7 @@ public class FragmentDJIndoPage extends Fragment {
     private DJInfo djInfo;
     private static View view;
     private MainActivity mainActivity;
+    private Button btn_to_dj;
 
     public void setObject(DJInfo djInfo){
         this.djInfo = djInfo;
@@ -56,10 +67,10 @@ public class FragmentDJIndoPage extends Fragment {
             TextView nameDJ = (TextView) view.findViewById(R.id.name_dj);
             TextView online_time = (TextView) view.findViewById(R.id.online_time);
             CircleImageView imageDJ = (CircleImageView) view.findViewById(R.id.imageDJ);
-            Button btnTextToDJ = (Button) view.findViewById(R.id.text_dj);
+            btn_to_dj = (Button) view.findViewById(R.id.text_dj);
             mainActivity.setTypeFace(nameDJ);
 
-            btnTextToDJ.setOnClickListener(new View.OnClickListener() {
+            btn_to_dj.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog = new Dialog(getActivity());
@@ -68,10 +79,19 @@ public class FragmentDJIndoPage extends Fragment {
                     dialog.setCancelable(true);
                     Button btnSend = (Button) dialog.findViewById(R.id.btnSend);
                     Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+                    final EditText editText = (EditText) dialog.findViewById(R.id.editText);
                     btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
+                        }
+                    });
+                    btnSend.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!editText.getText().toString().isEmpty()){
+                                sendText(editText);
+                            }
                         }
                     });
                     dialog.show();
@@ -104,5 +124,18 @@ public class FragmentDJIndoPage extends Fragment {
 
         }
         return view;
+    }
+
+    public void sendText(EditText editText){
+        HttpClient client = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(MainActivity.url_TEXT_TO_DJ);
+        try{
+            List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+            nameValuePairList.add(new BasicNameValuePair("text",editText.getText().toString()));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairList));
+            HttpResponse response = client.execute(httpPost);
+        }catch (Exception e){
+            Log.e("Send Text",e.getMessage());
+        }
     }
 }

@@ -95,6 +95,7 @@ public class MainActivity extends FragmentActivity {
     public static String list_lives = "http://api.seedmcot.com/api/lives";
     public static String list_menu = "http://api.seedmcot.com/api/tab-menus";
     public static String path_Image_Menu = "http://api.seedmcot.com/backoffice/uploads/tabmenu/3x_";
+    public static String url_TEXT_TO_DJ="";
     private ImageView imageView;
     private static int SPLASH_TIMEOUT = 15000;
     private static YouTubePlayer YPlayer;
