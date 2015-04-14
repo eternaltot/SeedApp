@@ -194,6 +194,8 @@ public class FragmentMain extends Fragment {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                    bt_mute.setImageResource(R.drawable.speaker);
                 }
 
                 @Override
