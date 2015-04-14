@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -116,7 +117,21 @@ public class MainActivity extends FragmentActivity {
     private ImageButton btnHome,btnSeed,btnStream;
     private Boolean doubleBackToExitPressedOnce = false;
     private static List<MenuBarImageButton> menuBarList = new ArrayList<>();
+    private AudioManager audioManager;
+    private ImageButton bt_mute;
 
+
+    public ImageButton getBt_mute() {
+        return bt_mute;
+    }
+
+    public void setBt_mute(ImageButton bt_mute) {
+        this.bt_mute = bt_mute;
+    }
+
+    public void setAudioManager(AudioManager audioManager) {
+        this.audioManager = audioManager;
+    }
 
     public Map<Object, Object> getDrawableTypeRequestLive() {
         return drawableTypeRequestLive;
@@ -966,10 +981,15 @@ public class MainActivity extends FragmentActivity {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 int val = seekBar.getProgress();
                 seekBar.setProgress(val + 1);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                bt_mute.setImageResource(R.drawable.speaker);
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 int val = seekBar.getProgress();
                 seekBar.setProgress(val - 1);
+                if(val - 1 == 0){
+                    bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                }
                 return true;
             }
         }

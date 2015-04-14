@@ -213,6 +213,9 @@ public class FragmentMain extends Fragment {
                 seekbar.setProgress(mainActivity.getSeekBar().getProgress());
                 mainActivity.setSeekBar(seekbar);
             }
+            mainActivity.setBt_mute(bt_mute);
+            mainActivity.setAudioManager(audioManager);
+
             bt_mute.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
