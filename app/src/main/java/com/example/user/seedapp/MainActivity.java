@@ -121,8 +121,15 @@ public class MainActivity extends FragmentActivity {
     private AudioManager audioManager;
     private ImageButton bt_mute;
     private Boolean seekMute = Boolean.FALSE;
+    private int seekVal = 0;
 
+    public int getSeekVal() {
+        return seekVal;
+    }
 
+    public void setSeekVal(int seekVal) {
+        this.seekVal = seekVal;
+    }
 
     public ImageButton getBt_mute() {
         return bt_mute;

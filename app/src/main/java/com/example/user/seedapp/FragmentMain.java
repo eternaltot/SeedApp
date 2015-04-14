@@ -187,7 +187,9 @@ public class FragmentMain extends Fragment {
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
-                    seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                    if(!mainActivity.getSeekMute()) {
+                        seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                    }
                 }
             };
             audioManager.requestAudioFocus(onAudioFocusChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
@@ -217,15 +219,6 @@ public class FragmentMain extends Fragment {
             if(mainActivity.getSeekBar() != null)
                 seekbar.setProgress(mainActivity.getSeekBar().getProgress());
 
-            if(mainActivity.getSeekMute()) {
-                bt_mute.setImageResource(R.drawable.speaker_mute_white);
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-            }
-
-            mainActivity.setSeekBar(seekbar);
-            mainActivity.setBt_mute(bt_mute);
-            mainActivity.setAudioManager(audioManager);
-
             bt_mute.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -240,6 +233,19 @@ public class FragmentMain extends Fragment {
 
                 }
             });
+
+            if(mainActivity.getSeekMute()) {
+                bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                Toast.makeText(getActivity().getApplicationContext(), "mainActivity.getSeekVal() >> " + mainActivity.getSeekVal(), Toast.LENGTH_LONG).show();
+                seekbar.setProgress(mainActivity.getSeekVal());
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+            }
+
+
+
+            mainActivity.setSeekBar(seekbar);
+            mainActivity.setBt_mute(bt_mute);
+            mainActivity.setAudioManager(audioManager);
 
             String now="";
             String next="";
@@ -399,6 +405,9 @@ public class FragmentMain extends Fragment {
         }else{
             mainActivity.setSeekMute(Boolean.TRUE);
         }
+
+        mainActivity.setSeekVal(seekbar.getProgress());
+
         super.onDestroyView();
     }
 }
