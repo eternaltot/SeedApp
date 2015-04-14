@@ -120,10 +120,20 @@ public class MainActivity extends FragmentActivity {
     private static List<MenuBarImageButton> menuBarList = new ArrayList<>();
     private AudioManager audioManager;
     private ImageButton bt_mute;
+    private Boolean seekMute = Boolean.FALSE;
+
 
 
     public ImageButton getBt_mute() {
         return bt_mute;
+    }
+
+    public Boolean getSeekMute() {
+        return seekMute;
+    }
+
+    public void setSeekMute(Boolean seekMute) {
+        this.seekMute = seekMute;
     }
 
     public void setBt_mute(ImageButton bt_mute) {
@@ -160,6 +170,10 @@ public class MainActivity extends FragmentActivity {
 
     public static void setYouTubePlayerFragment(YouTubePlayerSupportFragment youTubePlayerFragment) {
         MainActivity.youTubePlayerFragment = youTubePlayerFragment;
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
     }
 
     public static void setYPlayer(YouTubePlayer YPlayer) {

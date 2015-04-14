@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -213,12 +214,15 @@ public class FragmentMain extends Fragment {
                 }
             });
 
-            if(mainActivity.getSeekBar() == null)
-                mainActivity.setSeekBar(seekbar);
-            else{
+            if(mainActivity.getSeekBar() != null)
                 seekbar.setProgress(mainActivity.getSeekBar().getProgress());
-                mainActivity.setSeekBar(seekbar);
+
+            if(mainActivity.getSeekMute()) {
+                bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
             }
+
+            mainActivity.setSeekBar(seekbar);
             mainActivity.setBt_mute(bt_mute);
             mainActivity.setAudioManager(audioManager);
 
@@ -386,5 +390,15 @@ public class FragmentMain extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(mainActivity.getAudioManager() != null && audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)!=0) {
+            mainActivity.setSeekMute(Boolean.FALSE);
+        }else{
+            mainActivity.setSeekMute(Boolean.TRUE);
+        }
+        super.onDestroyView();
     }
 }
