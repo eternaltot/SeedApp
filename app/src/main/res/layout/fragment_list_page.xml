@@ -51,6 +51,16 @@
             android:layout_height="0dp"
             android:background="@android:color/black"
             android:layout_weight="2">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:id="@+id/back_bt"
+                android:src="@android:drawable/arrow_down_float"
+                android:layout_alignParentTop="false"
+                android:background="@null"
+                android:layout_alignParentRight="true" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,16 +68,7 @@
                 android:text=" "
                 android:id="@+id/number_tv"
                 android:textColor="@android:color/white"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/back_bt"
-                android:src="@android:drawable/arrow_down_float"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_centerInParent="true" />
         </RelativeLayout>
 
         <LinearLayout

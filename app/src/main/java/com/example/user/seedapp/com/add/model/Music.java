@@ -6,6 +6,8 @@ package com.example.user.seedapp.com.add.model;
 public class Music {
     private String name;
     private String author;
+    private String author2;
+    private String author3;
     private String tempo;
     private String compose;
     private String lyrics;
@@ -48,5 +50,21 @@ public class Music {
 
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
+    }
+
+    public String getAuthor3() {
+        return author3;
+    }
+
+    public void setAuthor3(String author3) {
+        this.author3 = author3;
+    }
+
+    public String getAuthor2() {
+        return author2;
+    }
+
+    public void setAuthor2(String author2) {
+        this.author2 = author2;
     }
 }

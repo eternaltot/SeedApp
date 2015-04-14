@@ -46,21 +46,48 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:background="#ffff393b"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:gravity="right">
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:id="@+id/back_bt"
                 android:src="@android:drawable/arrow_down_float"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"/>
+                android:background="@null" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#ffff393b">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView8" />
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="16"
+            android:layout_weight="14"
             android:background="#ffff393b"
             >
 

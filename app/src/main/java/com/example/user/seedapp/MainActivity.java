@@ -767,6 +767,9 @@ public class MainActivity extends FragmentActivity {
                         Music music = new Music();
                         music.setLyrics(getCurrentPlay().getNowLyric());
                         music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
+                        music.setAuthor(getCurrentPlay().getNowAuthor());
+                        music.setAuthor2(getCurrentPlay().getNowAuthor2());
+                        music.setAuthor3(getCurrentPlay().getNowAuthor3());
                         fragmentLyrics.setMusic(music);
                     }
 
