@@ -181,7 +181,6 @@ public class FragmentMain extends Fragment {
             seekbar = (SeekBar) view.findViewById(R.id.seekBar);
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
-            seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             textNameSong.setSelected(true);
 
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -218,6 +217,17 @@ public class FragmentMain extends Fragment {
 
             if(mainActivity.getSeekBar() != null)
                 seekbar.setProgress(mainActivity.getSeekBar().getProgress());
+            else
+                seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            if(mainActivity.getSeekMute()) {
+                bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                seekbar.setProgress(mainActivity.getSeekVal());
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+            }
+
+            mainActivity.setSeekBar(seekbar);
+            mainActivity.setBt_mute(bt_mute);
+            mainActivity.setAudioManager(audioManager);
 
             bt_mute.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -234,18 +244,6 @@ public class FragmentMain extends Fragment {
                 }
             });
 
-            if(mainActivity.getSeekMute()) {
-                bt_mute.setImageResource(R.drawable.speaker_mute_white);
-                Toast.makeText(getActivity().getApplicationContext(), "mainActivity.getSeekVal() >> " + mainActivity.getSeekVal(), Toast.LENGTH_LONG).show();
-                seekbar.setProgress(mainActivity.getSeekVal());
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-            }
-
-
-
-            mainActivity.setSeekBar(seekbar);
-            mainActivity.setBt_mute(bt_mute);
-            mainActivity.setAudioManager(audioManager);
 
             String now="";
             String next="";

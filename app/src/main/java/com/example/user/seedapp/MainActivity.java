@@ -1009,6 +1009,7 @@ public class MainActivity extends FragmentActivity {
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 int val = seekBar.getProgress();
                 seekBar.setProgress(val - 1);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                 if(val - 1 == 0){
                     bt_mute.setImageResource(R.drawable.speaker_mute_white);
                 }
