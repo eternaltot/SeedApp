@@ -192,6 +192,10 @@ public class FragmentMain extends Fragment {
                 }
             };
             audioManager.requestAudioFocus(onAudioFocusChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+            if(audioManager!=null && audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)!=0) {
+            }else{
+                bt_mute.setImageResource(R.drawable.speaker_mute_white);
+            }
             seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
