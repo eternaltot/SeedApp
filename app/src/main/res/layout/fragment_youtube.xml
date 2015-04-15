@@ -45,12 +45,13 @@
         android:layout_weight="2">
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:id="@+id/back_bt"
             android:src="@android:drawable/arrow_down_float"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentRight="true"
+            android:background="@null" />
     </RelativeLayout>
 
     <FrameLayout

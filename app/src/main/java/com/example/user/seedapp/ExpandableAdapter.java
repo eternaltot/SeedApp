@@ -178,8 +178,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(mainActivity,WebviewActivity.class);
                 intent.putExtra("URL", ((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(gposition))).get(0).getUrl());
-                Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-                activity.startActivity(intent, bundle);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
 //        Log.d("system","Render List Child :: " + url);
