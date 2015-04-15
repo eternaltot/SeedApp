@@ -390,8 +390,10 @@ public class MainActivity extends FragmentActivity {
                         intent.putExtra("URL", "");
                         e.printStackTrace();
                     }
-                    Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-                    startActivity(intent, bundle);
+//                    Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+//                    startActivity(intent, bundle);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 }
             });
         } catch (JSONException e) {
@@ -973,8 +975,10 @@ public class MainActivity extends FragmentActivity {
                                 imageButton.setImageBitmap(img);
                                 Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
                                 intent.putExtra("URL", url_button);
-                                Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-                                startActivity(intent, bundle);
+//                                Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+//                                startActivity(intent, bundle);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                             }
                         });
                         linearMenu.addView(imageButton);

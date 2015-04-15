@@ -49,8 +49,10 @@ public class FragmentBanner extends Fragment {
                         Context mainActivity = getActivity();
                         Intent intent = new Intent(mainActivity,WebviewActivity.class);
                         intent.putExtra("URL", banner.getUrl());
-                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-                        mainActivity.startActivity(intent, bundle);
+//                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+//                        mainActivity.startActivity(intent, bundle);
+                        mainActivity.startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                     }
                 });
 
