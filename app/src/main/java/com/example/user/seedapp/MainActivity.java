@@ -121,7 +121,8 @@ public class MainActivity extends FragmentActivity {
     private AudioManager audioManager;
     private ImageButton bt_mute;
     private Boolean seekMute = Boolean.FALSE;
-    private int seekVal = 0;
+    private int seekVal = -1;
+    private SeekBar seekBar;
 
     public int getSeekVal() {
         return seekVal;
@@ -156,8 +157,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     private List<DJInfo> djInfos = new ArrayList<DJInfo>();
-
-    private static SeekBar seekBar;
 
     public SeekBar getSeekBar() {
         return seekBar;
@@ -1010,17 +1009,37 @@ public class MainActivity extends FragmentActivity {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 int val = seekBar.getProgress();
                 seekBar.setProgress(val + 1);
+                seekVal = val + 1;
+
+                Log.d("system", "seekVal + 1 :: " + seekVal);
+
+                setSeekMute(Boolean.FALSE);
                 audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                 bt_mute.setImageResource(R.drawable.speaker);
-                return true;
+
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if(f instanceof FragmentMain)
+                    return true;
+                else
+                    return super.onKeyDown(keyCode, event);
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 int val = seekBar.getProgress();
                 seekBar.setProgress(val - 1);
+                if(val - 1 >= 0)
+                    seekVal = val - 1;
+
+                Log.d("system", "seekVal - 1 :: " + seekVal);
+
+                setSeekMute(Boolean.FALSE);
                 audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                 if(val - 1 == 0){
                     bt_mute.setImageResource(R.drawable.speaker_mute_white);
                 }
-                return true;
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if(f instanceof FragmentMain)
+                    return true;
+                else
+                    return super.onKeyDown(keyCode, event);
             }
         }
 

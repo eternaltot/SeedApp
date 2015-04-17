@@ -54,14 +54,14 @@ public class FragmentYouTube extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        if (activity instanceof FragmentActivity) {
-            myContext = (FragmentActivity) activity;
-        }
-
-        super.onAttach(activity);
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        if (activity instanceof FragmentActivity) {
+//            myContext = (FragmentActivity) activity;
+//        }
+//
+//        super.onAttach(activity);
+//    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
@@ -138,66 +138,9 @@ public class FragmentYouTube extends Fragment {
 //                } else {
 //                    return false;
 //                }
-                return true;
+                return view.onKeyDown(keyCode, event);
             }
         });
-    }
-
-    public void getDataFromServer(){
-        try {
-
-//            URL url = new URL("http://192.168.43.174/testServer/");
-//            URLConnection conn = url.openConnection();
-//
-//            HttpURLConnection httpConn = (HttpURLConnection) conn;
-//            httpConn.setAllowUserInteraction(false);
-//            httpConn.setInstanceFollowRedirects(true);
-//            httpConn.setRequestMethod("POST");
-//            httpConn.connect();
-//
-//            InputStream is = httpConn.getInputStream();
-//            String parsedString = convertinputStreamToString(is);
-//
-//            JSONObject jsonObject = new JSONObject(parsedString);
-
-            String parsedString = "{\"youtube\":{\"name_music\":\"คิดถึง - bodyslam\",\"youtube_name\":\"_3kZzIfTt0o\"}}";
-            JSONObject jsonObject = new JSONObject(parsedString);
-            JSONObject youtube = (JSONObject) jsonObject.get("youtube");
-            if(youtube != null){
-                musicName = youtube.getString("name_music");
-                youtubeName = youtube.getString("youtube_name");
-            }
-
-
-//            for(int x= 0 ; x < dj_info_array.length() ; ++x){
-//                JSONObject object = dj_info_array.getJSONObject(x);
-//                Log.d("system", object.getString("name"));
-//            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String convertinputStreamToString(InputStream ists)
-            throws IOException {
-        if (ists != null) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            try {
-                BufferedReader r1 = new BufferedReader(new InputStreamReader(
-                        ists, "UTF-8"));
-                while ((line = r1.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-            } finally {
-                ists.close();
-            }
-            return sb.toString();
-        } else {
-            return "";
-        }
     }
 
 }

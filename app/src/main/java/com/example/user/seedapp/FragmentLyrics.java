@@ -126,7 +126,7 @@ public class FragmentLyrics extends Fragment {
 //                } else {
 //                    return false;
 //                }
-                return true;
+                return view.onKeyDown(keyCode, event);
             }
         });
     }

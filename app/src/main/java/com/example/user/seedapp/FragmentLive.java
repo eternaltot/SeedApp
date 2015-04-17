@@ -2,6 +2,7 @@ package com.example.user.seedapp;
 
 import android.app.ProgressDialog;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -119,7 +120,8 @@ public class FragmentLive extends Fragment {
 //                } else {
 //                    return false;
 //                }
-                return true;
+
+                return view.onKeyDown(keyCode, event);
             }
         });
     }

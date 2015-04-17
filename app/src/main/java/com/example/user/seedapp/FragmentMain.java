@@ -51,6 +51,16 @@ public class FragmentMain extends Fragment {
     private AudioManager audioManager;
     private ImageView imageView3;
 
+    @Override
+    public void onResume() {
+        if(mainActivity.getSeekVal() != -1)
+            seekbar.setProgress(mainActivity.getSeekVal());
+
+        Log.d("system", "seekbar.getProgress() onResume :: " + seekbar.getProgress());
+
+        super.onResume();
+    }
+
     public void updateNowPlayingAndNext(String now, String next,String pathImage,String url){
         final String url_Link = url;
         try {
@@ -67,8 +77,9 @@ public class FragmentMain extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(mainActivity,WebviewActivity.class);
                         intent.putExtra("URL", url_Link);
-                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-                        mainActivity.startActivity(intent, bundle);
+//                        Bundle bundle = ActivityOptions.makeCustomAnimation(mainActivity, R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
+                        mainActivity.startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                     }
                 });
             }
@@ -187,7 +198,12 @@ public class FragmentMain extends Fragment {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
                     if(!mainActivity.getSeekMute()) {
-                        seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                        if(mainActivity.getSeekVal() != -1)
+                            seekbar.setProgress(mainActivity.getSeekVal());
+                        else
+                            seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                        Log.d("system", "3mainActivity.getSeekVal() :: " + mainActivity.getSeekVal());
+                        Log.d("system", "3seekbar.getProgress() :: " + seekbar.getProgress());
                     }
                 }
             };
@@ -196,6 +212,8 @@ public class FragmentMain extends Fragment {
             }else{
                 bt_mute.setImageResource(R.drawable.speaker_mute_white);
             }
+
+
             seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -206,6 +224,9 @@ public class FragmentMain extends Fragment {
                     if(progress == 0){
                         bt_mute.setImageResource(R.drawable.speaker_mute_white);
                     }
+
+                    Log.d("system", "seekbar.setOnSeekBarChangeListener seekbar.getProgress() :: " + seekbar.getProgress());
+                    Log.d("system", "seekbar.setOnSeekBarChangeListener mainActivity.getSeekVal() :: " + mainActivity.getSeekVal());
                 }
 
                 @Override
@@ -219,14 +240,20 @@ public class FragmentMain extends Fragment {
                 }
             });
 
-            if(mainActivity.getSeekBar() != null)
-                seekbar.setProgress(mainActivity.getSeekBar().getProgress());
-            else
+            if(mainActivity.getSeekBar() != null) {
+                seekbar.setProgress(mainActivity.getSeekVal());
+
+                Log.d("system", "seekbar.getProgress() :: " + seekbar.getProgress());
+            }
+            else {
                 seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            }
             if(mainActivity.getSeekMute()) {
                 bt_mute.setImageResource(R.drawable.speaker_mute_white);
                 seekbar.setProgress(mainActivity.getSeekVal());
                 audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+
+                Log.d("system", "getSeekMute seekbar.getProgress() :: " + seekbar.getProgress());
             }
 
             mainActivity.setSeekBar(seekbar);
@@ -286,18 +313,18 @@ public class FragmentMain extends Fragment {
 
             bt_youtube.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    FragmentYouTube fragmentYouTube = new FragmentYouTube();
                     if (mainActivity.getCurrentPlay().getNowMv() != null) {
                         String url = mainActivity.getCurrentPlay().getNowMv();
                         String[] strings = url.split(mainActivity.getCutURLYoutube());
                         Log.d("system" , "url MV :: " + url);
-                        FragmentYouTube fragmentYouTube = new FragmentYouTube();
+
                         if (strings.length > 0) {
                             fragmentYouTube.setYoutubeName(strings[strings.length - 1]);
                         }
-                        mainActivity.setFragmentNoBack(fragmentYouTube);
-                    }else{
-//                        Toast.makeText(getActivity().getApplicationContext(), "No", Toast.LENGTH_LONG).show();
+
                     }
+                    mainActivity.setFragmentNoBack(fragmentYouTube);
                 }
             });
 
@@ -338,6 +365,9 @@ public class FragmentMain extends Fragment {
             Log.d("system","before click button when create fragment");
             bt_play.callOnClick();
         }
+
+        Log.d("system", "^__^");
+
         return view;
     }
 
@@ -412,4 +442,6 @@ public class FragmentMain extends Fragment {
 
         super.onDestroyView();
     }
+
+
 }

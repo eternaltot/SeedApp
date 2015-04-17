@@ -100,7 +100,7 @@ public class FragmentPrivilege extends Fragment {
 //                } else {
 //                    return false;
 //                }
-                return true;
+                return view.onKeyDown(keyCode, event);
             }
         });
     }
