@@ -304,7 +304,7 @@ public class MainActivity extends FragmentActivity {
         pager.setInterval(1000);
         pager.setCycle(true);
         pager.setAutoScrollDurationFactor(200);
-        Log.d("system","Set Top Banner Success");
+        Log.d("system", "Set Top Banner Success");
 
         fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -1005,42 +1005,54 @@ public class MainActivity extends FragmentActivity {
 
     @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(seekBar != null) {
-            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                int val = seekBar.getProgress();
-                seekBar.setProgress(val + 1);
-                seekVal = val + 1;
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(f instanceof FragmentMain){
+            if(seekBar != null) {
+                if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+//                    int val = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0);
+                    seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+//                    seekVal = val + 1;
 
-                Log.d("system", "seekVal + 1 :: " + seekVal);
+//                    Log.d("system", "seekVal + 1 :: " + seekVal);
 
-                setSeekMute(Boolean.FALSE);
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-                bt_mute.setImageResource(R.drawable.speaker);
+//                    setSeekMute(Boolean.FALSE);
+//                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                    bt_mute.setImageResource(R.drawable.speaker);
 
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if(f instanceof FragmentMain)
                     return true;
-                else
-                    return super.onKeyDown(keyCode, event);
-            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                int val = seekBar.getProgress();
-                seekBar.setProgress(val - 1);
-                if(val - 1 >= 0)
-                    seekVal = val - 1;
+                } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                    int val = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+//                    seekBar.setProgress(val - 1);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_LOWER,0);
+                    seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+//                    if (val - 1 >= 0)
+//                        seekVal = val - 1;
 
-                Log.d("system", "seekVal - 1 :: " + seekVal);
+//                    Log.d("system", "seekVal - 1 :: " + seekVal);
 
-                setSeekMute(Boolean.FALSE);
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-                if(val - 1 == 0){
-                    bt_mute.setImageResource(R.drawable.speaker_mute_white);
+//                    setSeekMute(Boolean.FALSE);
+//                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                    if (val - 1 == 0) {
+                        bt_mute.setImageResource(R.drawable.speaker_mute_white);
+                    }
+                    return true;
                 }
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if(f instanceof FragmentMain)
-                    return true;
-                else
-                    return super.onKeyDown(keyCode, event);
             }
+        }else {
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+                if(seekBar!=null){
+                    seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                }
+            }
+            else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+                if(seekBar!=null){
+                    seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                }
+            }
+
         }
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
