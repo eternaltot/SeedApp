@@ -62,7 +62,7 @@ public class FragmentMain extends Fragment {
 
     @Override
     public void onResume() {
-        seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        seekbar.setProgress(mainActivity.getSeekVal());
 
         super.onResume();
     }
@@ -264,6 +264,7 @@ public class FragmentMain extends Fragment {
 //            }
 
             mainActivity.setSeekBar(seekbar);
+            mainActivity.setSeekVal(seekbar.getProgress());
             mainActivity.setBt_mute(bt_mute);
             mainActivity.setAudioManager(audioManager);
 
