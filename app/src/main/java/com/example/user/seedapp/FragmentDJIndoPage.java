@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.seedapp.com.add.model.DJInfo;
 import com.example.user.seedapp.com.add.view.RoundedImageView;
@@ -28,8 +29,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -80,6 +84,7 @@ public class FragmentDJIndoPage extends Fragment {
                     Button btnSend = (Button) dialog.findViewById(R.id.btnSend);
                     Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
                     final EditText editText = (EditText) dialog.findViewById(R.id.editText);
+                    final EditText editFrom = (EditText) dialog.findViewById(R.id.editFrom);
                     btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -89,8 +94,13 @@ public class FragmentDJIndoPage extends Fragment {
                     btnSend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(!editText.getText().toString().isEmpty()){
-                                sendText(editText);
+                            if(!editText.getText().toString().isEmpty() && !editFrom.getText().toString().isEmpty()){
+                                if(sendText(editText,editFrom) == 201){
+                                    dialog.dismiss();
+                                }
+
+                            }else{
+                                Toast.makeText(getActivity(),"กรุณาใส่ข้อความและผู้ส่ง",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -126,16 +136,27 @@ public class FragmentDJIndoPage extends Fragment {
         return view;
     }
 
-    public void sendText(EditText editText){
+    public int sendText(EditText editText,EditText editFrom){
         HttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(MainActivity.url_TEXT_TO_DJ);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
         try{
-            List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
-            nameValuePairList.add(new BasicNameValuePair("text",editText.getText().toString()));
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairList));
+            JSONObject object = new JSONObject();
+            object.put("text",editText.getText().toString());
+            object.put("from",editFrom.getText().toString());
+            StringEntity se = new StringEntity(object.toString(), HTTP.UTF_8);
+            httpPost.setEntity(se);
+
             HttpResponse response = client.execute(httpPost);
+
+            if(response.getStatusLine().getStatusCode() == 201){
+                Toast.makeText(getActivity(),"Send Message Complete",Toast.LENGTH_LONG).show();
+                return response.getStatusLine().getStatusCode();
+            }
         }catch (Exception e){
             Log.e("Send Text",e.getMessage());
         }
+        return 0;
     }
 }
