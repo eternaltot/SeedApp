@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:background="#ffffff"
         android:clickable="false"
-        android:layout_weight="10"
+        android:layout_weight="2.5"
         android:layout_alignParentBottom="true"
         android:id="@+id/linearMenu" >
 
@@ -31,12 +31,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="7.5"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="6.5"
             android:orientation="vertical"
             android:id="@+id/linearLayout">
 
@@ -99,7 +100,7 @@
                 android:src="@drawable/seed_head"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="fitXY" />
 
             <ImageButton

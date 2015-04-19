@@ -119,13 +119,13 @@
 
 
                 <Button
+                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
-                    android:layout_height="28dp"
+                    android:layout_height="35dp"
                     android:text="TEXT TO DJ"
                     android:id="@+id/text_dj"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="10dp" />
+                    android:layout_centerHorizontal="true" />
+
             </RelativeLayout>
         </LinearLayout>
 
