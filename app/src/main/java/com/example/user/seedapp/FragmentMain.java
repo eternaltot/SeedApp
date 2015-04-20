@@ -218,21 +218,25 @@ public class FragmentMain extends Fragment {
             layoutParamsbt_youtube.width = (int) (width*0.13);
             layoutParamsbt_youtube.height =(int) (width*0.13);
             bt_youtube.setLayoutParams(layoutParamsbt_youtube);
+            ((ViewGroup.MarginLayoutParams) bt_youtube.getLayoutParams()).leftMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
 
             android.view.ViewGroup.LayoutParams layoutParamsbt_lyrics = bt_lyrics.getLayoutParams();
             layoutParamsbt_lyrics.width = (int) (width*0.13);
             layoutParamsbt_lyrics.height = (int) (width*0.13);
             bt_lyrics.setLayoutParams(layoutParamsbt_lyrics);
+            ((ViewGroup.MarginLayoutParams) bt_lyrics.getLayoutParams()).leftMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
 
             android.view.ViewGroup.LayoutParams layoutParamsbt_list = bt_list.getLayoutParams();
             layoutParamsbt_list.width = (int) (width*0.13);
             layoutParamsbt_list.height = (int) (width*0.13);
             bt_list.setLayoutParams(layoutParamsbt_list);
+            ((ViewGroup.MarginLayoutParams) bt_list.getLayoutParams()).leftMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
 
             android.view.ViewGroup.LayoutParams layoutParamsbt_play = bt_play.getLayoutParams();
             layoutParamsbt_play.width = (int) (width*0.13);
             layoutParamsbt_play.height = (int) (width*0.13);
             bt_play.setLayoutParams(layoutParamsbt_play);
+            ((ViewGroup.MarginLayoutParams) bt_play.getLayoutParams()).rightMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
 
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
