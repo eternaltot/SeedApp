@@ -101,7 +101,7 @@
                 android:src="@drawable/seed_head"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:scaleType="fitXY" />
 
             <ImageButton
@@ -112,9 +112,8 @@
                 android:background="@null"
                 android:scaleType="fitXY"
                 android:layout_alignTop="@+id/imageView3"
-                android:layout_toRightOf="@+id/layout_seekBar"
-                android:layout_toEndOf="@+id/layout_seekBar"
-                android:layout_marginBottom="10dp" />
+                android:layout_alignLeft="@+id/bt_list"
+                android:layout_alignStart="@+id/bt_list" />
 
             <!--<Button-->
             <!--style="?android:attr/buttonStyleSmall"-->
@@ -138,9 +137,11 @@
                 android:src="@drawable/unlock_list"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_above="@+id/bt_lyrics"
-                android:layout_toRightOf="@+id/layout_seekBar"
-                android:layout_toEndOf="@+id/layout_seekBar" />
+                android:layout_marginTop="21dp"
+                android:layout_below="@+id/bt_youtube"
+                android:layout_toRightOf="@+id/framelayout_seek"
+                android:layout_toEndOf="@+id/framelayout_seek"
+                android:layout_marginLeft="15dp" />
 
             <!--<Button-->
             <!--style="?android:attr/buttonStyleSmall"-->
@@ -188,9 +189,10 @@
                 android:src="@drawable/unlock_lylics"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_above="@+id/framelayout_seek"
-                android:layout_toRightOf="@+id/layout_seekBar"
-                android:layout_toEndOf="@+id/layout_seekBar" />
+                android:layout_below="@+id/bt_list"
+                android:layout_alignLeft="@+id/bt_list"
+                android:layout_alignStart="@+id/bt_list"
+                android:layout_marginTop="20dp" />
 
 
             <!--<GridLayout-->
