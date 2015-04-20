@@ -42,6 +42,8 @@ public class WebviewActivity extends Activity {
     @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            WebviewActivity.this.overridePendingTransition(R.anim.slide_in_down,R.anim.slide_out_down);
             return true;
         }
 
