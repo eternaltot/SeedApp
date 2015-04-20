@@ -18,21 +18,30 @@ import java.net.URLConnection;
  */
 public class PlayMedia {
     public MediaPlayer mediaPlayer;
+    private String url = "";
 
     public PlayMedia(String url, Context context) {
 
         mediaPlayer = new MediaPlayer();
 
         try {
-            mediaPlayer.reset();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare();
-//            mediaPlayer = MediaPlayer.create(context, R.raw.body_slam);
-//
+//            mediaPlayer.reset();
+//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//            mediaPlayer.setDataSource(url);
+//            mediaPlayer.prepare();
+
+            this.url = url;
+//            setReset();
         } catch (Exception e) {
             Log.e("system", "Error : " + e.getMessage());
         }
+    }
+
+    private void setReset() throws Exception{
+        mediaPlayer.reset();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare();
     }
 
     private void setDataSource(String path) throws IOException {
@@ -73,9 +82,11 @@ public class PlayMedia {
     public void playMedia(boolean check) {
         try {
             if (check) {
+                setReset();
                 mediaPlayer.start();
             } else {
-                mediaPlayer.pause();
+                mediaPlayer.stop();
+//                setReset();
             }
         } catch (Exception e) {
             Log.e("system", "Error ::: " + e.getMessage());
