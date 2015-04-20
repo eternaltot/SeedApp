@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.method.MovementMethod;
 import android.text.method.ScrollingMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -199,6 +200,39 @@ public class FragmentMain extends Fragment {
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
             seekbar = (SeekBar) view.findViewById(R.id.seekBar);
+
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            int height = displaymetrics.heightPixels;
+            int width = displaymetrics.widthPixels;
+
+            Log.d("system", "height DisplayMetrics " + height);
+            Log.d("system", "width DisplayMetrics " + width);
+
+            android.view.ViewGroup.LayoutParams layoutParams = imageView3.getLayoutParams();
+            layoutParams.width = (int) (width*0.41);
+            layoutParams.height =(int) (width*0.41);
+            imageView3.setLayoutParams(layoutParams);
+
+            android.view.ViewGroup.LayoutParams layoutParamsbt_youtube = bt_youtube.getLayoutParams();
+            layoutParamsbt_youtube.width = (int) (width*0.13);
+            layoutParamsbt_youtube.height =(int) (width*0.13);
+            bt_youtube.setLayoutParams(layoutParamsbt_youtube);
+
+            android.view.ViewGroup.LayoutParams layoutParamsbt_lyrics = bt_lyrics.getLayoutParams();
+            layoutParamsbt_lyrics.width = (int) (width*0.13);
+            layoutParamsbt_lyrics.height = (int) (width*0.13);
+            bt_lyrics.setLayoutParams(layoutParamsbt_lyrics);
+
+            android.view.ViewGroup.LayoutParams layoutParamsbt_list = bt_list.getLayoutParams();
+            layoutParamsbt_list.width = (int) (width*0.13);
+            layoutParamsbt_list.height = (int) (width*0.13);
+            bt_list.setLayoutParams(layoutParamsbt_list);
+
+            android.view.ViewGroup.LayoutParams layoutParamsbt_play = bt_play.getLayoutParams();
+            layoutParamsbt_play.width = (int) (width*0.13);
+            layoutParamsbt_play.height = (int) (width*0.13);
+            bt_play.setLayoutParams(layoutParamsbt_play);
 
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
