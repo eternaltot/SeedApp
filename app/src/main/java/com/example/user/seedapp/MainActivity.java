@@ -13,12 +13,9 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.StrictMode;
+import android.os.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.TypedValue;
@@ -1038,7 +1035,7 @@ public class MainActivity extends FragmentActivity {
 
                                 //Stop the activity
                                finish();
-                               System.exit(0);
+                               android.os.Process.killProcess(android.os.Process.myPid());
                             }
 
                         })
