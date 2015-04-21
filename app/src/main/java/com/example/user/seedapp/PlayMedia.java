@@ -31,7 +31,7 @@ public class PlayMedia {
 //            mediaPlayer.prepare();
 
             this.url = url;
-//            setReset();
+            setReset();
         } catch (Exception e) {
             Log.e("system", "Error : " + e.getMessage());
         }
@@ -78,6 +78,9 @@ public class PlayMedia {
         return mediaPlayer.isPlaying();
     }
 
+    public void playStart(){
+        mediaPlayer.start();
+    }
 
     public void playMedia(boolean check) {
         try {

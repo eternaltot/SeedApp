@@ -175,11 +175,13 @@ public class FragmentMain extends Fragment {
         try {
             view = inflater.inflate(R.layout.fragment_main, container, false);
             nowPlaying = (TextView) view.findViewById(R.id.now_playing);
+            TextView textNext = (TextView) view.findViewById(R.id.textNext);
             next = (TextView) view.findViewById(R.id.textView3);
 
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
             mainActivity.setTypeFace(next);
+            mainActivity.setTypeFace(textNext);
 
             Log.d("system", "DJ List : " + mainActivity.getDJInfos().size());
             DJPageAdapter adapter = new DJPageAdapter(getChildFragmentManager(), mainActivity.getDJInfos());
@@ -251,6 +253,7 @@ public class FragmentMain extends Fragment {
 
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             textNameSong.setSelected(true);
+            textNowPlaying.setSelected(true);
 
 
             if (audioManager != null && audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != 0) {
@@ -470,7 +473,7 @@ public class FragmentMain extends Fragment {
                     });
 
                     if (play != null && !play.returnIsPlating()) {
-                        play.playMedia(Boolean.TRUE);
+                        play.playStart();
 //                        bt_play.setBackgroundColor(Color.WHITE);
                         bt_play.setImageResource(R.drawable.pause_button);
                     }
