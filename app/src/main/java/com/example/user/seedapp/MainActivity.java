@@ -1038,6 +1038,7 @@ public class MainActivity extends FragmentActivity {
 
                                 //Stop the activity
                                finish();
+                               System.exit(0);
                             }
 
                         })
