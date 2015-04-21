@@ -28,8 +28,7 @@
                     android:id="@+id/imageDJ"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerInParent="true" />
 
                 <View
                     android:layout_width="2dp"
