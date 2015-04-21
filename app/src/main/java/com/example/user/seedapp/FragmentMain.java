@@ -215,6 +215,8 @@ public class FragmentMain extends Fragment {
             layoutParams.width = (int) (width*0.41);
             layoutParams.height =(int) (width*0.41);
             imageView3.setLayoutParams(layoutParams);
+            ((ViewGroup.MarginLayoutParams) imageView3.getLayoutParams()).topMargin = layoutParams.height/2 - layoutParams.height/2/2;
+
 
             android.view.ViewGroup.LayoutParams layoutParamsbt_youtube = bt_youtube.getLayoutParams();
             layoutParamsbt_youtube.width = (int) (width*0.13);

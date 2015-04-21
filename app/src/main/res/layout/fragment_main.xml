@@ -100,9 +100,8 @@
                 android:id="@+id/imageView3"
                 android:src="@drawable/seed_head"
                 android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true" />
 
             <ImageButton
                 android:layout_width="50dp"
