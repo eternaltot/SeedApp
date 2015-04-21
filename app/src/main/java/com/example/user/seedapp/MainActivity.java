@@ -1,8 +1,10 @@
 package com.example.user.seedapp;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -1023,6 +1025,26 @@ public class MainActivity extends FragmentActivity {
                     }
                     return true;
                 }
+            }
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Exit")
+                        .setMessage("Do you want to exit?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //Stop the activity
+                               finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
             }
         }else {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
