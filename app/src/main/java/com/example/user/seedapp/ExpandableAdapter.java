@@ -127,12 +127,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listitem, null);
         }
-        if(groupPosition % 2 == 0){
-//            convertView.setBackgroundColor(Color.parseColor("#f46555"));
-        }else{
-//            convertView.setBackgroundColor(Color.parseColor("#f38d76"));
-        }
-
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
         imageView.setImageBitmap(listGroup.get(groupPosition).getBitmap());
         if (isExpanded)
@@ -160,11 +154,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listchild_item, null);
-        }
-        if(groupPosition % 2 == 0){
-//            convertView.setBackgroundColor(Color.parseColor("#f46555"));
-        }else{
-//            convertView.setBackgroundColor(Color.parseColor("#f38d76"));
         }
         final int gposition=groupPosition;
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageChildItem);
