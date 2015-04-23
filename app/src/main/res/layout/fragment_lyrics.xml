@@ -46,8 +46,48 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:background="#ffff393b"
-            android:layout_weight="1.5"
+            android:layout_weight="3.5"
             android:gravity="right">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffff393b"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textColor="#FFF"
+                    android:id="@+id/textView6"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/textView7"
+                    android:textColor="#FFF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textColor="#FFF"
+                    android:id="@+id/textView8"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="LYRICS"
+                    android:id="@+id/tv_lyrics"
+                    android:textColor="#000"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
 
             <ImageButton
                 android:layout_width="50dp"
@@ -55,49 +95,11 @@
                 android:id="@+id/back_bt"
                 android:src="@android:drawable/arrow_down_float"
                 android:layout_alignParentTop="true"
-                android:background="@null" />
+                android:background="@null"
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffff393b"
-            android:gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textColor="#FFF"
-                android:id="@+id/textView6"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView7"
-                android:textColor="#FFF"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textColor="#FFF"
-                android:id="@+id/textView8"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Lyrics"
-                android:id="@+id/tv_lyrics"
-                android:textColor="#000"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"

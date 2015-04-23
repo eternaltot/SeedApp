@@ -213,6 +213,7 @@ public class FragmentMain extends Fragment {
 
             Log.d("system", "height DisplayMetrics " + height);
             Log.d("system", "width DisplayMetrics " + width);
+            Log.d("system", "SDK Version " + Build.VERSION.SDK_INT);
             if(Build.VERSION.SDK_INT > 15) {
                 Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
 

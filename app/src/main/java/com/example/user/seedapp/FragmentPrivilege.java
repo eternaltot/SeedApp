@@ -66,7 +66,8 @@ public class FragmentPrivilege extends Fragment {
                         expandableListView.collapseGroup(lastExpandedPosition);
                     }
                     lastExpandedPosition = groupPosition;
-                    expandableListView.setSelection(groupPosition);
+                    expandableListView.smoothScrollToPositionFromTop(groupPosition,10,2000);
+//                    expandableListView.setSelection(groupPosition);
                 }
             });
             expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -74,6 +75,7 @@ public class FragmentPrivilege extends Fragment {
                 public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 //                    expandableListView.setSelectedGroup(groupPosition);
 //                    expandableListView.scrollTo(0,parent.getChildAt(groupPosition).getHeight()*groupPosition);
+
                     return false;
                 }
             });
