@@ -442,7 +442,7 @@ public class FragmentMain extends Fragment {
         protected String doInBackground(String... args) {
 
             if (play == null)
-                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler);
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play);
 
             return null;
         }
@@ -462,6 +462,7 @@ public class FragmentMain extends Fragment {
 
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
 //                                bt_play.setBackgroundColor(Color.WHITE);
+                                bt_play.setEnabled(false);
                                 bt_play.setImageResource(R.drawable.pause_button);
 
 //                                MediaPlayer mediaPlayer = MediaPlayer.create(mainActivity.returnBaseContext(), R.raw.body_slam);

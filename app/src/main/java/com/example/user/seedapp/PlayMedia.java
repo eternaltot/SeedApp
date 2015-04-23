@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.webkit.URLUtil;
+import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,11 +25,13 @@ public class PlayMedia {
     private Boolean flagStop = Boolean.FALSE;
     private Runnable runnable;
     private Handler mLeakyHandler;
+    private ImageButton bt_play;
 
-    public PlayMedia(String url, Context context, Handler mHandler) {
+    public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play) {
 
         mediaPlayer = new MediaPlayer();
         this.mLeakyHandler = mHandler;
+        this.bt_play = bt_play;
 
         try {
 
@@ -104,6 +107,7 @@ public class PlayMedia {
                 mediaPlayer.start();
                 flagStop = Boolean.FALSE;
                 mLeakyHandler.removeCallbacks(runnable);
+                bt_play.setEnabled(true);
             } else {
                 mediaPlayer.pause();
 
