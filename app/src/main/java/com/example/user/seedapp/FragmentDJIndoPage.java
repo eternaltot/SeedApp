@@ -119,7 +119,7 @@ public class FragmentDJIndoPage extends Fragment {
             int height = displaymetrics.heightPixels;
             int width = displaymetrics.widthPixels;
             android.view.ViewGroup.LayoutParams layoutimageDJ = imageDJ.getLayoutParams();
-            ((ViewGroup.MarginLayoutParams) imageDJ.getLayoutParams()).leftMargin = (width/4) - (layoutimageDJ.width/2);
+            ((ViewGroup.MarginLayoutParams) imageDJ.getLayoutParams()).leftMargin = (width/4) - (layoutimageDJ.width/2)-5;
 
             Log.d("system", "(width/4) - (layoutimageDJ.width/2) " + ((width/4) - (layoutimageDJ.width/2)));
 
