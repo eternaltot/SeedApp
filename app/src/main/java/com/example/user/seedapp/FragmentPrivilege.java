@@ -69,13 +69,14 @@ public class FragmentPrivilege extends Fragment {
                     expandableListView.setSelection(groupPosition);
                 }
             });
-//            expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//                @Override
-//                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                    expandableListView.setSelection(groupPosition);
-//                    return false;
-//                }
-//            });
+            expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+//                    expandableListView.setSelectedGroup(groupPosition);
+//                    expandableListView.scrollTo(0,parent.getChildAt(groupPosition).getHeight()*groupPosition);
+                    return false;
+                }
+            });
 
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
