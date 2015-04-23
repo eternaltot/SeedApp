@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -212,13 +213,22 @@ public class FragmentMain extends Fragment {
 
             Log.d("system", "height DisplayMetrics " + height);
             Log.d("system", "width DisplayMetrics " + width);
+            if(Build.VERSION.SDK_INT > 15) {
+                Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
 
-            Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
+                android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
+                textNowPlaying.setMaxWidth(width - layoutParamsnext.width - 90);
 
-            android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
-            textNowPlaying.setMaxWidth(width - layoutParamsnext.width - 90);
+                Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
+            }else {
 
-            Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
+                Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getWidth());
+
+                android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
+                textNowPlaying.setWidth(width - layoutParamsnext.width - 90);
+
+                Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getWidth());
+            }
 
 
             android.view.ViewGroup.LayoutParams layoutParams = imageView3.getLayoutParams();
