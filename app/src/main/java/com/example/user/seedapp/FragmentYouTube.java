@@ -44,6 +44,10 @@ public class FragmentYouTube extends Fragment {
     private TextView tv_name;
     private TextView nowPlaying;
 
+    public static void setMusicName(String musicName) {
+        FragmentYouTube.musicName = musicName;
+    }
+
     public void setYoutubeName(String youtubeName){
         this.youtubeName = youtubeName;
     }
@@ -52,6 +56,8 @@ public class FragmentYouTube extends Fragment {
         if(tv_name!=null && text!=null){
             tv_name.setText(text);
         }
+
+        musicName = text;
     }
 
 //    @Override
@@ -82,7 +88,7 @@ public class FragmentYouTube extends Fragment {
 
             mainActivity.pauseMediaFromMainActivity();
             mainActivity.setTypeFace(nowPlaying);
-            tv_name.setText(tv_name.getText() + musicName);
+            tv_name.setText(musicName);
 
 
             back_bt = (ImageView) view.findViewById(R.id.back_bt);

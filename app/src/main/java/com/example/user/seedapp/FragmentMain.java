@@ -375,6 +375,11 @@ public class FragmentMain extends Fragment {
                         String[] strings = url.split(mainActivity.getCutURLYoutube());
                         Log.d("system", "url MV :: " + url);
 
+                        if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
+                            String name = (mainActivity.getCurrentPlay().getSongTitle());
+                            fragmentYouTube.setMusicName(name);
+                        }
+
                         if (strings.length > 0) {
                             fragmentYouTube.setYoutubeName(strings[strings.length - 1]);
                         }
