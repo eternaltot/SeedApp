@@ -213,6 +213,14 @@ public class FragmentMain extends Fragment {
             Log.d("system", "height DisplayMetrics " + height);
             Log.d("system", "width DisplayMetrics " + width);
 
+            Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
+
+            android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
+            textNowPlaying.setMaxWidth(width - layoutParamsnext.width - 90);
+
+            Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
+
+
             android.view.ViewGroup.LayoutParams layoutParams = imageView3.getLayoutParams();
             layoutParams.width = (int) (width*0.41);
             layoutParams.height =(int) (width*0.41);
