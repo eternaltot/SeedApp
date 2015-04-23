@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,23 +112,17 @@ public class FragmentDJIndoPage extends Fragment {
 
             online_time.setText(djInfo.getStartTime() + " - " + djInfo.getStopTime());
 
-//            URL newurl = new URL(jsonObject.getString("image"));
-//            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
             imageDJ.setImageBitmap(djInfo.getBitmap());
 
-//            int width = 150;
-//            int height = 150;
-//
-//            Bitmap circleBitmap = Bitmap.createBitmap(djInfo.getBitmap().getWidth(), djInfo.getBitmap().getHeight(), Bitmap.Config.ARGB_8888);
-//
-//            BitmapShader shader = new BitmapShader(djInfo.getBitmap(),  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-//            Paint paint = new Paint();
-//            paint.setShader(shader);
-//
-//            Canvas c = new Canvas(circleBitmap);
-//            c.drawCircle(djInfo.getBitmap().getWidth()/2, djInfo.getBitmap().getHeight()/2, djInfo.getBitmap().getWidth()/2, paint);
-//
-//            imageDJ.setImageBitmap(circleBitmap);
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            int height = displaymetrics.heightPixels;
+            int width = displaymetrics.widthPixels;
+            android.view.ViewGroup.LayoutParams layoutimageDJ = imageDJ.getLayoutParams();
+            ((ViewGroup.MarginLayoutParams) imageDJ.getLayoutParams()).leftMargin = (width/4) - (layoutimageDJ.width/2);
+
+            Log.d("system", "(width/4) - (layoutimageDJ.width/2) " + ((width/4) - (layoutimageDJ.width/2)));
+
 
             return view;
         }catch (Exception e){
