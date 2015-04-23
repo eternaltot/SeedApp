@@ -3,6 +3,7 @@ package com.example.user.seedapp;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -32,6 +33,7 @@ public class FragmentPrivilege extends Fragment {
     private ArrayList<String> listchild = new ArrayList<String>();
     private ExpandableListView expandableListView;
     private ExpandableAdapter adapter;
+    private int lastExpandedPosition = -1;
     FragmentTransaction transaction;
 
     public FragmentPrivilege() {
@@ -52,14 +54,29 @@ public class FragmentPrivilege extends Fragment {
             adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
-            expandableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    SelectItemFragment fragment = new SelectItemFragment();
-                    ((MainActivity)getActivity()).setFragment(fragment);
+            for(int i=0;i<adapter.getGroupCount();i++){
+                expandableListView.setSelectedGroup(i);
+            }
+            expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (lastExpandedPosition != -1
+                            && groupPosition != lastExpandedPosition) {
+                        expandableListView.collapseGroup(lastExpandedPosition);
+                    }
+                    lastExpandedPosition = groupPosition;
+                    expandableListView.setSelection(groupPosition);
                 }
             });
+//            expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+//                @Override
+//                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+//                    expandableListView.setSelection(groupPosition);
+//                    return false;
+//                }
+//            });
+
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override

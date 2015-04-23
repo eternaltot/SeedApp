@@ -7,9 +7,8 @@
 
     <ExpandableListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/listView"
-        android:clickable="true"
         android:headerDividersEnabled="false"
         android:groupIndicator="@null" />
 </android.support.v4.widget.SwipeRefreshLayout>
