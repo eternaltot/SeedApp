@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.method.MovementMethod;
@@ -52,6 +53,7 @@ public class FragmentMain extends Fragment {
     private AudioManager audioManager;
     private ImageView imageView3;
     private int oldProgress;
+    private Handler mHandler = new Handler();
 
     public int getOldProgress() {
         return oldProgress;
@@ -440,7 +442,7 @@ public class FragmentMain extends Fragment {
         protected String doInBackground(String... args) {
 
             if (play == null)
-                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext());
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler);
 
             return null;
         }
