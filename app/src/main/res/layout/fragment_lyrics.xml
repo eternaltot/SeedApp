@@ -45,7 +45,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:background="#ffff393b"
+            android:background="#000"
             android:layout_weight="2"
             android:gravity="right">
 
@@ -62,13 +62,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="#ffff393b">
+            android:layout_weight="2.2"
+            android:background="#000">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
+                android:textColor="#FFF"
                 android:id="@+id/textView6"
                 android:textSize="12dp" />
 
@@ -77,12 +78,14 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/textView7"
+                android:textColor="#FFF"
                 android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
+                android:textColor="#FFF"
                 android:id="@+id/textView8"
                 android:textSize="12dp" />
         </LinearLayout>
@@ -91,7 +94,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="14"
-            android:background="#ffff393b"
+            android:background="#000"
             >
 
         <LinearLayout
@@ -132,6 +135,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Lyrics"
                     android:id="@+id/tv_lyrics"
+                    android:textColor="#FFF"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
@@ -140,6 +144,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text=" "
                     android:textSize="12dp"
+                    android:textColor="#FFF"
                     android:id="@+id/lyrics"
                     android:layout_gravity="center_horizontal" />
             </LinearLayout>
