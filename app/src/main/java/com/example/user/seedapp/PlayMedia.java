@@ -27,6 +27,10 @@ public class PlayMedia {
     private Handler mLeakyHandler;
     private ImageButton bt_play;
 
+    public void setBt_play(ImageButton bt_play) {
+        this.bt_play = bt_play;
+    }
+
     public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play) {
 
         mediaPlayer = new MediaPlayer();
@@ -60,36 +64,6 @@ public class PlayMedia {
         mediaPlayer.setDataSource(url);
         mediaPlayer.prepare();
     }
-
-//    private void setDataSource(String path) throws IOException {
-//        if (!URLUtil.isNetworkUrl(path)) {
-//            mediaPlayer.setDataSource(path);
-//        } else {
-//            URL url = new URL(path);
-//            URLConnection cn = url.openConnection();
-//            cn.connect();
-//            InputStream stream = cn.getInputStream();
-//            if (stream == null)
-//                throw new RuntimeException("stream is null");
-//            File temp = File.createTempFile("mediaplayertmp", "dat");
-//            String tempPath = temp.getAbsolutePath();
-//            FileOutputStream out = new FileOutputStream(temp);
-//            byte buf[] = new byte[128];
-//            do {
-//                int numread = stream.read(buf);
-//                if (numread <= 0)
-//                    break;
-//                out.write(buf, 0, numread);
-//            } while (true);
-//            mediaPlayer.setDataSource(tempPath);
-//            try {
-//                stream.close();
-//            }
-//            catch (IOException ex) {
-//                Log.e("system", "Error :: " + ex.getMessage());
-//            }
-//        }
-//    }
 
     public Boolean returnIsPlating(){
         return mediaPlayer.isPlaying();

@@ -470,6 +470,8 @@ public class FragmentMain extends Fragment {
             if (play == null)
                 play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play);
 
+            play.setBt_play(bt_play);
+
             return null;
         }
 
@@ -488,6 +490,7 @@ public class FragmentMain extends Fragment {
 
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
 //                                bt_play.setBackgroundColor(Color.WHITE);
+
                                 bt_play.setEnabled(false);
                                 bt_play.setImageResource(R.drawable.pause_button);
 
