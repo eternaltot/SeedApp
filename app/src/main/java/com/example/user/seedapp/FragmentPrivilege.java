@@ -66,7 +66,8 @@ public class FragmentPrivilege extends Fragment {
                         expandableListView.collapseGroup(lastExpandedPosition);
                     }
                     lastExpandedPosition = groupPosition;
-                    expandableListView.smoothScrollToPositionFromTop(groupPosition,10,2000);
+//                    expandableListView.smoothScrollToPositionFromTop(groupPosition,10,2000);
+                    expandableListView.setSelectionFromTop(groupPosition,10);
 //                    expandableListView.setSelection(groupPosition);
                 }
             });
@@ -124,4 +125,5 @@ public class FragmentPrivilege extends Fragment {
             }
         });
     }
+
 }
