@@ -144,7 +144,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text=" "
                     android:textSize="14dp"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:id="@+id/lyrics"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal" />
