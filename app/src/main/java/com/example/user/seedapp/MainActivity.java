@@ -759,14 +759,17 @@ public class MainActivity extends FragmentActivity {
                         setNowPlaying();
                         setComponentInFragmentMain();
                     }
-                    if(fragmentYouTube!=null && fragmentYouTube.isVisible()){
-                        String s = "Now Playing : " + (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+                    if(fragmentYouTube!=null){
+                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
                         fragmentYouTube.setTv_name(s);
                     }
                     if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
                         Music music = new Music();
                         music.setLyrics(getCurrentPlay().getNowLyric());
-                        music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
+//                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
+//                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
+//                        else
+                            music.setName(getCurrentPlay().getSongTitle());
                         music.setAuthor(getCurrentPlay().getNowAuthor());
                         music.setAuthor2(getCurrentPlay().getNowAuthor2());
                         music.setAuthor3(getCurrentPlay().getNowAuthor3());
@@ -784,6 +787,10 @@ public class MainActivity extends FragmentActivity {
                 setNowPlaying();
                 setComponentInFragmentMain();
 //                fragmentMain.updateNowPlayingAndNext(getCurrentPlay() != null && getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "", getNextPlay() != null && getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "");
+            }
+            if(fragmentYouTube!=null){
+                String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+                fragmentYouTube.setTv_name(s);
             }
 
             new GetDataNowPlayingTask().execute();

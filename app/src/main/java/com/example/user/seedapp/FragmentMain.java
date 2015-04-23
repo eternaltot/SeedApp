@@ -391,7 +391,10 @@ public class FragmentMain extends Fragment {
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
                             Music music = new Music();
                             music.setLyrics(mainActivity.getCurrentPlay().getNowLyric());
-                            music.setName(mainActivity.getCurrentPlay().getSongTitle() + " - " + mainActivity.getCurrentPlay().getNowAuthor());
+                            if(mainActivity.getCurrentPlay().getNowAuthor() != null && mainActivity.getCurrentPlay().getNowAuthor() != "")
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + " - " + mainActivity.getCurrentPlay().getNowAuthor());
+                            else
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle());
                             fragmentLyrics.setMusic(music);
                         }
                     }

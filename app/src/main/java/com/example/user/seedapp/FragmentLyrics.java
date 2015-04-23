@@ -29,9 +29,6 @@ public class FragmentLyrics extends Fragment {
     private MainActivity mainActivity;
     private ImageView back_bt;
 
-    public Music getMusic() {
-        return music;
-    }
 
     public void setMusic(Music music) {
         this.music = music;
@@ -63,16 +60,15 @@ public class FragmentLyrics extends Fragment {
                 }
             });
 
-//            getDataFromServer();
 
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
 
             if(music != null){
                 if(music.getName() != null)
-                    name.setText(name.getText() + music.getName());
+                    name.setText(music.getName());
                 else
-                    name.setText(name.getText() + "-");
+                    name.setText(name.getText());
 //                if(music.getAuthor() != null)
 //                    author.setText(author.getText() + music.getAuthor());
 //                else
@@ -88,7 +84,7 @@ public class FragmentLyrics extends Fragment {
                 if(music.getLyrics() != null)
                     lyrics.setText(lyrics.getText() + music.getLyrics());
                 else
-                    lyrics.setText(lyrics.getText() + "-");
+                    lyrics.setText(lyrics.getText());
                 if(music.getAuthor() != null)
                     author.setText("คำร้อง : " + music.getAuthor());
                 else
@@ -129,73 +125,6 @@ public class FragmentLyrics extends Fragment {
                 return view.onKeyDown(keyCode, event);
             }
         });
-    }
-
-    public void getDataFromServer(){
-        try {
-
-//            URL url = new URL("http://192.168.43.174/testServer/");
-//            URLConnection conn = url.openConnection();
-//
-//            HttpURLConnection httpConn = (HttpURLConnection) conn;
-//            httpConn.setAllowUserInteraction(false);
-//            httpConn.setInstanceFollowRedirects(true);
-//            httpConn.setRequestMethod("POST");
-//            httpConn.connect();
-//
-//            InputStream is = httpConn.getInputStream();
-//            String parsedString = convertinputStreamToString(is);
-//
-//            JSONObject jsonObject = new JSONObject(parsedString);
-
-            String parsedString = "{\"Music\":{\"name\":\"คิดถึง - bodyslam\",\"author\":\"ขจรเดช พรมรักษา, โป โปษยะกุล\",\"tempo\":\"อาทิวราห์ คงมาลัย\",\"compose\":\"bodyslam, พูนศักดิ์ จตุระบุล\",\"lyrics\":\"มองดูเส้นทางที่ฉันเดินอยู่ จะมีใครรู้ใครเข้าใจ เรื่องราว ร้อยพัน ที่ฉันผ่านพบช่างมากมาย\n" +
-                    "ทางเดินสุดไกลแค่ไหนยังฝ่าฟัน เผชิญกับความเปลี่ยนผันเท่าไร หัวใจแสนเหนื่อย\n" +
-                    "ยังคงเดินทางไปกับความจริง เพื่อสิ่งสวยงามที่อยู่ในฝัน ในหัวใจยังเป็นอยู่ทุกวัน\n" +
-                    "บางคราวรอยยิ้มวันเก่า ก็พาความเหงาให้จากไป แม้ใจรู้ ดี ไม่มีวันกลับคืนมา\n" +
-                    "ท่ามกลางละอองความหลังที่ปกคลุม ก็มีบางครั้งที่ยังเสียใจ แค่เพียงนึกถึงน้ำตาก็ไหล\n" +
-                    "ยังคงเดินทางไปกับความจริง เพื่อสิ่งสวยงามที่อยู่ในฝัน แต่หัวใจคือเธออยู่ทุกวัน\n" +
-                    "ไม่เคยเลือนลางไปจากความจริง ไม่เคยลบเลือนไปจากความฝัน อยู่หนใด เธอยังอยู่กับฉัน\n" +
-                    "มันยังคิดถึงเพียงเธอ มันยังคิดถึงแค่เธอ มันยังคิดถึงเธอ\n" +
-                    "เพลงนี้ คือเสียงของความว่างเปล่า คือเสียงของคนที่ปวดร้าว คือเสียงของใจที่เฝ้ารอ\n" +
-                    "ยังคงเดินทางไปกับความจริง เพื่อสิ่งสวยงามที่อยู่ในฝัน แต่หัวใจคือเธออยู่ในนั้น\n" +
-                    "ไม่เคยเลือนลางไปจากความจริง ไม่เคยลบเลือนไปจากความฝัน อยู่หนใด เธอยังอยู่กับฉัน\n" +
-                    "มันยังคิดถึงเพียงเธอ ยังคิดถึงแค่เธอ มันยังคิดถึงเพียงเธอ ในหัวใจคือเธออยู่ทุกวัน\n" +
-                    "มันยังคิดถึงเพียง เธอ ยังคิดถึง คิดถึงเธอ\"}}";
-            JSONObject jsonObject = new JSONObject(parsedString);
-
-            Gson gson = new Gson();
-            music = gson.fromJson(jsonObject.getString("Music"), Music.class);
-
-
-//            for(int x= 0 ; x < dj_info_array.length() ; ++x){
-//                JSONObject object = dj_info_array.getJSONObject(x);
-//                Log.d("system", object.getString("name"));
-//            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String convertinputStreamToString(InputStream ists)
-            throws IOException {
-        if (ists != null) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            try {
-                BufferedReader r1 = new BufferedReader(new InputStreamReader(
-                        ists, "UTF-8"));
-                while ((line = r1.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-            } finally {
-                ists.close();
-            }
-            return sb.toString();
-        } else {
-            return "";
-        }
     }
 
 }
