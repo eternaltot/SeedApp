@@ -215,6 +215,7 @@ public class FragmentMain extends Fragment {
 
             Log.d("system", "height DisplayMetrics " + height);
             Log.d("system", "width DisplayMetrics " + width);
+            Log.d("system", "SDK Version " + Build.VERSION.SDK_INT);
 
             android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
             android.view.ViewGroup.LayoutParams layoutParamsim_1 = im_1.getLayoutParams();

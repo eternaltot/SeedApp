@@ -51,6 +51,7 @@ public class FragmentLyrics extends Fragment {
             TextView author2 = (TextView) view.findViewById(R.id.textView7);
             TextView author3 = (TextView) view.findViewById(R.id.textView8);
             TextView lyrics = (TextView) view.findViewById(R.id.lyrics);
+            TextView tv_lyrics = (TextView) view.findViewById(R.id.tv_lyrics);
             back_bt = (ImageView) view.findViewById(R.id.back_bt);
             name.setSelected(true);
 
@@ -63,6 +64,7 @@ public class FragmentLyrics extends Fragment {
 
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
+            mainActivity.setTypeFace(tv_lyrics);
 
             if(music != null){
                 if(music.getName() != null)
@@ -88,15 +90,15 @@ public class FragmentLyrics extends Fragment {
                 if(music.getAuthor() != null)
                     author.setText("คำร้อง : " + music.getAuthor());
                 else
-                    author.setText("คำร้อง : ");
+                    author.setText("คำร้อง : -");
                 if(music.getAuthor2() != null)
                     author2.setText("ทำนอง : " + music.getAuthor());
                 else
-                    author2.setText("ทำนอง : ");
+                    author2.setText("ทำนอง : -");
                 if(music.getAuthor3() != null)
                     author3.setText("เรียบเรียง : " + music.getAuthor());
                 else
-                    author3.setText("เรียบเรียง : ");
+                    author3.setText("เรียบเรียง : -");
             }
 
         }catch (Exception e){
