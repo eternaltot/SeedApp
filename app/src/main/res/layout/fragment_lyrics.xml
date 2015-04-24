@@ -44,14 +44,13 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
+            android:layout_height="100dp"
             android:background="#ffff393b"
-            android:layout_weight="3.5"
             android:gravity="right">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="#ffff393b"
                 android:gravity="center_horizontal">
 
@@ -61,7 +60,8 @@
                     android:text="New Text"
                     android:textColor="#FFF"
                     android:id="@+id/textView6"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
 
             <ImageButton
                 android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:id="@+id/back_bt"
                 android:src="@android:drawable/arrow_down_float"
                 android:layout_alignParentTop="true"
