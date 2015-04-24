@@ -205,6 +205,8 @@ public class FragmentMain extends Fragment {
             textNowPlaying = (TextView) view.findViewById(R.id.textNowPlaying);
             textNameSong = (TextView) view.findViewById(R.id.textNameSong);
             seekbar = (SeekBar) view.findViewById(R.id.seekBar);
+            ImageView im_1 = (ImageView) view.findViewById(R.id.im_1);
+            ImageView im_2 = (ImageView) view.findViewById(R.id.im_2);
 
             DisplayMetrics displaymetrics = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -213,21 +215,30 @@ public class FragmentMain extends Fragment {
 
             Log.d("system", "height DisplayMetrics " + height);
             Log.d("system", "width DisplayMetrics " + width);
+
+            android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
+            android.view.ViewGroup.LayoutParams layoutParamsim_1 = im_1.getLayoutParams();
+            android.view.ViewGroup.LayoutParams layoutParamsim_2 = im_2.getLayoutParams();
+
+            int sumW = layoutParamsnext.width + layoutParamsim_1.width + layoutParamsim_2.width;
+
             if(Build.VERSION.SDK_INT > 15) {
                 Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
 
-                android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
-                textNowPlaying.setMaxWidth(width - layoutParamsnext.width - 90);
+
+                textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.1));
 
                 Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
             }else {
 
-                Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getWidth());
+                Log.d("system", "textNowPlaying.setWidth() " + textNowPlaying.getWidth());
 
-                android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
-                textNowPlaying.setWidth(width - layoutParamsnext.width - 90);
 
-                Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getWidth());
+                android.view.ViewGroup.LayoutParams layouttextNowPlaying = textNowPlaying.getLayoutParams();
+                layouttextNowPlaying.width = width - sumW  - (int)(width * 0.1);
+                textNowPlaying.setLayoutParams(layouttextNowPlaying);
+
+                Log.d("system", "New textNowPlaying.setWidth() " + textNowPlaying.getWidth());
             }
 
 
