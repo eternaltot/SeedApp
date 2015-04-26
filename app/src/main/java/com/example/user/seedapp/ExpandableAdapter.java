@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,7 +26,11 @@ import com.example.user.seedapp.com.add.model.Privilege_Child;
 
 import org.json.JSONArray;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,8 +51,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     private HashMap<Privilege,ArrayList<Privilege_Child>> hashMap = new HashMap<Privilege,ArrayList<Privilege_Child>>();
     private int height;
     private int width;
+    private ExpandableListView listView;
 
-    public ExpandableAdapter(Activity a, JSONArray d,Resources resLocal) {
+    public ExpandableAdapter(Activity a, JSONArray d,Resources resLocal,ExpandableListView listView) {
 
         try {
             /********** Take passed values **********/
@@ -55,6 +61,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             group = d;
             res = resLocal;
             mainActivity = (MainActivity) activity;
+            this.listView = listView;
 
             DisplayMetrics displaymetrics = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -67,15 +74,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             for (int i = 0; i < group.length(); i++) {
                 Privilege privilege = new Privilege();
                 String s = MainActivity.path_Image_Privilege + (String) group.getJSONObject(i).get("small_image");
-//            URL newurl = new URL(s);
-//            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
                 privilege.setBitmap(mainActivity.drawableManagerTT.drawableBitMap(s));
                 Privilege_Child privilege_child = new Privilege_Child();
                 String image_big = MainActivity.path_Image_Privilege_Child + (String) group.getJSONObject(i).get("big_image");
                 String url = (String) group.getJSONObject(i).get("url") != null ? (String) group.getJSONObject(i).get("url") : "http://www.google.co.th";
-//            URL newurl_big = new URL(image_big);
-//            Bitmap big_image = BitmapFactory.decodeStream(newurl_big.openConnection().getInputStream());
-//            privilege_child.setBitmap(big_image);
                 privilege_child.setUrl(url);
                 privilege_child.setUrlImage(image_big);
                 mainActivity.drawableManagerTT.fetchOnThread(image_big);
@@ -124,11 +126,11 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 
 
 
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, final boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listitem, null);
         }
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
+        final ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
         imageView.setImageBitmap(listGroup.get(groupPosition).getBitmap());
         if (isExpanded)
             convertView.setPadding(0, 0, 0, 0);
@@ -136,8 +138,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             convertView.setPadding(0, 0, 0, 10);
 
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
-        Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
         float f = ((float)h)/w;
@@ -145,9 +145,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         layoutParams.width = width;
         layoutParams.height = (new BigDecimal((width * f))).intValue();
         imageView.setLayoutParams(layoutParams);
-//        Log.d("system", "(new BigDecimal((width * f))).intValue()" + (new BigDecimal((width * f))).intValue());
 
-        Log.d("system","Render List Group :: " + listGroup.get(groupPosition).getBitmap().getByteCount());
         return convertView;
     }
 
@@ -158,7 +156,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         }
         final int gposition=groupPosition;
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageChildItem);
-        Glide.with(mainActivity.getApplicationContext()).load(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+//        Glide.with(mainActivity.getApplicationContext()).load(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+
+        imageView.setImageBitmap(getBitmapFromURL(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()));
 //        mainActivity.drawableManagerTT.fetchDrawableOnThread(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageLoader.DisplayImage(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageView.setImageBitmap(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getBitmap());
@@ -172,6 +172,14 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
                 activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        float f = ((float)h)/w;
+        android.view.ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+        layoutParams.width = width;
+        layoutParams.height = (new BigDecimal((width * f))).intValue();
+        imageView.setLayoutParams(layoutParams);
 //        Log.d("system","Render List Child :: " + url);
         if (isLastChild) {
             convertView.setPadding(0, 10, 0, 10);
@@ -184,5 +192,26 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+
+        super.onGroupExpanded(groupPosition);
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (Exception e) {
+            // Log exception
+            return null;
+        }
     }
 }

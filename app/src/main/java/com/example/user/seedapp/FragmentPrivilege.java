@@ -51,13 +51,10 @@ public class FragmentPrivilege extends Fragment {
             expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
             setBackEvent();
             final Resources res =getResources();
-            adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
+            adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res,expandableListView);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
 
-            for(int i=0;i<adapter.getGroupCount();i++){
-                expandableListView.setSelectedGroup(i);
-            }
             expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                 @Override
                 public void onGroupExpand(int groupPosition) {
@@ -67,8 +64,8 @@ public class FragmentPrivilege extends Fragment {
                     }
                     lastExpandedPosition = groupPosition;
 //                    expandableListView.smoothScrollToPositionFromTop(groupPosition,10,2000);
-                    expandableListView.setSelectionFromTop(groupPosition,10);
-//                    expandableListView.setSelection(groupPosition);
+//                    expandableListView.setSelectionFromTop(groupPosition,10);
+                    expandableListView.setSelection(groupPosition);
 //                    final int pos = groupPosition;
 //                    expandableListView.post(new Runnable() {
 //                        @Override
@@ -88,7 +85,7 @@ public class FragmentPrivilege extends Fragment {
                         public void run() {
                             swipeRefreshLayout.setRefreshing(false);
                             try {
-                                adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res);
+                                adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res,expandableListView);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
