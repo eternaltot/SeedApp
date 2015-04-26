@@ -69,15 +69,13 @@ public class FragmentPrivilege extends Fragment {
 //                    expandableListView.smoothScrollToPositionFromTop(groupPosition,10,2000);
                     expandableListView.setSelectionFromTop(groupPosition,10);
 //                    expandableListView.setSelection(groupPosition);
-                }
-            });
-            expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                @Override
-                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                    expandableListView.setSelectedGroup(groupPosition);
-//                    expandableListView.scrollTo(0,parent.getChildAt(groupPosition).getHeight()*groupPosition);
-
-                    return false;
+//                    final int pos = groupPosition;
+//                    expandableListView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            expandableListView.smoothScrollToPosition(pos);
+//                        }
+//                    });
                 }
             });
 
