@@ -21,7 +21,7 @@
         android:background="@null"
         android:description="@null"
         android:scaleType="fitCenter"
-        android:src="@android:drawable/presence_offline"
+        android:src="@drawable/close_btn"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
