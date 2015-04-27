@@ -80,7 +80,7 @@ public class MainActivity extends FragmentActivity {
     private Bitmap image;
     private ArrayList<String> arrBanner = new ArrayList<String>();
     private static String banner = "http://api.seedmcot.com/api/top-banners";
-    private static String big_banner = "http://api.seedmcot.com/api/big-banners";
+    private static String big_banner = "http://api.seedmcot.com/api/big-banner-schedules?expand=bigBanner";
     public static String list_privilege = "http://api.seedmcot.com/api/privileges";
     public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
     public static String path_Image_Bigbanner = "http://api.seedmcot.com/backoffice/uploads/bigbanner/1x_";
@@ -381,14 +381,15 @@ public class MainActivity extends FragmentActivity {
             Banner bann = new Banner();
             Log.d("system", "Random Number :: " + n);
             try {
-                Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) jsonBigBanner.getJSONObject(n).get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
+                final JSONObject array = jsonBigBanner.getJSONObject(n);
+                Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
                 imgBigBanner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
                         try {
-                            intent.putExtra("URL", jsonBigBanner.getJSONObject(n).get("url_web").toString());
+                            intent.putExtra("URL", array.getJSONObject("bigBanner").get("url_web").toString());
                         } catch (JSONException e) {
                             intent.putExtra("URL", "");
                             e.printStackTrace();
