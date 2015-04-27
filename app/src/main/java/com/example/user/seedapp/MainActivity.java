@@ -963,7 +963,7 @@ public class MainActivity extends FragmentActivity {
 
 
                         imageButton.setImageBitmap(mIcon_val);
-                        imageButton.setBackground(null);
+                        imageButton.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //                        imageButton.setScaleType(ImageView.ScaleType.FIT_XY);
 
                         URL newurl_select = new URL(pic_select);
