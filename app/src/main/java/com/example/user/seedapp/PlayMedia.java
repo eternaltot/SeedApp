@@ -70,7 +70,14 @@ public class PlayMedia {
     }
 
     public void playStart(){
-        mediaPlayer.start();
+        try {
+            if (flagStop)
+                setReset();
+            mediaPlayer.start();
+            flagStop = Boolean.FALSE;
+        }catch (Exception ex){
+
+        }
     }
 
     public void playMedia(boolean check) {

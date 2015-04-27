@@ -519,6 +519,7 @@ public class FragmentMain extends Fragment {
                     });
 
                     if (play != null && !play.returnIsPlating()) {
+                        Log.d("system", "play.playStart()");
                         play.playStart();
 //                        bt_play.setBackgroundColor(Color.WHITE);
                         bt_play.setImageResource(R.drawable.pause_button);
