@@ -1010,6 +1010,37 @@ public class MainActivity extends FragmentActivity {
     @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(f instanceof FragmentMain || f instanceof FragmentPrivilege || f instanceof FragmentLive){
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Exit")
+                        .setMessage("Do you want to exit?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //Stop the activity
+                                finish();
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
+            }
+        }
+
+        if(f instanceof FragmentYouTube || f instanceof FragmentLyrics || f instanceof FragmentListPage){
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                setFragmentNoBack(getFragmentMain());
+                return true;
+            }
+        }
+
         if(f instanceof FragmentMain){
             if(seekBar != null) {
                 if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
@@ -1027,27 +1058,6 @@ public class MainActivity extends FragmentActivity {
                     }
                     return true;
                 }
-            }
-            if(keyCode == KeyEvent.KEYCODE_BACK){
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Exit")
-                        .setMessage("Do you want to exit?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                //Stop the activity
-                               finish();
-                               android.os.Process.killProcess(android.os.Process.myPid());
-                            }
-
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-
-                return true;
             }
         }else {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
