@@ -72,7 +72,7 @@ public class ListPageAdapter extends BaseAdapter {
         String format = "HH:mm";
         sdf = new SimpleDateFormat(format);
         String time = startDate != null ? sdf.format(startDate): "";
-        String title = item.getEvent_type()!=null && item.getEvent_type().equals("song") ? item.getSongTitle() + "-" + item.getArtistName() : item.getLink_title() != null ? item.getLink_title() : "";
+        String title = item.getEvent_type()!=null && item.getEvent_type().equals("song") ? item.getSongTitle() + " - " + item.getArtistName() : item.getLink_title() != null ? item.getLink_title() : "Seed MCOT";
         textView.setText(time+" "+title);
 
         return convertView;
