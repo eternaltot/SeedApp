@@ -248,12 +248,6 @@ public class MainActivity extends FragmentActivity {
             fragmentDJIndoPage.setObject(djInfo);
         }
     }
-//    public void setBanner() throws Exception {
-//        for(int x= 0 ; x < jsonBanner.length() ; ++x){
-//            Log.d("system",jsonBanner.getJSONObject(x).get("image").toString());
-//            arrBanner.add(path_Image_Topbanner + jsonBanner.getJSONObject(x).get("image").toString());
-//        }
-//    }
 
 
     @Override
@@ -280,13 +274,15 @@ public class MainActivity extends FragmentActivity {
 
         drawableManagerTT = new DrawableManagerTT();
 
+        new GetBigBannerTask().execute();
         new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
         getDataListMusic();
         getDataDJListMusicFromServer();
         getDataBanner();
-        getDataBigBanner();
+//        getDataBigBanner();
+
         getDataNowPlayingFromServer();
         getDataMenu();
 
@@ -360,51 +356,51 @@ public class MainActivity extends FragmentActivity {
                 setFragment(fragmentLive);
             }
         });
-        final Dialog dialog_banner = new Dialog(MainActivity.this);
-        dialog_banner.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_banner.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View convertView = layoutInflater.inflate(R.layout.alert_banner,null,false);
-        ImageView imgCloseBtn = (ImageView) convertView.findViewById(R.id.close_dialog);
-        ImageView imgBigBanner = (ImageView)convertView.findViewById(R.id.imgBigBanner);
-        Random rand = new Random();
-        final int n;
-        if(jsonBigBanner.length()>0) {
-            n = rand.nextInt(jsonBigBanner.length());
-            Banner bann = new Banner();
-            Log.d("system", "Random Number :: " + n);
-            try {
-                final JSONObject array = jsonBigBanner.getJSONObject(n);
-                Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
-                imgBigBanner.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
-                        try {
-                            intent.putExtra("URL", array.getJSONObject("bigBanner").get("url_web").toString());
-                        } catch (JSONException e) {
-                            intent.putExtra("URL", "");
-                            e.printStackTrace();
-                        }
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            imgCloseBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (dialog_banner != null && dialog_banner.isShowing()) {
-                        dialog_banner.dismiss();
-                    }
-                }
-            });
-            dialog_banner.setContentView(convertView);
-            dialog_banner.show();
-        }
+//        final Dialog dialog_banner = new Dialog(MainActivity.this);
+//        dialog_banner.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog_banner.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View convertView = layoutInflater.inflate(R.layout.alert_banner,null,false);
+//        ImageView imgCloseBtn = (ImageView) convertView.findViewById(R.id.close_dialog);
+//        ImageView imgBigBanner = (ImageView)convertView.findViewById(R.id.imgBigBanner);
+//        Random rand = new Random();
+//        final int n;
+//        if(jsonBigBanner.length()>0) {
+//            n = rand.nextInt(jsonBigBanner.length());
+//            Banner bann = new Banner();
+//            Log.d("system", "Random Number :: " + n);
+//            try {
+//                final JSONObject array = jsonBigBanner.getJSONObject(n);
+//                Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
+//                imgBigBanner.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
+//                        try {
+//                            intent.putExtra("URL", array.getJSONObject("bigBanner").get("url_web").toString());
+//                        } catch (JSONException e) {
+//                            intent.putExtra("URL", "");
+//                            e.printStackTrace();
+//                        }
+//                        startActivity(intent);
+//                        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+//                    }
+//                });
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            imgCloseBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (dialog_banner != null && dialog_banner.isShowing()) {
+//                        dialog_banner.dismiss();
+//                    }
+//                }
+//            });
+//            dialog_banner.setContentView(convertView);
+//            dialog_banner.show();
+//        }
         fragmentMain.sendEventClickPlay();
         setMenu();
 
@@ -1073,5 +1069,82 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    class GetBigBannerTask extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    getDataBigBanner();
+
+                    final Dialog dialog_banner = new Dialog(MainActivity.this);
+                    dialog_banner.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_banner.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View convertView = layoutInflater.inflate(R.layout.alert_banner,null,false);
+                    ImageView imgCloseBtn = (ImageView) convertView.findViewById(R.id.close_dialog);
+                    ImageView imgBigBanner = (ImageView)convertView.findViewById(R.id.imgBigBanner);
+                    Random rand = new Random();
+                    final int n;
+                    if(jsonBigBanner.length()>0) {
+                        n = rand.nextInt(jsonBigBanner.length());
+                        Banner bann = new Banner();
+                        Log.d("system", "Random Number :: " + n);
+                        try {
+                            final JSONObject array = jsonBigBanner.getJSONObject(n);
+                            Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
+                            imgBigBanner.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
+                                    try {
+                                        intent.putExtra("URL", array.getJSONObject("bigBanner").get("url_web").toString());
+                                    } catch (JSONException e) {
+                                        intent.putExtra("URL", "");
+                                        e.printStackTrace();
+                                    }
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        imgCloseBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (dialog_banner != null && dialog_banner.isShowing()) {
+                                    dialog_banner.dismiss();
+                                }
+                            }
+                        });
+                        dialog_banner.setContentView(convertView);
+                        dialog_banner.show();
+                    }
+                }
+            });
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        @Override
+        protected void onPostExecute(String file_url) {
+
+        }
     }
 }
