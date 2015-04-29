@@ -16,9 +16,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.os.*;
+import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -124,6 +127,15 @@ public class MainActivity extends FragmentActivity {
     private Boolean seekMute = Boolean.FALSE;
     private int seekVal = -1;
     private SeekBar seekBar;
+    private PlayMedia playMedia;
+
+    public PlayMedia getPlayMedia() {
+        return playMedia;
+    }
+
+    public void setPlayMedia(PlayMedia playMedia) {
+        this.playMedia = playMedia;
+    }
 
     public int getSeekVal() {
         return seekVal;
@@ -404,7 +416,28 @@ public class MainActivity extends FragmentActivity {
         fragmentMain.sendEventClickPlay();
         setMenu();
 
+        TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+
+        tm.listen(mPhoneStateListener,PhoneStateListener.LISTEN_CALL_STATE);
+
     }
+    private PhoneStateListener mPhoneStateListener = new PhoneStateListener(){
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            if(state == TelephonyManager.CALL_STATE_RINGING){
+                if(playMedia!=null && playMedia.returnIsPlating()){
+                    playMedia.playMedia(false);
+                    playMedia.getBt_play().setImageResource(R.drawable.play_button);
+                }
+            }else if(state == TelephonyManager.CALL_STATE_IDLE){
+                if(playMedia!=null && !playMedia.returnIsPlating()){
+                    playMedia.playMedia(true);
+                    playMedia.getBt_play().setImageResource(R.drawable.pause_button);
+                }
+            }
+            super.onCallStateChanged(state, incomingNumber);
+        }
+    };
 
     public void setFragment(Fragment fragment){
         try {
