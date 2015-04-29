@@ -17,6 +17,15 @@ public class PlayAndNext {
     private String nowAuthor;
     private String nowAuthor2;
     private String nowAuthor3;
+    private String artistName;
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
 
     public String getEvent_type() {
         return event_type;

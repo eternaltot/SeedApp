@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Cover_NowPlaying = "http://api.seedmcot.com/backoffice/uploads/";
     public static String path_Image_dj = "http://api.seedmcot.com/backoffice/uploads/dj/2x_";
     public static String list_dj = "http://api.seedmcot.com/api/dj-schedules?expand=dj";
-    public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3";
+    public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,artistName";
     public static String path_radio = "http://api.seedmcot.com/api/radio-urls";
     public static String list_song_details = "http://api.seedmcot.com/api/song-details";
     public static String list_lives = "http://api.seedmcot.com/api/lives";
@@ -340,9 +340,6 @@ public class MainActivity extends FragmentActivity {
         btnSeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                btnSeed.setImageResource(R.drawable.menu2_on);
-//                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-//                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 btnHome.setImageResource(R.drawable.headphone_button);
                 btnSeed.setImageResource(R.drawable.headseed_button_active);
                 btnStream.setImageResource(R.drawable.eye_button);
@@ -352,13 +349,9 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-//        btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         btnStream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                btnStream.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
-//                btnHome.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-//                btnSeed.setImageResource(R.drawable.menu2);
                 btnHome.setImageResource(R.drawable.headphone_button);
                 btnSeed.setImageResource(R.drawable.headseed_button);
                 btnStream.setImageResource(R.drawable.eye_button_active);
@@ -394,8 +387,6 @@ public class MainActivity extends FragmentActivity {
                             intent.putExtra("URL", "");
                             e.printStackTrace();
                         }
-//                    Bundle bundle = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_up, R.anim.slide_out_up).toBundle();
-//                    startActivity(intent, bundle);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                     }
@@ -436,7 +427,6 @@ public class MainActivity extends FragmentActivity {
         } catch (Exception ex){
 
         }
-//        transaction.add(R.id.fragment_container, fragment).commit();
     }
 
 
@@ -459,7 +449,6 @@ public class MainActivity extends FragmentActivity {
             Log.e("Error", ex.getMessage());
         }
 
-//        transaction.add(R.id.fragment_container, fragment).commit();
     }
 
 
@@ -767,7 +756,7 @@ public class MainActivity extends FragmentActivity {
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
 //                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
 //                        else
-                            music.setName(getCurrentPlay().getSongTitle());
+                            music.setName(getCurrentPlay().getSongTitle() + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : ""));
                         music.setAuthor(getCurrentPlay().getNowAuthor());
                         music.setAuthor2(getCurrentPlay().getNowAuthor2());
                         music.setAuthor3(getCurrentPlay().getNowAuthor3());
@@ -788,7 +777,7 @@ public class MainActivity extends FragmentActivity {
             }
             if(fragmentYouTube!=null){
                 String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
-                fragmentYouTube.setTv_name(s);
+                fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : ""));
             }
 
             new GetDataNowPlayingTask().execute();
@@ -862,7 +851,7 @@ public class MainActivity extends FragmentActivity {
         String pathImage_Cover = "";
         String url_Link = "";
         if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
-            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : "");
             pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
         }else if(getCurrentPlay().getEvent_type().equals("link")){
             now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
@@ -870,7 +859,7 @@ public class MainActivity extends FragmentActivity {
             url_Link = getCurrentPlay().getLinkUrl();
         }
         if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"");
+            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? "-" + getNextPlay().getArtistName() : "");
         }else if(getNextPlay().getEvent_type().equals("link")){
             next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
         }

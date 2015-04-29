@@ -321,22 +321,7 @@ public class FragmentMain extends Fragment {
 
                 }
             });
-
-//            if(mainActivity.getSeekBar() != null) {
-//                seekbar.setProgress(mainActivity.getSeekVal());
-//
-//                Log.d("system", "seekbar.getProgress() :: " + seekbar.getProgress());
-//            }
-//            else {
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
-//            }
-//            if(mainActivity.getSeekMute()) {
-//                bt_mute.setImageResource(R.drawable.speaker_mute_white);
-//                seekbar.setProgress(mainActivity.getSeekVal());
-//                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-//
-//                Log.d("system", "getSeekMute seekbar.getProgress() :: " + seekbar.getProgress());
-//            }
 
             mainActivity.setSeekBar(seekbar);
             mainActivity.setSeekVal(seekbar.getProgress());
@@ -356,7 +341,6 @@ public class FragmentMain extends Fragment {
                     } else {
                         audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
                         bt_mute.setImageResource(R.drawable.speaker);
-//                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,oldProgress,0);
                         seekbar.setProgress(oldProgress);
                     }
                 }
@@ -369,7 +353,7 @@ public class FragmentMain extends Fragment {
             String url_Link = "";
             if (mainActivity != null) {
                 if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "");
+                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? "-" + mainActivity.getCurrentPlay().getArtistName() : "");
                     pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
                 } else if (mainActivity.getCurrentPlay().getEvent_type().equals("link")) {
                     now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : "");
@@ -377,7 +361,7 @@ public class FragmentMain extends Fragment {
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
                 if (mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getEvent_type().equals("song")) {
-                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "");
+                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? "-" + mainActivity.getNextPlay().getArtistName() : "");
                 } else if (mainActivity.getNextPlay().getEvent_type().equals("link")) {
                     next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : "");
                 }
@@ -407,7 +391,7 @@ public class FragmentMain extends Fragment {
 
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
                             String name = (mainActivity.getCurrentPlay().getSongTitle());
-                            fragmentYouTube.setMusicName(name);
+                            fragmentYouTube.setMusicName(name + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? "-" + mainActivity.getCurrentPlay().getArtistName() : ""));
                         }
 
                         if (strings.length > 0) {
@@ -427,9 +411,9 @@ public class FragmentMain extends Fragment {
                             Music music = new Music();
                             music.setLyrics(mainActivity.getCurrentPlay().getNowLyric());
                             if(mainActivity.getCurrentPlay().getNowAuthor() != null && mainActivity.getCurrentPlay().getNowAuthor() != "")
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + " - " + mainActivity.getCurrentPlay().getNowAuthor());
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? "-" + mainActivity.getCurrentPlay().getArtistName() : ""));
                             else
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle());
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? "-" + mainActivity.getCurrentPlay().getArtistName() : ""));
                             fragmentLyrics.setMusic(music);
                         }
                     }
