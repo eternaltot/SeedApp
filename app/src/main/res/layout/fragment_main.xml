@@ -161,10 +161,23 @@
                 android:id="@+id/bt_play"
                 android:src="@drawable/play_button"
                 android:background="@null"
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_alignTop="@+id/bt_list"
                 android:layout_toLeftOf="@+id/imageView3"
                 android:layout_toStartOf="@+id/imageView3" />
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/bt_play_load"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/loading_play_button"
+                    android:background="@null"
+                    android:layout_alignTop="@+id/bt_list"
+                    android:layout_toLeftOf="@+id/imageView3"
+                    android:layout_toStartOf="@+id/imageView3"
+                    />
 
             <!--<ImageButton-->
             <!--style="?android:attr/buttonStyleSmall"-->

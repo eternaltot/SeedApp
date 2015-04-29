@@ -31,6 +31,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 
+import pl.droidsonroids.gif.GifImageView;
+
 
 /**
  * Created by LacNoito on 2/10/2015.
@@ -43,6 +45,7 @@ public class FragmentMain extends Fragment {
     private ImageButton bt_list;
     private ImageButton bt_mute;
     private ImageButton bt_play;
+    private GifImageView bt_play_load;
     private TextView textNowPlaying;
     private TextView textNameSong;
     private TextView nowPlaying;
@@ -199,6 +202,7 @@ public class FragmentMain extends Fragment {
             bt_youtube = (ImageButton) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (ImageButton) view.findViewById(R.id.bt_lyrics);
             bt_play = (ImageButton) view.findViewById(R.id.bt_play);
+            bt_play_load = (GifImageView) view.findViewById(R.id.bt_play_load);
             bt_list = (ImageButton) view.findViewById(R.id.bt_list);
             bt_mute = (ImageButton) view.findViewById(R.id.bt_mute);
             imageView3 = (ImageView) view.findViewById(R.id.imageView3);
@@ -273,6 +277,12 @@ public class FragmentMain extends Fragment {
             layoutParamsbt_play.height = (int) (width*0.13);
             bt_play.setLayoutParams(layoutParamsbt_play);
             ((ViewGroup.MarginLayoutParams) bt_play.getLayoutParams()).rightMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
+
+            android.view.ViewGroup.LayoutParams layoutParamsbt_play_load = bt_play_load.getLayoutParams();
+            layoutParamsbt_play_load.width = (int) (width*0.13);
+            layoutParamsbt_play_load.height = (int) (width*0.13);
+            bt_play_load.setLayoutParams(layoutParamsbt_play_load);
+            ((ViewGroup.MarginLayoutParams) bt_play_load.getLayoutParams()).rightMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
 
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
