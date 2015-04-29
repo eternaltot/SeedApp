@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.ImageButton;
 
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by LacNoito on 3/4/2015.
@@ -26,16 +29,22 @@ public class PlayMedia {
     private Runnable runnable;
     private Handler mLeakyHandler;
     private ImageButton bt_play;
+    private GifImageView bt_play_load;
 
     public void setBt_play(ImageButton bt_play) {
         this.bt_play = bt_play;
     }
 
-    public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play) {
+    public void setBt_play_load(GifImageView bt_play_load) {
+        this.bt_play_load = bt_play_load;
+    }
+
+    public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play, GifImageView bt_play_load) {
 
         mediaPlayer = new MediaPlayer();
         this.mLeakyHandler = mHandler;
         this.bt_play = bt_play;
+        this.bt_play_load = bt_play_load;
 
         try {
 
@@ -75,6 +84,8 @@ public class PlayMedia {
                 setReset();
             mediaPlayer.start();
             flagStop = Boolean.FALSE;
+            bt_play.setVisibility(View.VISIBLE);
+            bt_play_load.setVisibility(View.GONE);
         }catch (Exception ex){
 
         }
@@ -83,12 +94,13 @@ public class PlayMedia {
     public void playMedia(boolean check) {
         try {
             if (check) {
-                if(flagStop)
+                if(flagStop) {
                     setReset();
+                }
                 mediaPlayer.start();
                 flagStop = Boolean.FALSE;
                 mLeakyHandler.removeCallbacks(runnable);
-                bt_play.setEnabled(true);
+//                bt_play.setEnabled(true);
             } else {
                 mediaPlayer.pause();
 
@@ -97,5 +109,8 @@ public class PlayMedia {
         } catch (Exception e) {
             Log.e("system", "Error ::: " + e.getMessage());
         }
+
+        bt_play.setVisibility(View.VISIBLE);
+        bt_play_load.setVisibility(View.GONE);
     }
 }

@@ -459,6 +459,9 @@ public class FragmentMain extends Fragment {
         return view;
     }
 
+    public void ss(){
+        bt_youtube.setImageResource(R.drawable.unlock_list);
+    }
 
     class PlayMediaTask extends AsyncTask<String, String, String> {
 
@@ -474,9 +477,10 @@ public class FragmentMain extends Fragment {
         protected String doInBackground(String... args) {
 
             if (play == null)
-                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play);
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load);
 
             play.setBt_play(bt_play);
+            play.setBt_play_load(bt_play_load);
 
             return null;
         }
@@ -495,14 +499,15 @@ public class FragmentMain extends Fragment {
                             Log.d("system", "in onclick btn play");
 
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
-//                                bt_play.setBackgroundColor(Color.WHITE);
-
-                                bt_play.setEnabled(false);
                                 bt_play.setImageResource(R.drawable.pause_button);
-
-//                                MediaPlayer mediaPlayer = MediaPlayer.create(mainActivity.returnBaseContext(), R.raw.body_slam);
-//                                mediaPlayer.start();
-                                play.playMedia(true);
+                                bt_play.setVisibility(View.GONE);
+                                bt_play_load.setVisibility(View.VISIBLE);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        play.playMedia(true);
+                                    }
+                                }, 1);
                             } else {
 //                                bt_play.setBackgroundColor(Color.WHITE);
                                 bt_play.setImageResource(R.drawable.play_button);
@@ -514,9 +519,15 @@ public class FragmentMain extends Fragment {
 
                     if (play != null && !play.returnIsPlating()) {
                         Log.d("system", "play.playStart()");
-                        play.playStart();
-//                        bt_play.setBackgroundColor(Color.WHITE);
                         bt_play.setImageResource(R.drawable.pause_button);
+                        bt_play.setVisibility(View.GONE);
+                        bt_play_load.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                play.playStart();
+                            }
+                        }, 1);
                     }
                 }
             });

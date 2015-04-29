@@ -161,8 +161,8 @@
                 android:id="@+id/bt_play"
                 android:src="@drawable/play_button"
                 android:background="@null"
-                android:visibility="gone"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:layout_alignTop="@+id/bt_list"
                 android:layout_toLeftOf="@+id/imageView3"
                 android:layout_toStartOf="@+id/imageView3" />
