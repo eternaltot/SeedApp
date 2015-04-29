@@ -752,7 +752,7 @@ public class MainActivity extends FragmentActivity {
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
 //                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
 //                        else
-                            music.setName(getCurrentPlay().getSongTitle() + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : ""));
+                            music.setName(getCurrentPlay().getSongTitle() + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
                         music.setAuthor(getCurrentPlay().getNowAuthor());
                         music.setAuthor2(getCurrentPlay().getNowAuthor2());
                         music.setAuthor3(getCurrentPlay().getNowAuthor3());
@@ -773,7 +773,7 @@ public class MainActivity extends FragmentActivity {
             }
             if(fragmentYouTube!=null){
                 String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
-                fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : ""));
+                fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
             }
 
             new GetDataNowPlayingTask().execute();
@@ -847,7 +847,7 @@ public class MainActivity extends FragmentActivity {
         String pathImage_Cover = "";
         String url_Link = "";
         if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
-            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? "-" + getCurrentPlay().getArtistName() : "");
+            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
             pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
         }else if(getCurrentPlay().getEvent_type().equals("link")){
             now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
@@ -855,7 +855,7 @@ public class MainActivity extends FragmentActivity {
             url_Link = getCurrentPlay().getLinkUrl();
         }
         if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? "-" + getNextPlay().getArtistName() : "");
+            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
         }else if(getNextPlay().getEvent_type().equals("link")){
             next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
         }
