@@ -2,6 +2,7 @@ package com.example.user.seedapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import android.widget.TextView;
 
 import com.example.user.seedapp.com.add.model.ListPageItem;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +58,22 @@ public class ListPageAdapter extends BaseAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        textView.setText(listPageItems.get(position).getTitle());
+        ListPageItem item = listPageItems.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date startDate=null;
+        try {
+            startDate = sdf.parse(item.getActual_date_time());
+//            String newDateString = sdf.format(startDate);
+            Log.d("system", "Date Convert " + sdf.parse(item.getActual_date_time()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String format = "HH:mm";
+        sdf = new SimpleDateFormat(format);
+        String time = startDate != null ? sdf.format(startDate): "";
+        String title = item.getEvent_type()!=null && item.getEvent_type().equals("song") ? item.getSongTitle() + "-" + item.getArtistName() : item.getLink_title() != null ? item.getLink_title() : "";
+        textView.setText(time+" "+title);
 
         return convertView;
     }
