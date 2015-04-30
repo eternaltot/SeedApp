@@ -31,6 +31,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 
+import java.io.IOException;
+
+import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 
@@ -283,7 +286,6 @@ public class FragmentMain extends Fragment {
             layoutParamsbt_play_load.height = (int) (width*0.13);
             bt_play_load.setLayoutParams(layoutParamsbt_play_load);
             ((ViewGroup.MarginLayoutParams) bt_play_load.getLayoutParams()).rightMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
-
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
@@ -316,6 +318,7 @@ public class FragmentMain extends Fragment {
                     if (progress == 0) {
                         bt_mute.setImageResource(R.drawable.speaker_mute_white);
                     }
+                    mainActivity.setSeekVal(progress);
 
                     Log.d("system", "seekbar.setOnSeekBarChangeListener seekbar.getProgress() :: " + seekbar.getProgress());
                     Log.d("system", "seekbar.setOnSeekBarChangeListener mainActivity.getSeekVal() :: " + mainActivity.getSeekVal());
@@ -481,6 +484,7 @@ public class FragmentMain extends Fragment {
 
             play.setBt_play(bt_play);
             play.setBt_play_load(bt_play_load);
+            mainActivity.setPlayMedia(play);
 
             return null;
         }

@@ -31,6 +31,10 @@ public class PlayMedia {
     private ImageButton bt_play;
     private GifImageView bt_play_load;
 
+    public ImageButton getBt_play() {
+        return bt_play;
+    }
+
     public void setBt_play(ImageButton bt_play) {
         this.bt_play = bt_play;
     }
