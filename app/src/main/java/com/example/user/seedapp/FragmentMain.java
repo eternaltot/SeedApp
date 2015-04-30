@@ -505,8 +505,8 @@ public class FragmentMain extends Fragment {
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
                                 bt_play.setImageResource(R.drawable.pause_button);
                                 if(play.getFlagStop()) {
-                                    bt_play.setVisibility(View.GONE);
                                     bt_play_load.setVisibility(View.VISIBLE);
+                                    bt_play.setVisibility(View.GONE);
                                 }
 
                                 new Handler().postDelayed(new Runnable() {
