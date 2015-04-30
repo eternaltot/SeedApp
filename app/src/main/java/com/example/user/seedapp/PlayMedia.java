@@ -91,6 +91,10 @@ public class PlayMedia {
         }
     }
 
+    public Boolean getFlagStop() {
+        return flagStop;
+    }
+
     public void playMedia(boolean check) {
         try {
             if (check) {
@@ -100,7 +104,6 @@ public class PlayMedia {
                 mediaPlayer.start();
                 flagStop = Boolean.FALSE;
                 mLeakyHandler.removeCallbacks(runnable);
-//                bt_play.setEnabled(true);
             } else {
                 mediaPlayer.pause();
 

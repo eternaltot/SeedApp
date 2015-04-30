@@ -500,8 +500,11 @@ public class FragmentMain extends Fragment {
 
                             if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
                                 bt_play.setImageResource(R.drawable.pause_button);
-                                bt_play.setVisibility(View.GONE);
-                                bt_play_load.setVisibility(View.VISIBLE);
+                                if(play.getFlagStop()) {
+                                    bt_play.setVisibility(View.GONE);
+                                    bt_play_load.setVisibility(View.VISIBLE);
+                                }
+
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -509,9 +512,7 @@ public class FragmentMain extends Fragment {
                                     }
                                 }, 1);
                             } else {
-//                                bt_play.setBackgroundColor(Color.WHITE);
                                 bt_play.setImageResource(R.drawable.play_button);
-
                                 play.playMedia(false);
                             }
                         }
@@ -520,14 +521,15 @@ public class FragmentMain extends Fragment {
                     if (play != null && !play.returnIsPlating()) {
                         Log.d("system", "play.playStart()");
                         bt_play.setImageResource(R.drawable.pause_button);
-                        bt_play.setVisibility(View.GONE);
-                        bt_play_load.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 play.playStart();
                             }
                         }, 1);
+                    }else{
+                        bt_play.setVisibility(View.VISIBLE);
+                        bt_play_load.setVisibility(View.GONE);
                     }
                 }
             });
