@@ -4,20 +4,12 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.ImageButton;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 import pl.droidsonroids.gif.GifImageView;
+
 
 /**
  * Created by LacNoito on 3/4/2015.
@@ -61,6 +53,7 @@ public class PlayMedia {
                     Log.d("system", "----Runnable---");
                     if(mediaPlayer != null && !mediaPlayer.isPlaying()){
                         mediaPlayer.stop();
+                        mediaPlayer.reset();
                         flagStop = Boolean.TRUE;
                         Log.d("system", "mediaPlayer.stop()");
                     }

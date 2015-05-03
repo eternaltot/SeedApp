@@ -3,6 +3,7 @@ package com.example.user.seedapp;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
@@ -31,9 +32,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.user.seedapp.com.add.model.Music;
 import com.example.user.seedapp.com.add.view.AutoScrollViewPager;
 
-import java.io.IOException;
-
-import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 
@@ -61,6 +59,7 @@ public class FragmentMain extends Fragment {
     private ImageView imageView3;
     private int oldProgress;
     private Handler mHandler = new Handler();
+    private String stageLoad = "0";
 
     public int getOldProgress() {
         return oldProgress;
@@ -296,6 +295,8 @@ public class FragmentMain extends Fragment {
             };
             audioManager.requestAudioFocus(onAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
+//            setRun();
+//            new Load().execute();
 
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             textNameSong.setSelected(true);
@@ -441,6 +442,12 @@ public class FragmentMain extends Fragment {
                 }
             });
 
+            if(play != null && play.getFlagStop()) {
+                bt_play_load.setVisibility(View.VISIBLE);
+                bt_play.setVisibility(View.GONE);
+                play = null;
+            }
+
             new PlayMediaTask().execute();
 
             if (play != null && play.returnIsPlating()) {
@@ -459,12 +466,55 @@ public class FragmentMain extends Fragment {
 
         Log.d("system", "^__^");
 
+        bt_play.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("system", "in onclick btn play");
+                if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
+                    bt_play.setImageResource(R.drawable.pause_button);
+                    if(play.getFlagStop()) {
+                        bt_play_load.setVisibility(View.VISIBLE);
+                        bt_play.setVisibility(View.GONE);
+                        play = null;
+                        new PlayMediaTask().execute();
+                    }else{
+                        play.playMedia(true);
+                    }
+                } else {
+                    bt_play.setImageResource(R.drawable.play_button);
+                    play.playMedia(false);
+                }
+            }
+        });
+
         return view;
     }
+
+//    private void setRun(){
+//        new Handler().postDelayed(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if(stageLoad.equals("0")){
+//                            bt_play_load.setImageResource(R.drawable.loading_play_button_2);
+//                            stageLoad = "1";
+//                        }else if(stageLoad.equals("1")){
+//                            bt_play_load.setImageResource(R.drawable.loading_play_button_3);
+//                            stageLoad = "2";
+//                        }else{
+//                            bt_play_load.setImageResource(R.drawable.loading_play_button_1);
+//                            stageLoad = "0";
+//                        }
+//                        Log.d("system", "setRun()");
+//                        setRun();
+//                    }
+//                }, 500);
+//    }
 
     public void ss(){
         bt_youtube.setImageResource(R.drawable.unlock_list);
     }
+
+
 
     class PlayMediaTask extends AsyncTask<String, String, String> {
 
@@ -498,29 +548,29 @@ public class FragmentMain extends Fragment {
             mainActivity.runOnUiThread(new Runnable() {
                 public void run() {
 
-                    bt_play.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Log.d("system", "in onclick btn play");
-
-                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
-                                bt_play.setImageResource(R.drawable.pause_button);
-                                if(play.getFlagStop()) {
-                                    bt_play_load.setVisibility(View.VISIBLE);
-                                    bt_play.setVisibility(View.GONE);
-                                }
-
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        play.playMedia(true);
-                                    }
-                                }, 1);
-                            } else {
-                                bt_play.setImageResource(R.drawable.play_button);
-                                play.playMedia(false);
-                            }
-                        }
-                    });
+//                    bt_play.setOnClickListener(new View.OnClickListener() {
+//                        public void onClick(View v) {
+//                            Log.d("system", "in onclick btn play");
+//
+//                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
+//                                bt_play.setImageResource(R.drawable.pause_button);
+//                                if(play.getFlagStop()) {
+//                                    bt_play_load.setVisibility(View.VISIBLE);
+//                                    bt_play.setVisibility(View.GONE);
+//                                }
+//
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        play.playMedia(true);
+//                                    }
+//                                }, 1);
+//                            } else {
+//                                bt_play.setImageResource(R.drawable.play_button);
+//                                play.playMedia(false);
+//                            }
+//                        }
+//                    });
 
                     if (play != null && !play.returnIsPlating()) {
                         Log.d("system", "play.playStart()");
@@ -553,6 +603,5 @@ public class FragmentMain extends Fragment {
 
         super.onDestroyView();
     }
-
 
 }
