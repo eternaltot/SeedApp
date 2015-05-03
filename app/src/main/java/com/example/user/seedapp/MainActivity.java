@@ -297,7 +297,7 @@ public class MainActivity extends FragmentActivity {
 
         getDataNowPlayingFromServer();
         getDataMenu();
-
+        getDataDJ();
 //        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
         try {
@@ -811,6 +811,21 @@ public class MainActivity extends FragmentActivity {
 
             new GetDataNowPlayingTask().execute();
         }
+    }
+
+    public void getDataDJ(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataDJListMusicFromServer();
+                try {
+                    if(fragmentMain!=null && fragmentMain.isVisible())
+                    setDjInfos();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        },180000);
     }
 
     class GetDataNowPlayingTask extends AsyncTask<String, String, String> {
