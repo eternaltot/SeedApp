@@ -172,7 +172,7 @@
                     android:layout_height="50dp"
                     android:id="@+id/bt_play_load"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loading_play_button"
+                    android:src="@drawable/loading_play_button_no_shadow"
                     android:background="@null"
                     android:layout_alignTop="@+id/bt_list"
                     android:layout_toLeftOf="@+id/imageView3"
