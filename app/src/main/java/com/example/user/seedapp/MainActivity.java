@@ -674,7 +674,8 @@ public class MainActivity extends FragmentActivity {
                 Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
-                if(jsonArray != null){
+                if(jsonArray != null && jsonArray.length()>0){
+                    djInfos.clear();
                     for(int x= 0 ; x < jsonArray.length() ; ++x){
                         JSONObject object = jsonArray.getJSONObject(x);
 
@@ -814,18 +815,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void getDataDJ(){
-        new Handler().postDelayed(new Runnable() {
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.d("system","Update DJ Time");
                 getDataDJListMusicFromServer();
                 try {
                     if(fragmentMain!=null && fragmentMain.isVisible())
-                    setDjInfos();
+                    fragmentMain.setDjAdapter();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                handler.postDelayed(this,3*60*1000);
             }
-        },180000);
+        },3*60*1000);
     }
 
     class GetDataNowPlayingTask extends AsyncTask<String, String, String> {

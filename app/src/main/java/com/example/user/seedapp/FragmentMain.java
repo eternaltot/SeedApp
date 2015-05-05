@@ -172,6 +172,14 @@ public class FragmentMain extends Fragment {
         }
     }
 
+    public void setDjAdapter(){
+        if(mainActivity!=null) {
+            DJPageAdapter adapter = new DJPageAdapter(getChildFragmentManager(), mainActivity.getDJInfos());
+            AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
+            pager.setAdapter(adapter);
+        }
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view != null) {
