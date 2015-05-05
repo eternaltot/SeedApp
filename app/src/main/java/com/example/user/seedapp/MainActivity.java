@@ -1096,6 +1096,8 @@ public class MainActivity extends FragmentActivity {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
                 super.onKeyDown(keyCode, event);
+                int val = seekBar.getProgress();
+                seekVal = val + 1;
                 if(seekBar!=null){
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                 }
@@ -1104,6 +1106,9 @@ public class MainActivity extends FragmentActivity {
             else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
                 super.onKeyDown(keyCode, event);
+                int val = seekBar.getProgress();
+                if(val - 1 >= 0)
+                    seekVal = val - 1;
                 if(seekBar!=null){
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                 }

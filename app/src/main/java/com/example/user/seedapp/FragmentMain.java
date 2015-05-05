@@ -319,7 +319,7 @@ public class FragmentMain extends Fragment {
                     if (progress == 0) {
                         bt_mute.setImageResource(R.drawable.speaker_mute_white);
                     }
-                    mainActivity.setSeekVal(progress);
+//                    mainActivity.setSeekVal(progress);
 
                     Log.d("system", "seekbar.setOnSeekBarChangeListener seekbar.getProgress() :: " + seekbar.getProgress());
                     Log.d("system", "seekbar.setOnSeekBarChangeListener mainActivity.getSeekVal() :: " + mainActivity.getSeekVal());
@@ -598,7 +598,7 @@ public class FragmentMain extends Fragment {
 //            mainActivity.setSeekMute(Boolean.TRUE);
 //        }
 //
-//        mainActivity.setSeekVal(seekbar.getProgress());
+        mainActivity.setSeekVal(seekbar.getProgress());
         audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         super.onDestroyView();
