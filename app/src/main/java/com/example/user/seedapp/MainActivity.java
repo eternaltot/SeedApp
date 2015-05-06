@@ -434,6 +434,11 @@ public class MainActivity extends FragmentActivity {
                     playMedia.playMedia(true);
                     playMedia.getBt_play().setImageResource(R.drawable.pause_button);
                 }
+            }else if(state==TelephonyManager.CALL_STATE_OFFHOOK){
+                if(playMedia!=null && playMedia.returnIsPlating()){
+                    playMedia.playMedia(false);
+                    playMedia.getBt_play().setImageResource(R.drawable.play_button);
+                }
             }
             super.onCallStateChanged(state, incomingNumber);
         }
