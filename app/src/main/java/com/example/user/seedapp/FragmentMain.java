@@ -383,9 +383,9 @@ public class FragmentMain extends Fragment {
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
                 if (mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getEvent_type().equals("song")) {
-                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? " - " + mainActivity.getNextPlay().getArtistName() : "");
-                } else if (mainActivity.getNextPlay().getEvent_type().equals("link")) {
-                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : "");
+                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? " - " + mainActivity.getNextPlay().getArtistName() : "");
+                } else if (mainActivity.getNextPlay().getEvent_type().equals("spot")) {
+                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : "Seed MCOT");
                 }
                 if (mainActivity.getCurrentPlay() != null && (mainActivity.getCurrentPlay().getNowLyric() != null && !mainActivity.getCurrentPlay().getNowLyric().equals(""))) {
                     setDisableButtonLyric(true);

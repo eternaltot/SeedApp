@@ -128,6 +128,7 @@ public class MainActivity extends FragmentActivity {
     private int seekVal = -1;
     private SeekBar seekBar;
     private PlayMedia playMedia;
+    private Boolean force_stop = Boolean.FALSE;
 
     public PlayMedia getPlayMedia() {
         return playMedia;
@@ -424,18 +425,21 @@ public class MainActivity extends FragmentActivity {
     private PhoneStateListener mPhoneStateListener = new PhoneStateListener(){
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
+
             if(state == TelephonyManager.CALL_STATE_RINGING){
                 if(playMedia!=null && playMedia.returnIsPlating()){
+                    force_stop=playMedia.returnIsPlating();
                     playMedia.playMedia(false);
                     playMedia.getBt_play().setImageResource(R.drawable.play_button);
                 }
             }else if(state == TelephonyManager.CALL_STATE_IDLE){
-                if(playMedia!=null && !playMedia.returnIsPlating()){
+                if(playMedia!=null && !playMedia.returnIsPlating() && force_stop){
                     playMedia.playMedia(true);
                     playMedia.getBt_play().setImageResource(R.drawable.pause_button);
                 }
             }else if(state==TelephonyManager.CALL_STATE_OFFHOOK){
                 if(playMedia!=null && playMedia.returnIsPlating()){
+                    force_stop=playMedia.returnIsPlating();
                     playMedia.playMedia(false);
                     playMedia.getBt_play().setImageResource(R.drawable.play_button);
                 }
@@ -900,22 +904,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setNowPlaying(){
-        String now="Now Playing : ";
-        String next="Next Song :";
+        String now="";
+        String next="";
         String pathImage_Cover = "";
         String url_Link = "";
         if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
-            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
+            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
             pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
-        }else if(getCurrentPlay().getEvent_type().equals("link")){
+        }else if(getCurrentPlay().getEvent_type().equals("spot")){
             now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
             pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
             url_Link = getCurrentPlay().getLinkUrl();
         }
         if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
-        }else if(getNextPlay().getEvent_type().equals("link")){
-            next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"");
+            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"Seed MCOT") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
+        }else if(getNextPlay().getEvent_type().equals("spot")){
+            next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():"Seed MCOT");
         }
         fragmentMain.updateNowPlayingAndNext(now,next,pathImage_Cover,url_Link);
     }
