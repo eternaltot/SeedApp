@@ -292,7 +292,7 @@ public class MainActivity extends FragmentActivity {
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
         getDataListMusic();
-//        getDataDJListMusicFromServer();
+        getDataDJListMusicFromServer();
         getDataBanner();
 //        getDataBigBanner();
 
