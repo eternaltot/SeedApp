@@ -272,6 +272,7 @@ public class MainActivity extends FragmentActivity {
         for(MenuBarImageButton menuBarImageButton : menuBarList){
             menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
         }
+        new GetBigBannerTask().execute();
         super.onResume();
     }
 
@@ -767,14 +768,15 @@ public class MainActivity extends FragmentActivity {
                     }
                     if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
                         Music music = new Music();
-                        music.setLyrics(getCurrentPlay().getNowLyric());
+                        music.setLyrics(currentPlay.getNowLyric());
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
 //                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
 //                        else
-                            music.setName((getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "Seed MCOT" ) + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
-                        music.setAuthor(getCurrentPlay().getNowAuthor());
-                        music.setAuthor2(getCurrentPlay().getNowAuthor2());
-                        music.setAuthor3(getCurrentPlay().getNowAuthor3());
+                            music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT" ) + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
+
+                        music.setAuthor(currentPlay.getNowAuthor());
+                        music.setAuthor2(currentPlay.getNowAuthor2());
+                        music.setAuthor3(currentPlay.getNowAuthor3());
                         fragmentLyrics.setMusic(music);
                     }
 
