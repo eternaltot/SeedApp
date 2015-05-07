@@ -414,7 +414,7 @@ public class FragmentMain extends Fragment {
                         Log.d("system", "url MV :: " + url);
 
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                            String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getArtistName() :"Seed MCOT");
+                            String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle() :"Seed MCOT");
                             fragmentYouTube.setMusicName(name + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : ""));
                         }
 

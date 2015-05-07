@@ -772,8 +772,8 @@ public class MainActivity extends FragmentActivity {
                         setComponentInFragmentMain();
                     }
                     if(fragmentYouTube!=null){
-                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT");
-                        fragmentYouTube.setTv_name(s);
+                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+                        fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
                     }
                     if(fragmentLyrics!=null){
                         Music music = new Music();
