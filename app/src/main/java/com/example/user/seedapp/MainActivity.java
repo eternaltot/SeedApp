@@ -1188,6 +1188,7 @@ public class MainActivity extends FragmentActivity {
                                         intent.putExtra("URL", "");
                                         e.printStackTrace();
                                     }
+                                    dialog_banner.dismiss();
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                                 }
