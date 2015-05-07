@@ -92,11 +92,11 @@ public class FragmentLyrics extends Fragment {
                 else
                     author.setText("คำร้อง : -");
                 if(music.getAuthor2() != null)
-                    author2.setText("ทำนอง : " + music.getAuthor());
+                    author2.setText("ทำนอง : " + music.getAuthor2());
                 else
                     author2.setText("ทำนอง : -");
                 if(music.getAuthor3() != null)
-                    author3.setText("เรียบเรียง : " + music.getAuthor());
+                    author3.setText("เรียบเรียง : " + music.getAuthor3());
                 else
                     author3.setText("เรียบเรียง : -");
             }
