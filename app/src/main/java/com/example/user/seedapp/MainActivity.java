@@ -1165,11 +1165,7 @@ public class MainActivity extends FragmentActivity {
                     Random rand = new Random();
                     final int n;
                     if(jsonBigBanner.length()>0) {
-                        int  nn = rand.nextInt(jsonBigBanner.length());
-                        while(nn==0){
-                            nn = rand.nextInt(jsonBigBanner.length());
-                        }
-                        n = nn;
+                        n = rand.nextInt(jsonBigBanner.length());
                         Banner bann = new Banner();
                         Log.d("system", "Random Number :: " + n);
                         try {
