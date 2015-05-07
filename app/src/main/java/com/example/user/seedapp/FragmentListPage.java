@@ -69,10 +69,10 @@ public class FragmentListPage extends Fragment {
             mainActivity.setTypeFace(number_tv);
 
             if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
-                name.setText(mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"");
+                name.setText(mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"Seed MCOT");
                 name.setText(name.getText() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? "-" + mainActivity.getCurrentPlay().getArtistName() : ""));
-            }else if(mainActivity.getCurrentPlay().getEvent_type().equals("link")){
-                name.setText(mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title():"");
+            }else if(mainActivity.getCurrentPlay().getEvent_type().equals("spot")){
+                name.setText(mainActivity.getCurrentPlay().getLink_title()!=null ? mainActivity.getCurrentPlay().getLink_title(): mainActivity.getCurrentPlay().getLinkTitle() != null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed MCOT");
             }
 
             getDateListFromServer();

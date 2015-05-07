@@ -380,14 +380,14 @@ public class FragmentMain extends Fragment {
                     now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "");
                     pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
                 } else if (mainActivity.getCurrentPlay().getEvent_type().equals("spot")) {
-                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : "Seed MCOT");
+                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed MCOT");
                     pathImage = mainActivity.getCurrentPlay().getLinkCover() != null ? mainActivity.getCurrentPlay().getLinkCover() : "";
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
                 if (mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getEvent_type().equals("song")) {
                     next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? " - " + mainActivity.getNextPlay().getArtistName() : "");
                 } else if (mainActivity.getNextPlay().getEvent_type().equals("spot")) {
-                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : "Seed MCOT");
+                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed MCOT");
                 }
                 if (mainActivity.getCurrentPlay() != null && (mainActivity.getCurrentPlay().getNowLyric() != null && !mainActivity.getCurrentPlay().getNowLyric().equals(""))) {
                     setDisableButtonLyric(true);
