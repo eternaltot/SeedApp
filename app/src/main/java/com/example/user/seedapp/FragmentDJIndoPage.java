@@ -86,6 +86,7 @@ public class FragmentDJIndoPage extends Fragment {
                     Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
                     final EditText editText = (EditText) dialog.findViewById(R.id.editText);
                     final EditText editFrom = (EditText) dialog.findViewById(R.id.editFrom);
+                    final EditText editTel = (EditText) dialog.findViewById(R.id.editTel);
                     btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -96,12 +97,12 @@ public class FragmentDJIndoPage extends Fragment {
                         @Override
                         public void onClick(View v) {
                             if(!editText.getText().toString().isEmpty() && !editFrom.getText().toString().isEmpty()){
-                                if(sendText(editText,editFrom) == 201){
+                                if(sendText(editText,editFrom, editTel) == 201){
                                     dialog.dismiss();
                                 }
 
                             }else{
-                                Toast.makeText(getActivity(),"กรุณาใส่ข้อความและผู้ส่ง",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"กรุณาใส่ข้อความ ผู้ส่ง และเบอร์โทร",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -131,7 +132,7 @@ public class FragmentDJIndoPage extends Fragment {
         return view;
     }
 
-    public int sendText(EditText editText,EditText editFrom){
+    public int sendText(EditText editText,EditText editFrom,EditText editTel){
         HttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(MainActivity.url_TEXT_TO_DJ);
         httpPost.setHeader("Accept", "application/json");
@@ -140,6 +141,7 @@ public class FragmentDJIndoPage extends Fragment {
             JSONObject object = new JSONObject();
             object.put("text",editText.getText().toString());
             object.put("from",editFrom.getText().toString());
+            object.put("tel",editTel.getText().toString());
             StringEntity se = new StringEntity(object.toString(), HTTP.UTF_8);
             httpPost.setEntity(se);
 

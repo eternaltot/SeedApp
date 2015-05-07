@@ -59,7 +59,6 @@ public class FragmentMain extends Fragment {
     private ImageView imageView3;
     private int oldProgress;
     private Handler mHandler = new Handler();
-    private String stageLoad = "0";
 
     public int getOldProgress() {
         return oldProgress;
@@ -308,8 +307,6 @@ public class FragmentMain extends Fragment {
             };
             audioManager.requestAudioFocus(onAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-//            setRun();
-//            new Load().execute();
 
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             textNameSong.setSelected(true);
@@ -464,7 +461,6 @@ public class FragmentMain extends Fragment {
             new PlayMediaTask().execute();
 
             if (play != null && play.returnIsPlating()) {
-//                bt_play.setBackgroundColor(Color.WHITE);
                 bt_play.setImageResource(R.drawable.pause_button);
             }
 
@@ -502,26 +498,6 @@ public class FragmentMain extends Fragment {
         return view;
     }
 
-//    private void setRun(){
-//        new Handler().postDelayed(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(stageLoad.equals("0")){
-//                            bt_play_load.setImageResource(R.drawable.loading_play_button_2);
-//                            stageLoad = "1";
-//                        }else if(stageLoad.equals("1")){
-//                            bt_play_load.setImageResource(R.drawable.loading_play_button_3);
-//                            stageLoad = "2";
-//                        }else{
-//                            bt_play_load.setImageResource(R.drawable.loading_play_button_1);
-//                            stageLoad = "0";
-//                        }
-//                        Log.d("system", "setRun()");
-//                        setRun();
-//                    }
-//                }, 500);
-//    }
 
     public void ss(){
         bt_youtube.setImageResource(R.drawable.unlock_list);
@@ -561,30 +537,6 @@ public class FragmentMain extends Fragment {
             mainActivity.runOnUiThread(new Runnable() {
                 public void run() {
 
-//                    bt_play.setOnClickListener(new View.OnClickListener() {
-//                        public void onClick(View v) {
-//                            Log.d("system", "in onclick btn play");
-//
-//                            if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
-//                                bt_play.setImageResource(R.drawable.pause_button);
-//                                if(play.getFlagStop()) {
-//                                    bt_play_load.setVisibility(View.VISIBLE);
-//                                    bt_play.setVisibility(View.GONE);
-//                                }
-//
-//                                new Handler().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        play.playMedia(true);
-//                                    }
-//                                }, 1);
-//                            } else {
-//                                bt_play.setImageResource(R.drawable.play_button);
-//                                play.playMedia(false);
-//                            }
-//                        }
-//                    });
-
                     if (play != null && !play.returnIsPlating()) {
                         Log.d("system", "play.playStart()");
                         bt_play.setImageResource(R.drawable.pause_button);
@@ -605,12 +557,6 @@ public class FragmentMain extends Fragment {
 
     @Override
     public void onDestroyView() {
-//        if(mainActivity.getAudioManager() != null && audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)!=0) {
-//            mainActivity.setSeekMute(Boolean.FALSE);
-//        }else{
-//            mainActivity.setSeekMute(Boolean.TRUE);
-//        }
-//
         mainActivity.setSeekVal(seekbar.getProgress());
         audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 

@@ -328,15 +328,12 @@ public class MainActivity extends FragmentActivity {
         btnHome = (ImageButton) findViewById(R.id.btnHome);
         btnSeed = (ImageButton) findViewById(R.id.btnSeed);
         btnStream = (ImageButton) findViewById(R.id.btnStream);
-//        btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                btnHome.setColorFilter(getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
                 btnHome.setImageResource(R.drawable.headphone_button_active);
                 btnSeed.setImageResource(R.drawable.headseed_button);
                 btnStream.setImageResource(R.drawable.eye_button);
-//                btnStream.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
                 if(fragmentMain.isVisible() || fragmentListPage.isVisible() || fragmentLyrics.isVisible() || fragmentYouTube.isVisible()){
 
                 }else{
@@ -369,51 +366,7 @@ public class MainActivity extends FragmentActivity {
                 setFragment(fragmentLive);
             }
         });
-//        final Dialog dialog_banner = new Dialog(MainActivity.this);
-//        dialog_banner.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog_banner.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View convertView = layoutInflater.inflate(R.layout.alert_banner,null,false);
-//        ImageView imgCloseBtn = (ImageView) convertView.findViewById(R.id.close_dialog);
-//        ImageView imgBigBanner = (ImageView)convertView.findViewById(R.id.imgBigBanner);
-//        Random rand = new Random();
-//        final int n;
-//        if(jsonBigBanner.length()>0) {
-//            n = rand.nextInt(jsonBigBanner.length());
-//            Banner bann = new Banner();
-//            Log.d("system", "Random Number :: " + n);
-//            try {
-//                final JSONObject array = jsonBigBanner.getJSONObject(n);
-//                Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);
-//                imgBigBanner.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        Intent intent = new Intent(getApplicationContext(),WebviewActivity.class);
-//                        try {
-//                            intent.putExtra("URL", array.getJSONObject("bigBanner").get("url_web").toString());
-//                        } catch (JSONException e) {
-//                            intent.putExtra("URL", "");
-//                            e.printStackTrace();
-//                        }
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-//                    }
-//                });
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            imgCloseBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (dialog_banner != null && dialog_banner.isShowing()) {
-//                        dialog_banner.dismiss();
-//                    }
-//                }
-//            });
-//            dialog_banner.setContentView(convertView);
-//            dialog_banner.show();
-//        }
+
         fragmentMain.sendEventClickPlay();
         setMenu();
 

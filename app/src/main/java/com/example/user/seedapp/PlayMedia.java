@@ -15,7 +15,7 @@ import pl.droidsonroids.gif.GifImageView;
  * Created by LacNoito on 3/4/2015.
  */
 public class PlayMedia {
-    public MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     private String url = "";
     private Boolean flagStop = Boolean.FALSE;
     private Runnable runnable;
