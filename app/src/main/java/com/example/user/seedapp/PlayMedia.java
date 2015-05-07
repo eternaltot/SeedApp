@@ -22,6 +22,7 @@ public class PlayMedia {
     private Handler mLeakyHandler;
     private ImageButton bt_play;
     private GifImageView bt_play_load;
+    private MainActivity mainActivity;
 
     public ImageButton getBt_play() {
         return bt_play;
@@ -35,10 +36,11 @@ public class PlayMedia {
         this.bt_play_load = bt_play_load;
     }
 
-    public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play, GifImageView bt_play_load) {
+    public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play, GifImageView bt_play_load, MainActivity mainActivity) {
 
         mediaPlayer = new MediaPlayer();
         this.mLeakyHandler = mHandler;
+        this.mainActivity = mainActivity;
         this.bt_play = bt_play;
         this.bt_play_load = bt_play_load;
 
@@ -92,6 +94,11 @@ public class PlayMedia {
         return flagStop;
     }
 
+    public void force_pause(){
+        mediaPlayer.pause();
+        mLeakyHandler.postDelayed(runnable, 5000);
+    }
+
     public void playMedia(boolean check) {
         try {
             if (check) {
@@ -99,11 +106,12 @@ public class PlayMedia {
                     setReset();
                 }
                 mediaPlayer.start();
+//                mainActivity.setFlagPause(false);
                 flagStop = Boolean.FALSE;
                 mLeakyHandler.removeCallbacks(runnable);
             } else {
                 mediaPlayer.pause();
-
+//                mainActivity.setFlagPause(true);
                 mLeakyHandler.postDelayed(runnable, 5000);
             }
         } catch (Exception e) {

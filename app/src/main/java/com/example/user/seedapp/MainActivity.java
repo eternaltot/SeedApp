@@ -129,6 +129,15 @@ public class MainActivity extends FragmentActivity {
     private SeekBar seekBar;
     private PlayMedia playMedia;
     private Boolean force_stop = Boolean.FALSE;
+    private static Boolean flagPause = Boolean.FALSE;
+
+    public static Boolean getFlagPause() {
+        return flagPause;
+    }
+
+    public static void setFlagPause(Boolean flagPause) {
+        MainActivity.flagPause = flagPause;
+    }
 
     public PlayMedia getPlayMedia() {
         return playMedia;

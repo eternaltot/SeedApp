@@ -139,7 +139,7 @@ public class FragmentMain extends Fragment {
 
     public void pauseMedia() {
         if (play != null && play.returnIsPlating()) {
-            play.playMedia(false);
+            play.force_pause();
         }
     }
 
@@ -480,7 +480,8 @@ public class FragmentMain extends Fragment {
                 Log.d("system", "in onclick btn play");
                 if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
                     bt_play.setImageResource(R.drawable.pause_button);
-                    if(play.getFlagStop()) {
+                    mainActivity.setFlagPause(false);
+                    if(play == null || play.getFlagStop()) {
                         bt_play_load.setVisibility(View.VISIBLE);
                         bt_play.setVisibility(View.GONE);
                         play = null;
@@ -489,6 +490,7 @@ public class FragmentMain extends Fragment {
                         play.playMedia(true);
                     }
                 } else {
+                    mainActivity.setFlagPause(true);
                     bt_play.setImageResource(R.drawable.play_button);
                     play.playMedia(false);
                 }
@@ -518,12 +520,14 @@ public class FragmentMain extends Fragment {
         @Override
         protected String doInBackground(String... args) {
 
-            if (play == null)
-                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load);
+            if (play == null  && !mainActivity.getFlagPause())
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load, mainActivity);
 
-            play.setBt_play(bt_play);
-            play.setBt_play_load(bt_play_load);
-            mainActivity.setPlayMedia(play);
+            if(play != null) {
+                play.setBt_play(bt_play);
+                play.setBt_play_load(bt_play_load);
+                mainActivity.setPlayMedia(play);
+            }
 
             return null;
         }
@@ -537,7 +541,7 @@ public class FragmentMain extends Fragment {
             mainActivity.runOnUiThread(new Runnable() {
                 public void run() {
 
-                    if (play != null && !play.returnIsPlating()) {
+                    if (play != null && !play.returnIsPlating() && !mainActivity.getFlagPause()) {
                         Log.d("system", "play.playStart()");
                         bt_play.setImageResource(R.drawable.pause_button);
                         new Handler().postDelayed(new Runnable() {
@@ -546,7 +550,7 @@ public class FragmentMain extends Fragment {
                                 play.playStart();
                             }
                         }, 1);
-                    }else{
+                    } else {
                         bt_play.setVisibility(View.VISIBLE);
                         bt_play_load.setVisibility(View.GONE);
                     }
