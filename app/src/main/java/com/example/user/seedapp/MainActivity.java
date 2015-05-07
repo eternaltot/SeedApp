@@ -775,7 +775,7 @@ public class MainActivity extends FragmentActivity {
                         String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT");
                         fragmentYouTube.setTv_name(s);
                     }
-                    if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
+                    if(fragmentLyrics!=null){
                         Music music = new Music();
                         music.setLyrics(currentPlay.getNowLyric());
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
@@ -786,9 +786,9 @@ public class MainActivity extends FragmentActivity {
                         music.setAuthor(currentPlay.getNowAuthor());
                         music.setAuthor2(currentPlay.getNowAuthor2());
                         music.setAuthor3(currentPlay.getNowAuthor3());
-                        Log.d("Author",currentPlay.getNowAuthor());
-                        Log.d("getNowAuthor2",currentPlay.getNowAuthor2());
-                        Log.d("getNowAuthor3",currentPlay.getNowAuthor3());
+                        Log.d("system","2Author : "+currentPlay.getNowAuthor());
+                        Log.d("system","2Author2 : "+currentPlay.getNowAuthor2());
+                        Log.d("system","2Author3 : "+currentPlay.getNowAuthor3());
                         fragmentLyrics.setMusic(music);
                     }
 
@@ -807,6 +807,22 @@ public class MainActivity extends FragmentActivity {
             if(fragmentYouTube!=null){
                 String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
                 fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
+            }
+            if(fragmentLyrics!=null){
+                Music music = new Music();
+                music.setLyrics(currentPlay.getNowLyric());
+//                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
+//                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
+//                        else
+                music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT" ) + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
+
+                music.setAuthor(currentPlay.getNowAuthor());
+                music.setAuthor2(currentPlay.getNowAuthor2());
+                music.setAuthor3(currentPlay.getNowAuthor3());
+                Log.d("system","Author : "+currentPlay.getNowAuthor());
+                Log.d("system","Author2 : "+currentPlay.getNowAuthor2());
+                Log.d("system","Author3 : "+currentPlay.getNowAuthor3());
+                fragmentLyrics.setMusic(music);
             }
 
             new GetDataNowPlayingTask().execute();

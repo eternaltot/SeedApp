@@ -414,7 +414,7 @@ public class FragmentMain extends Fragment {
                         Log.d("system", "url MV :: " + url);
 
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                            String name = (mainActivity.getCurrentPlay().getSongTitle());
+                            String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getArtistName() :"Seed MCOT");
                             fragmentYouTube.setMusicName(name + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : ""));
                         }
 
@@ -434,6 +434,10 @@ public class FragmentMain extends Fragment {
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
                             Music music = new Music();
                             music.setLyrics(mainActivity.getCurrentPlay().getNowLyric());
+                            music.setAuthor(mainActivity.getCurrentPlay().getNowAuthor());
+                            music.setAuthor2(mainActivity.getCurrentPlay().getNowAuthor2());
+                            music.setAuthor3(mainActivity.getCurrentPlay().getNowAuthor3());
+
                             if(mainActivity.getCurrentPlay().getNowAuthor() != null && mainActivity.getCurrentPlay().getNowAuthor() != "")
                                 music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed MCOT"));
                             else

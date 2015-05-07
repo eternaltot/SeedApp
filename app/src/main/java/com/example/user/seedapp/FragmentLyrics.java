@@ -84,6 +84,7 @@ public class FragmentLyrics extends Fragment {
 //                    compose.setText(compose.getText() + music.getCompose());
 //                else
 //                    compose.setText(compose.getText() + "-");
+                Log.d("system", "Music Author : " + music.getAuthor());
                 if(music.getLyrics() != null)
                     lyrics.setText(lyrics.getText() + music.getLyrics());
                 else

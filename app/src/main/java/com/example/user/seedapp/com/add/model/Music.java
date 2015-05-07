@@ -8,8 +8,6 @@ public class Music {
     private String author;
     private String author2;
     private String author3;
-    private String tempo;
-    private String compose;
     private String lyrics;
 
     public String getName() {
@@ -26,22 +24,6 @@ public class Music {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getTempo() {
-        return tempo;
-    }
-
-    public void setTempo(String tempo) {
-        this.tempo = tempo;
-    }
-
-    public String getCompose() {
-        return compose;
-    }
-
-    public void setCompose(String compose) {
-        this.compose = compose;
     }
 
     public String getLyrics() {
