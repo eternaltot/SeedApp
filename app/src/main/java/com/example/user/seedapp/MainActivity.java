@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.*;
 import android.provider.Telephony;
 import android.support.v4.app.Fragment;
@@ -138,6 +139,7 @@ public class MainActivity extends FragmentActivity {
     public static void setFlagPause(Boolean flagPause) {
         MainActivity.flagPause = flagPause;
     }
+    private ImageButton btnFb;
 
     public PlayMedia getPlayMedia() {
         return playMedia;
@@ -213,6 +215,7 @@ public class MainActivity extends FragmentActivity {
     private JSONArray jsonPrivillege;
     private JSONArray jsonMenu;
     private Typeface typeface;
+    private Context context;
 
     public String getCutURLYoutube() {
         return cutURLYoutube;
@@ -278,6 +281,7 @@ public class MainActivity extends FragmentActivity {
         for(MenuBarImageButton menuBarImageButton : menuBarList){
             menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
         }
+        new GetBigBannerTask().execute();
         super.onResume();
     }
 
@@ -285,7 +289,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = this;
         //ReplaceFont.replaceDefaultFont(this, "DEFAULT", "alpine_typeface/AlpineTypeface/Cleanlight.ttf");
 
         // Permission StrictMode
@@ -296,7 +300,7 @@ public class MainActivity extends FragmentActivity {
 
         drawableManagerTT = new DrawableManagerTT();
 
-        new GetBigBannerTask().execute();
+//        new GetBigBannerTask().execute();
         new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
@@ -337,12 +341,14 @@ public class MainActivity extends FragmentActivity {
         btnHome = (ImageButton) findViewById(R.id.btnHome);
         btnSeed = (ImageButton) findViewById(R.id.btnSeed);
         btnStream = (ImageButton) findViewById(R.id.btnStream);
+        btnFb = (ImageButton) findViewById(R.id.btnFb);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnHome.setImageResource(R.drawable.headphone_button_active);
                 btnSeed.setImageResource(R.drawable.headseed_button);
                 btnStream.setImageResource(R.drawable.eye_button);
+                btnFb.setImageResource(R.drawable.fb_icon_app_2);
                 if(fragmentMain.isVisible() || fragmentListPage.isVisible() || fragmentLyrics.isVisible() || fragmentYouTube.isVisible()){
 
                 }else{
@@ -358,6 +364,7 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setImageResource(R.drawable.headphone_button);
                 btnSeed.setImageResource(R.drawable.headseed_button_active);
                 btnStream.setImageResource(R.drawable.eye_button);
+                btnFb.setImageResource(R.drawable.fb_icon_app_2);
                 FragmentPrivilege fragmentPrivilege = new FragmentPrivilege();
                 setFragment(fragmentPrivilege);
 
@@ -370,9 +377,26 @@ public class MainActivity extends FragmentActivity {
                 btnHome.setImageResource(R.drawable.headphone_button);
                 btnSeed.setImageResource(R.drawable.headseed_button);
                 btnStream.setImageResource(R.drawable.eye_button_active);
+                btnFb.setImageResource(R.drawable.fb_icon_app_2);
                 FragmentLive fragmentLive = new FragmentLive();
                 fragmentLive.setYouTubePlayerFragment(YPlayer);
                 setFragment(fragmentLive);
+            }
+        });
+
+        btnFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+                    Intent intent =  new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/281624818711"));
+                    Log.d("Facebook","In Facebook ID");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Intent intent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/seedmcot?fref=nf"));
+                    Log.d("Facebook","In Facebook link");
+                    startActivity(intent);
+                }
             }
         });
 
@@ -753,14 +777,18 @@ public class MainActivity extends FragmentActivity {
                     }
                     if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
                         Music music = new Music();
-                        music.setLyrics(getCurrentPlay().getNowLyric());
+                        music.setLyrics(currentPlay.getNowLyric());
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
 //                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
 //                        else
-                            music.setName((getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "Seed MCOT" ) + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
-                        music.setAuthor(getCurrentPlay().getNowAuthor());
-                        music.setAuthor2(getCurrentPlay().getNowAuthor2());
-                        music.setAuthor3(getCurrentPlay().getNowAuthor3());
+                            music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT" ) + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
+
+                        music.setAuthor(currentPlay.getNowAuthor());
+                        music.setAuthor2(currentPlay.getNowAuthor2());
+                        music.setAuthor3(currentPlay.getNowAuthor3());
+                        Log.d("Author",currentPlay.getNowAuthor());
+                        Log.d("getNowAuthor2",currentPlay.getNowAuthor2());
+                        Log.d("getNowAuthor3",currentPlay.getNowAuthor3());
                         fragmentLyrics.setMusic(music);
                     }
 

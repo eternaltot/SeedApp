@@ -2,6 +2,7 @@ package com.example.user.seedapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +48,9 @@ public class FragmentLyrics extends Fragment {
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView nowPlaying = (TextView) view.findViewById(R.id.now_playing);
 
-            TextView author = (TextView) view.findViewById(R.id.textView6);
-            TextView author2 = (TextView) view.findViewById(R.id.textView7);
-            TextView author3 = (TextView) view.findViewById(R.id.textView8);
+            TextView author = (TextView) view.findViewById(R.id.txtAuthor);
+            TextView author2 = (TextView) view.findViewById(R.id.txtAuthor2);
+            TextView author3 = (TextView) view.findViewById(R.id.txtAuthor3);
             TextView lyrics = (TextView) view.findViewById(R.id.lyrics);
             TextView tv_lyrics = (TextView) view.findViewById(R.id.tv_lyrics);
             back_bt = (ImageView) view.findViewById(R.id.back_bt);
@@ -102,7 +103,7 @@ public class FragmentLyrics extends Fragment {
             }
 
         }catch (Exception e){
-
+            Log.e("Lyrics",e.getMessage());
         }
 
         setBackEvent();

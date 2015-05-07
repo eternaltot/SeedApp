@@ -92,9 +92,20 @@
                         android:src="@drawable/eye_button"
                         android:scaleType="fitXY"
                         android:background="@null" />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnFb"
+                        android:layout_marginLeft="30dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:src="@drawable/fb_icon_app_2"
+                        android:scaleType="fitXY" />
                 </LinearLayout>
 
             </HorizontalScrollView>
+
         </LinearLayout>
     </LinearLayout>
 
