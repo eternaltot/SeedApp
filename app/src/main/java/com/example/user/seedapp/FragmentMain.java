@@ -86,6 +86,9 @@ public class FragmentMain extends Fragment {
             textNameSong.setText(next);
             if (pathImage != null && !pathImage.equals(""))
                 Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
+            else{
+                imageView3.setImageResource(R.drawable.seed_head);
+            }
 
             if (url != null && !url.equals("")) {
                 imageView3.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +101,8 @@ public class FragmentMain extends Fragment {
                         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                     }
                 });
+            }else{
+                imageView3.setOnClickListener(null);
             }
 
 
@@ -375,10 +380,10 @@ public class FragmentMain extends Fragment {
             String url_Link = "";
             if (mainActivity != null) {
                 if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "");
+                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "");
                     pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
-                } else if (mainActivity.getCurrentPlay().getEvent_type().equals("link")) {
-                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : "");
+                } else if (mainActivity.getCurrentPlay().getEvent_type().equals("spot")) {
+                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : "Seed MCOT");
                     pathImage = mainActivity.getCurrentPlay().getLinkCover() != null ? mainActivity.getCurrentPlay().getLinkCover() : "";
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
@@ -433,9 +438,9 @@ public class FragmentMain extends Fragment {
                             Music music = new Music();
                             music.setLyrics(mainActivity.getCurrentPlay().getNowLyric());
                             if(mainActivity.getCurrentPlay().getNowAuthor() != null && mainActivity.getCurrentPlay().getNowAuthor() != "")
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : ""));
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed MCOT"));
                             else
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : ""));
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed MCOT"));
                             fragmentLyrics.setMusic(music);
                         }
                     }

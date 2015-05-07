@@ -786,7 +786,7 @@ public class MainActivity extends FragmentActivity {
                         setComponentInFragmentMain();
                     }
                     if(fragmentYouTube!=null){
-                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT");
                         fragmentYouTube.setTv_name(s);
                     }
                     if(fragmentLyrics!=null && fragmentLyrics.isVisible()){
@@ -795,7 +795,7 @@ public class MainActivity extends FragmentActivity {
 //                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
 //                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
 //                        else
-                            music.setName(getCurrentPlay().getSongTitle() + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
+                            music.setName((getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "Seed MCOT" ) + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
                         music.setAuthor(getCurrentPlay().getNowAuthor());
                         music.setAuthor2(getCurrentPlay().getNowAuthor2());
                         music.setAuthor3(getCurrentPlay().getNowAuthor3());
@@ -912,7 +912,7 @@ public class MainActivity extends FragmentActivity {
             now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
             pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
         }else if(getCurrentPlay().getEvent_type().equals("spot")){
-            now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"");
+            now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title():"Seed MCOT");
             pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
             url_Link = getCurrentPlay().getLinkUrl();
         }
