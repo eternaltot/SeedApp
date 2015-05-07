@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="New Text"
                     android:textColor="#FFF"
-                    android:id="@+id/textView6"
+                    android:id="@+id/txtAuthor"
                     android:textSize="14dp"
                     android:layout_marginTop="10dp" />
 
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="New Text"
-                    android:id="@+id/textView7"
+                    android:id="@+id/txtAuthor2"
                     android:textColor="#FFF"
                     android:textSize="14dp" />
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="New Text"
                     android:textColor="#FFF"
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtAuthor3"
                     android:textSize="14dp" />
 
                 <TextView

@@ -291,7 +291,7 @@ public class MainActivity extends FragmentActivity {
 
         drawableManagerTT = new DrawableManagerTT();
 
-        new GetBigBannerTask().execute();
+//        new GetBigBannerTask().execute();
         new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
@@ -777,6 +777,9 @@ public class MainActivity extends FragmentActivity {
                         music.setAuthor(currentPlay.getNowAuthor());
                         music.setAuthor2(currentPlay.getNowAuthor2());
                         music.setAuthor3(currentPlay.getNowAuthor3());
+                        Log.d("Author",currentPlay.getNowAuthor());
+                        Log.d("getNowAuthor2",currentPlay.getNowAuthor2());
+                        Log.d("getNowAuthor3",currentPlay.getNowAuthor3());
                         fragmentLyrics.setMusic(music);
                     }
 
