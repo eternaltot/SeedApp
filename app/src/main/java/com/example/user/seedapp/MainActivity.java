@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Menu = "http://api.seedmcot.com/backoffice/uploads/tabmenu/3x_";
     public static String url_TEXT_TO_DJ="http://api.seedmcot.com/api/text-to-djs";
     private ImageView imageView;
-    private static int SPLASH_TIMEOUT = 15000;
+    private static int SPLASH_TIMEOUT = 5000;
     private static YouTubePlayer YPlayer;
     private static final String YoutubeDeveloperKey = "AIzaSyCjfgiAytO0iYrnz7EQuWarGLSSPmW_mw0";
     private static YouTubePlayerSupportFragment youTubePlayerFragment;
@@ -292,7 +292,7 @@ public class MainActivity extends FragmentActivity {
         new GetDataNowPlayingTask().execute();
 //        getDataNowPlayingFromServer();
         getDataListMusic();
-        getDataDJListMusicFromServer();
+//        getDataDJListMusicFromServer();
         getDataBanner();
 //        getDataBigBanner();
 
@@ -613,8 +613,8 @@ public class MainActivity extends FragmentActivity {
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     jsonBigBanner = jsonArray;
-                    Log.d("system", "big banner :: " + jsonBigBanner.toString());
-                    Log.d("system", "big banner lenght :: " + jsonBigBanner.length());
+                    Log.d("Tot", "big banner :: " + jsonBigBanner.toString());
+                    Log.d("Tot", "big banner lenght :: " + jsonBigBanner.length());
                 }
 
             } catch (Exception e) {
@@ -837,9 +837,9 @@ public class MainActivity extends FragmentActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                handler.postDelayed(this,3*60*1000);
+                handler.postDelayed(this,60*1000);
             }
-        },3*60*1000);
+        },60*1000);
     }
 
     class GetDataNowPlayingTask extends AsyncTask<String, String, String> {
@@ -1165,7 +1165,11 @@ public class MainActivity extends FragmentActivity {
                     Random rand = new Random();
                     final int n;
                     if(jsonBigBanner.length()>0) {
-                        n = rand.nextInt(jsonBigBanner.length());
+                        int  nn = rand.nextInt(jsonBigBanner.length());
+                        while(nn==0){
+                            nn = rand.nextInt(jsonBigBanner.length());
+                        }
+                        n = nn;
                         Banner bann = new Banner();
                         Log.d("system", "Random Number :: " + n);
                         try {
