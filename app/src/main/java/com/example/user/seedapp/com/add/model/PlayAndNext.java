@@ -130,4 +130,14 @@ public class PlayAndNext {
     public void setNowAuthor3(String nowAuthor3) {
         this.nowAuthor3 = nowAuthor3;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        PlayAndNext playAndNext = (PlayAndNext) o;
+        if(((songTitle == null && playAndNext.getSongTitle() == null) || songTitle.equals(playAndNext.getSongTitle()))
+                && (((artistName == null && playAndNext.getArtistName() == null)) || artistName.equals(playAndNext.getArtistName()))){
+            return true;
+        }else
+            return false;
+    }
 }

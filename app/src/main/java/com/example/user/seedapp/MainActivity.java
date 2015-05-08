@@ -116,6 +116,8 @@ public class MainActivity extends FragmentActivity {
     private FragmentLive fragmentLive = new FragmentLive();
     private PlayAndNext currentPlay;
     private PlayAndNext nextPlay;
+    private PlayAndNext currentPlayOld;
+    private PlayAndNext nextPlayOld;
     private Gson gson = new Gson();
     private String cutURLYoutube = "v=";
     public static DrawableManagerTT drawableManagerTT;
@@ -300,19 +302,15 @@ public class MainActivity extends FragmentActivity {
 
         drawableManagerTT = new DrawableManagerTT();
 
-//        new GetBigBannerTask().execute();
         new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
-//        getDataNowPlayingFromServer();
         getDataListMusic();
         getDataDJListMusicFromServer();
         getDataBanner();
-//        getDataBigBanner();
 
         getDataNowPlayingFromServer();
         getDataMenu();
         getDataDJ();
-//        imageView = (ImageView) findViewById(R.id.imageView4);
         BannerAdapter adapter = null;
         try {
             adapter = new BannerAdapter(getSupportFragmentManager(),jsonBanner);
@@ -744,10 +742,12 @@ public class MainActivity extends FragmentActivity {
                     Log.d("system", "Now Playing :: " + object.toString());
 
                     if(x == 1) {
+                        currentPlayOld = currentPlay;
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
                     }
                     else if(x == 0) {
+                        nextPlayOld = nextPlay;
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
                         Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
@@ -766,62 +766,62 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void run() {
                     getDataNowPlayingFromServer();
-                    if(fragmentMain!=null && fragmentMain.isVisible()){
-                        Log.d("system","ON Fragment Main Other Time");
-                        setNowPlaying();
-                        setComponentInFragmentMain();
-                    }
-                    if(fragmentYouTube!=null){
-                        String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
-                        fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
-                    }
-                    if(fragmentLyrics!=null){
-                        Music music = new Music();
-                        music.setLyrics(currentPlay.getNowLyric());
-//                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
-//                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
-//                        else
-                            music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT" ) + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
 
-                        music.setAuthor(currentPlay.getNowAuthor());
-                        music.setAuthor2(currentPlay.getNowAuthor2());
-                        music.setAuthor3(currentPlay.getNowAuthor3());
-                        Log.d("system","2Author : "+currentPlay.getNowAuthor());
-                        Log.d("system","2Author2 : "+currentPlay.getNowAuthor2());
-                        Log.d("system","2Author3 : "+currentPlay.getNowAuthor3());
-                        fragmentLyrics.setMusic(music);
-                    }
+                    Log.d("system", "Update nextPlayOld: equals :" + nextPlayOld.equals(nextPlay));
+                    Log.d("system", "Update currentPlayOld: equals :" + currentPlayOld.equals(currentPlay));
 
+                    if(nextPlayOld == null || currentPlayOld == null || !nextPlayOld.equals(nextPlay) || !currentPlayOld.equals(currentPlay)) {
+                        Log.d("system", "Update getDataNowPlayingFromServer: ");
+                        if (fragmentMain != null && fragmentMain.isVisible()) {
+                            Log.d("system", "ON Fragment Main Other Time");
+                            setNowPlaying();
+                            setComponentInFragmentMain();
+                        }
+                        if (fragmentYouTube != null) {
+                            String s = (getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "");
+                            fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
+                        }
+                        if (fragmentLyrics != null) {
+                            Music music = new Music();
+                            music.setLyrics(currentPlay.getNowLyric());
+                            music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT") + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
+
+                            music.setAuthor(currentPlay.getNowAuthor());
+                            music.setAuthor2(currentPlay.getNowAuthor2());
+                            music.setAuthor3(currentPlay.getNowAuthor3());
+                            Log.d("system", "2Author : " + currentPlay.getNowAuthor());
+                            Log.d("system", "2Author2 : " + currentPlay.getNowAuthor2());
+                            Log.d("system", "2Author3 : " + currentPlay.getNowAuthor3());
+                            fragmentLyrics.setMusic(music);
+                        }
+                    }
                     new GetDataNowPlayingTask().execute();
                 }
             }, SPLASH_TIMEOUT);
         }else{
             getDataNowPlayingFromServer();
             flagGetListStatus = Boolean.TRUE;
-            if(fragmentMain!=null && fragmentMain.isVisible()){
-                Log.d("system","ON Fragment Main First Time");
+            Log.d("system", "Update getDataNowPlayingFromServer: ");
+            if (fragmentMain != null && fragmentMain.isVisible()) {
+                Log.d("system", "ON Fragment Main First Time");
                 setNowPlaying();
                 setComponentInFragmentMain();
-//                fragmentMain.updateNowPlayingAndNext(getCurrentPlay() != null && getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "", getNextPlay() != null && getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "");
             }
-            if(fragmentYouTube!=null){
-                String s = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"");
+            if (fragmentYouTube != null) {
+                String s = (getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "");
                 fragmentYouTube.setTv_name(s + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : ""));
             }
-            if(fragmentLyrics!=null){
+            if (fragmentLyrics != null) {
                 Music music = new Music();
                 music.setLyrics(currentPlay.getNowLyric());
-//                        if(getCurrentPlay().getNowAuthor() != null && getCurrentPlay().getNowAuthor() != "")
-//                            music.setName(getCurrentPlay().getSongTitle() + " - " + getCurrentPlay().getNowAuthor());
-//                        else
-                music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT" ) + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
+                music.setName((currentPlay.getSongTitle() != null ? currentPlay.getSongTitle() : "Seed MCOT") + (currentPlay.getArtistName() != null && currentPlay.getArtistName() != "" ? " - " + currentPlay.getArtistName() : ""));
 
                 music.setAuthor(currentPlay.getNowAuthor());
                 music.setAuthor2(currentPlay.getNowAuthor2());
                 music.setAuthor3(currentPlay.getNowAuthor3());
-                Log.d("system","Author : "+currentPlay.getNowAuthor());
-                Log.d("system","Author2 : "+currentPlay.getNowAuthor2());
-                Log.d("system","Author3 : "+currentPlay.getNowAuthor3());
+                Log.d("system", "Author : " + currentPlay.getNowAuthor());
+                Log.d("system", "Author2 : " + currentPlay.getNowAuthor2());
+                Log.d("system", "Author3 : " + currentPlay.getNowAuthor3());
                 fragmentLyrics.setMusic(music);
             }
 
@@ -909,43 +909,49 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+
+
     public void setNowPlaying(){
         String now="";
         String next="";
         String pathImage_Cover = "";
         String url_Link = "";
-        if(getCurrentPlay()!=null && getCurrentPlay().getEvent_type().equals("song")){
-            now = (getCurrentPlay().getSongTitle()!=null ? getCurrentPlay().getSongTitle():"Seed MCOT") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
-            pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
-        }else if(getCurrentPlay().getEvent_type().equals("spot")){
-            now = (getCurrentPlay().getLink_title()!=null ? getCurrentPlay().getLink_title(): getCurrentPlay().getLinkTitle()!= null ? getCurrentPlay().getLinkTitle() : "Seed MCOT");
-            pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
-            url_Link = getCurrentPlay().getLinkUrl();
+        if(nextPlayOld == null || currentPlayOld == null || !nextPlayOld.equals(nextPlay) || !currentPlayOld.equals(currentPlay)) {
+            if (getCurrentPlay() != null && getCurrentPlay().getEvent_type().equals("song")) {
+                now = (getCurrentPlay().getSongTitle() != null ? getCurrentPlay().getSongTitle() : "Seed MCOT") + (getCurrentPlay().getArtistName() != null && getCurrentPlay().getArtistName() != "" ? " - " + getCurrentPlay().getArtistName() : "");
+                pathImage_Cover = getCurrentPlay().getSongCover() != null ? getCurrentPlay().getSongCover() : "";
+            } else if (getCurrentPlay().getEvent_type().equals("spot")) {
+                now = (getCurrentPlay().getLink_title() != null ? getCurrentPlay().getLink_title() : getCurrentPlay().getLinkTitle() != null ? getCurrentPlay().getLinkTitle() : "Seed MCOT");
+                pathImage_Cover = getCurrentPlay().getLinkCover() != null ? getCurrentPlay().getLinkCover() : "";
+                url_Link = getCurrentPlay().getLinkUrl();
+            }
+            if (getNextPlay() != null && getNextPlay().getEvent_type().equals("song")) {
+                next = (getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "Seed MCOT") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
+            } else if (getNextPlay().getEvent_type().equals("spot")) {
+                next = (getNextPlay().getLink_title() != null ? getNextPlay().getLink_title() : getCurrentPlay().getLinkTitle() != null ? getCurrentPlay().getLinkTitle() : "Seed MCOT");
+            }
+            fragmentMain.updateNowPlayingAndNext(now, next, pathImage_Cover, url_Link);
         }
-        if(getNextPlay()!=null && getNextPlay().getEvent_type().equals("song")){
-            next = (getNextPlay().getSongTitle()!=null ? getNextPlay().getSongTitle():"Seed MCOT") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
-        }else if(getNextPlay().getEvent_type().equals("spot")){
-            next = (getNextPlay().getLink_title()!=null ? getNextPlay().getLink_title():getCurrentPlay().getLinkTitle()!= null ? getCurrentPlay().getLinkTitle() : "Seed MCOT");
-        }
-        fragmentMain.updateNowPlayingAndNext(now,next,pathImage_Cover,url_Link);
     }
 
     public void setComponentInFragmentMain(){
-        if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()!=null && !getCurrentPlay().getNowLyric().equals(""))){
-            fragmentMain.setDisableButtonLyric(true);
-        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()==null || getCurrentPlay().getNowLyric().equals(""))){
-            fragmentMain.setDisableButtonLyric(false);
-        }
-        if(getCurrentPlay()!=null && (getCurrentPlay().getNowMv()!=null && !getCurrentPlay().getNowMv().equals(""))){
-            fragmentMain.setDisableButtonMV(true);
-        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowMv()==null || getCurrentPlay().getNowMv().equals(""))){
-            fragmentMain.setDisableButtonMV(false);
-        }
+        if(nextPlayOld == null || currentPlayOld == null || !nextPlayOld.equals(nextPlay) || !currentPlayOld.equals(currentPlay)) {
+            if (getCurrentPlay() != null && (getCurrentPlay().getNowLyric() != null && !getCurrentPlay().getNowLyric().equals(""))) {
+                fragmentMain.setDisableButtonLyric(true);
+            } else if (getCurrentPlay() != null && (getCurrentPlay().getNowLyric() == null || getCurrentPlay().getNowLyric().equals(""))) {
+                fragmentMain.setDisableButtonLyric(false);
+            }
+            if (getCurrentPlay() != null && (getCurrentPlay().getNowMv() != null && !getCurrentPlay().getNowMv().equals(""))) {
+                fragmentMain.setDisableButtonMV(true);
+            } else if (getCurrentPlay() != null && (getCurrentPlay().getNowMv() == null || getCurrentPlay().getNowMv().equals(""))) {
+                fragmentMain.setDisableButtonMV(false);
+            }
 //        if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()!=null || !getCurrentPlay().getNowLyric().equals(""))){
 //            fragmentMain.setDisableButtonLyric(true);
 //        }else if(getCurrentPlay()!=null && (getCurrentPlay().getNowLyric()==null || getCurrentPlay().getNowLyric().equals(""))){
 //            fragmentMain.setDisableButtonLyric(false);
 //        }
+        }
     }
 
     public void getDataMenu(){
