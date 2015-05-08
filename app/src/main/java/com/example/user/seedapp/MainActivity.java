@@ -135,6 +135,7 @@ public class MainActivity extends FragmentActivity {
     private PlayMedia playMedia;
     private Boolean force_stop = Boolean.FALSE;
     private static Boolean flagPause = Boolean.FALSE;
+    public static Boolean flagWebView = Boolean.FALSE;
 
     public static Boolean getFlagPause() {
         return flagPause;
@@ -288,8 +289,34 @@ public class MainActivity extends FragmentActivity {
         for(MenuBarImageButton menuBarImageButton : menuBarList){
             menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
         }
-//        new GetBigBannerTask().execute();
+        settings = this.getPreferences(MODE_WORLD_WRITEABLE);
+        editor = settings.edit();
+        if(settings.contains("time")){
+            Long time = settings.getLong("time",0);
+            Log.d("system","Time in share ::" + time);
+            Log.d("system","Time now :: " + new Date().getTime());
+            if (time+(10*60*1000) <= new Date().getTime()){
+                if(flagWebView) {
+                    new GetBigBannerTask().execute();
+                    editor.putLong("time", new Date().getTime());
+                    editor.commit();
+                }
+            }
+
+        }
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        flagWebView = Boolean.FALSE;
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        flagWebView = Boolean.TRUE;
+        super.onStop();
     }
 
     @Override

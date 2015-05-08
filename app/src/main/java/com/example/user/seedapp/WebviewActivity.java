@@ -35,6 +35,11 @@ public class WebviewActivity extends Activity {
         webView.loadUrl(url);
 
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return super.shouldOverrideUrlLoading(view, url);
+            }
 
             public void onPageFinished(WebView view, String url) {
                 // do your stuff here
@@ -46,6 +51,7 @@ public class WebviewActivity extends Activity {
         bt_bk_web.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.flagWebView = Boolean.FALSE;
                 finish();
                 WebviewActivity.this.overridePendingTransition(R.anim.slide_in_down,R.anim.slide_out_down);
             }
@@ -55,6 +61,7 @@ public class WebviewActivity extends Activity {
     @Override // เหตุการณ์เมื่อกดปุ่ม เพิ่ม-ลด ด้านข้าง
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MainActivity.flagWebView = Boolean.FALSE;
             finish();
             WebviewActivity.this.overridePendingTransition(R.anim.slide_in_down,R.anim.slide_out_down);
             return true;
