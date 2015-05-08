@@ -134,8 +134,8 @@ public class PlayAndNext {
     @Override
     public boolean equals(Object o) {
         PlayAndNext playAndNext = (PlayAndNext) o;
-        if(((songTitle == null && playAndNext.getSongTitle() == null) || songTitle.equals(playAndNext.getSongTitle()))
-                && (((artistName == null && playAndNext.getArtistName() == null)) || artistName.equals(playAndNext.getArtistName()))){
+        if(((songTitle == null && playAndNext.getSongTitle() == null) || (songTitle != null && songTitle.equals(playAndNext.getSongTitle())))
+                && (((artistName == null && playAndNext.getArtistName() == null)) || (artistName != null && artistName.equals(playAndNext.getArtistName())))){
             return true;
         }else
             return false;
