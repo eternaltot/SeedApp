@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,6 +69,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -218,6 +220,9 @@ public class MainActivity extends FragmentActivity {
     private JSONArray jsonMenu;
     private Typeface typeface;
     private Context context;
+    static SharedPreferences settings;
+    static SharedPreferences.Editor editor;
+
 
     public String getCutURLYoutube() {
         return cutURLYoutube;
@@ -283,7 +288,7 @@ public class MainActivity extends FragmentActivity {
         for(MenuBarImageButton menuBarImageButton : menuBarList){
             menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
         }
-        new GetBigBannerTask().execute();
+//        new GetBigBannerTask().execute();
         super.onResume();
     }
 
@@ -301,6 +306,23 @@ public class MainActivity extends FragmentActivity {
         }
 
         drawableManagerTT = new DrawableManagerTT();
+        settings = this.getPreferences(MODE_WORLD_WRITEABLE);
+        editor = settings.edit();
+        if(settings.contains("time")){
+            Long time = settings.getLong("time",0);
+            Log.d("system","Time in share ::" + time);
+            Log.d("system","Time now :: " + new Date().getTime());
+            if (time+(10*60*1000) <= new Date().getTime()){
+                new GetBigBannerTask().execute();
+                editor.putLong("time", new Date().getTime());
+                editor.commit();
+            }
+
+        }else{
+            new GetBigBannerTask().execute();
+            editor.putLong("time", new Date().getTime());
+            editor.commit();
+        }
 
         new GetDataPrivilegeTask().execute();
         new GetDataNowPlayingTask().execute();
@@ -766,10 +788,6 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void run() {
                     getDataNowPlayingFromServer();
-
-                    Log.d("system", "Update nextPlayOld: equals :" + nextPlayOld.equals(nextPlay));
-                    Log.d("system", "Update currentPlayOld: equals :" + currentPlayOld.equals(currentPlay));
-
                     if(nextPlayOld == null || currentPlayOld == null || !nextPlayOld.equals(nextPlay) || !currentPlayOld.equals(currentPlay)) {
                         Log.d("system", "Update getDataNowPlayingFromServer: ");
                         if (fragmentMain != null && fragmentMain.isVisible()) {
