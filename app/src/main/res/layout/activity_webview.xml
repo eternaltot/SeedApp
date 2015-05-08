@@ -45,10 +45,18 @@
             android:layout_weight="16"
             android:background="@null">
 
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loading_page"
+                android:id="@+id/imageView4" />
+
             <WebView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/webView"
+                android:visibility="gone"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>

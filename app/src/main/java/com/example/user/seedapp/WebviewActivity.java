@@ -11,11 +11,13 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 public class WebviewActivity extends Activity {
     private WebView webView;
     private ImageButton bt_bk_web;
+    private ImageView imageView;
     private String url="http://www.google.co.th";
 
     @Override
@@ -26,10 +28,21 @@ public class WebviewActivity extends Activity {
         Log.d("Webview", url);
         webView = (WebView) findViewById(R.id.webView);
         bt_bk_web = (ImageButton) findViewById(R.id.back_bt_web);
+        imageView = (ImageView) findViewById(R.id.imageView4);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.loadUrl(url);
+
+        webView.setWebViewClient(new WebViewClient() {
+
+            public void onPageFinished(WebView view, String url) {
+                // do your stuff here
+                webView.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.GONE);
+            }
+        });
+
         bt_bk_web.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
