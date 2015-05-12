@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -212,7 +213,6 @@ public class FragmentMain extends Fragment {
                 pager.setCycle(true);
                 pager.setInterval(15000);
             }
-
             bt_youtube = (ImageButton) view.findViewById(R.id.bt_youtube);
             bt_lyrics = (ImageButton) view.findViewById(R.id.bt_lyrics);
             bt_play = (ImageButton) view.findViewById(R.id.bt_play);
@@ -225,6 +225,9 @@ public class FragmentMain extends Fragment {
             seekbar = (SeekBar) view.findViewById(R.id.seekBar);
             ImageView im_1 = (ImageView) view.findViewById(R.id.im_1);
             ImageView im_2 = (ImageView) view.findViewById(R.id.im_2);
+            textNowPlaying.getBackground().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
+            im_1.getDrawable().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
+            im_2.getDrawable().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
 
             DisplayMetrics displaymetrics = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
