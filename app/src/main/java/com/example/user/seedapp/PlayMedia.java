@@ -105,6 +105,7 @@ public class PlayMedia {
                 if(flagStop) {
                     setReset();
                 }
+                mediaPlayer.seekTo(0);
                 mediaPlayer.start();
 //                mainActivity.setFlagPause(false);
                 flagStop = Boolean.FALSE;

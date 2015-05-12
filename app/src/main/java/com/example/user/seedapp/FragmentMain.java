@@ -380,17 +380,17 @@ public class FragmentMain extends Fragment {
             String url_Link = "";
             if (mainActivity != null) {
                 if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "");
+                    now = (mainActivity.getCurrentPlay().getSongTitle() != null ? mainActivity.getCurrentPlay().getSongTitle() : "Seed 97.5 FM") + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "");
                     pathImage = mainActivity.getCurrentPlay().getSongCover() != null ? mainActivity.getCurrentPlay().getSongCover() : "";
                 } else if (mainActivity.getCurrentPlay().getEvent_type().equals("spot")) {
-                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed MCOT");
+                    now = (mainActivity.getCurrentPlay().getLink_title() != null ? mainActivity.getCurrentPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed 97.5 FM");
                     pathImage = mainActivity.getCurrentPlay().getLinkCover() != null ? mainActivity.getCurrentPlay().getLinkCover() : "";
                     url_Link = mainActivity.getCurrentPlay().getLinkUrl();
                 }
                 if (mainActivity.getNextPlay() != null && mainActivity.getNextPlay().getEvent_type().equals("song")) {
-                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "Seed MCOT") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? " - " + mainActivity.getNextPlay().getArtistName() : "");
+                    next = (mainActivity.getNextPlay().getSongTitle() != null ? mainActivity.getNextPlay().getSongTitle() : "Seed 97.5 FM") + (mainActivity.getNextPlay().getArtistName() != null && mainActivity.getNextPlay().getArtistName() != "" ? " - " + mainActivity.getNextPlay().getArtistName() : "");
                 } else if (mainActivity.getNextPlay().getEvent_type().equals("spot")) {
-                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed MCOT");
+                    next = (mainActivity.getNextPlay().getLink_title() != null ? mainActivity.getNextPlay().getLink_title() : mainActivity.getCurrentPlay().getLinkTitle()!=null ? mainActivity.getCurrentPlay().getLinkTitle() : "Seed 97.5 FM");
                 }
                 if (mainActivity.getCurrentPlay() != null && (mainActivity.getCurrentPlay().getNowLyric() != null && !mainActivity.getCurrentPlay().getNowLyric().equals(""))) {
                     setDisableButtonLyric(true);
@@ -417,7 +417,7 @@ public class FragmentMain extends Fragment {
                         Log.d("system", "url MV :: " + url);
 
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
-                            String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle() :"Seed MCOT");
+                            String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle() :"Seed 97.5 FM");
                             fragmentYouTube.setMusicName(name + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : ""));
                         }
 
@@ -442,9 +442,9 @@ public class FragmentMain extends Fragment {
                             music.setAuthor3(mainActivity.getCurrentPlay().getNowAuthor3());
 
                             if(mainActivity.getCurrentPlay().getNowAuthor() != null && mainActivity.getCurrentPlay().getNowAuthor() != "")
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed MCOT"));
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed 97.5 FM"));
                             else
-                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed MCOT"));
+                                music.setName(mainActivity.getCurrentPlay().getSongTitle() + (mainActivity.getCurrentPlay().getArtistName() != null && mainActivity.getCurrentPlay().getArtistName() != "" ? " - " + mainActivity.getCurrentPlay().getArtistName() : "Seed 97.5 FM"));
                             fragmentLyrics.setMusic(music);
                         }
                     }

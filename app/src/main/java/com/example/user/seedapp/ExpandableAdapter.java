@@ -158,7 +158,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageChildItem);
 //        Glide.with(mainActivity.getApplicationContext()).load(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
 
-        imageView.setImageBitmap(getBitmapFromURL(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()));
+        ImageLoader imageLoader = new ImageLoader(mainActivity);
+        String url = hashMap.get(listGroup.get(groupPosition)).get(0).getUrlImage();
+        imageLoader.DisplayImage(url,imageView);
+//        imageView.setImageBitmap(getBitmapFromURL(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage()));
 //        mainActivity.drawableManagerTT.fetchDrawableOnThread(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageLoader.DisplayImage(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getUrlImage(), imageView);
 //        imageView.setImageBitmap(((ArrayList<Privilege_Child>) hashMap.get(listGroup.get(groupPosition))).get(0).getBitmap());
