@@ -159,7 +159,7 @@ public class FragmentLive extends Fragment {
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
             list_type=itemLiveList.get(0).getType();
-            String type = itemLiveList.get(0).getType()=="0" ? "Rerun" : "Live";
+            String type = (itemLiveList.get(0).getType().equals("0") ? "Rerun" : "Live");
             textView4.setText(type + " : ");
             tv_name.setText(itemLiveList.get(0).getTitle());
             String[] s = itemLiveList.get(0).getUrl().split(mainActivity.getCutURLYoutube());
@@ -202,7 +202,7 @@ public class FragmentLive extends Fragment {
                                         String[] strings = url.split(mainActivity.getCutURLYoutube());
                                         if(strings.length > 0) {
                                             YPlayer.loadVideo(strings[strings.length - 1]);
-                                            String type_name = live.getType()=="0" ? "Rerun" : "Live";
+                                            String type_name = (live.getType().equals("0") ? "Rerun" : "Live");
                                             textView4.setText(type_name + " : ");
                                             tv_name.setText(live.getTitle());
                                             if(!YPlayer.isPlaying()){
@@ -221,7 +221,7 @@ public class FragmentLive extends Fragment {
                             String[] strings = url.split(mainActivity.getCutURLYoutube());
                             if(strings.length > 0) {
                                 YPlayer.loadVideo(strings[strings.length - 1]);
-                                String type_name = live.getType()=="0" ? "Rerun" : "Live";
+                                String type_name = (live.getType().equals("0") ? "Rerun" : "Live");
                                 textView4.setText(type_name + " : ");
                                 tv_name.setText(live.getTitle());
                                 if(!YPlayer.isPlaying()){
