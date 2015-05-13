@@ -484,8 +484,8 @@ public class FragmentMain extends Fragment {
 
         bt_play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("system", "in onclick btn play");
-                if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
+                if (mainActivity.getFlagPause()) {
+                    Log.d("system", "in onclick btn play");
                     bt_play.setImageResource(R.drawable.pause_button);
                     mainActivity.setFlagPause(false);
                     if(play == null || play.getFlagStop()) {
@@ -498,6 +498,7 @@ public class FragmentMain extends Fragment {
                     }
                 } else {
                     mainActivity.setFlagPause(true);
+                    Log.d("system", "in onclick btn pause");
                     bt_play.setImageResource(R.drawable.play_button);
                     play.playMedia(false);
                 }
@@ -555,6 +556,7 @@ public class FragmentMain extends Fragment {
                             @Override
                             public void run() {
                                 play.playStart();
+                                mainActivity.setFlagPause(false);
                             }
                         }, 1);
                     } else {
