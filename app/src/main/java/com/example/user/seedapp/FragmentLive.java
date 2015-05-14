@@ -263,12 +263,7 @@ public class FragmentLive extends Fragment {
             this.progressDialog.setCancelable(false);
             this.progressDialog.setCanceledOnTouchOutside(false);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.dismiss();
-                }
-            }, YOUTUBE_TIMEOUT);
+
 
             try {
                 wait(3000);
@@ -280,6 +275,11 @@ public class FragmentLive extends Fragment {
         @Override
         protected void onPostExecute(Object o) {
             Log.d("Youtube","On Post Exe");
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+                    progressDialog.dismiss();
+//            }, 2000);
 
 //            if(this.progressDialog.isShowing()){
 //                this.progressDialog.dismiss();
