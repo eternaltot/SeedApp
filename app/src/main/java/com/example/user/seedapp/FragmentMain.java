@@ -89,6 +89,7 @@ public class FragmentMain extends Fragment {
             else{
                 imageView3.setImageResource(R.drawable.seed_head);
             }
+            imageView3.setBackgroundResource(R.drawable.seed_head);
 
             if (url != null && !url.equals("")) {
                 imageView3.setOnClickListener(new View.OnClickListener() {

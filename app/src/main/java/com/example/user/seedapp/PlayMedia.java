@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -39,6 +40,7 @@ public class PlayMedia {
     public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play, GifImageView bt_play_load, MainActivity mainActivity) {
 
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
         this.mLeakyHandler = mHandler;
         this.mainActivity = mainActivity;
         this.bt_play = bt_play;
