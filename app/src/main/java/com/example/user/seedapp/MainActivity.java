@@ -396,9 +396,16 @@ public class MainActivity extends FragmentActivity {
                 btnSeed.setImageResource(R.drawable.headseed_button);
                 btnStream.setImageResource(R.drawable.eye_button);
                 btnFb.setImageResource(R.drawable.fb_icon_app_2);
-                if(fragmentMain.isVisible() || fragmentListPage.isVisible() || fragmentLyrics.isVisible() || fragmentYouTube.isVisible()){
 
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+                if(f.getClass() == FragmentListPage.class || f.getClass() == FragmentLyrics.class || f.getClass() == FragmentYouTube.class){
+                    setFragmentNoBack(getFragmentMain());
+                    Log.d("system", "setFragmentNoBack");
+                }else if(fragmentMain.isVisible()){
+                    Log.d("system", "no event");
                 }else{
+                    Log.d("system", "setFragment");
                     setFragment(fragmentMain);
                 }
 
