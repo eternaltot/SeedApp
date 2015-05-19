@@ -1126,6 +1126,8 @@ public class MainActivity extends FragmentActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 //Stop the activity
+                                editor.clear();
+                                editor.commit();
                                 finish();
                                 android.os.Process.killProcess(android.os.Process.myPid());
                             }
