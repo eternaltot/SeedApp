@@ -553,13 +553,8 @@ public class FragmentMain extends Fragment {
                     if (play != null && !play.returnIsPlating() && !mainActivity.getFlagPause()) {
                         Log.d("system", "play.playStart()");
                         bt_play.setImageResource(R.drawable.pause_button);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                play.playStart();
-                                mainActivity.setFlagPause(false);
-                            }
-                        }, 1);
+                        play.playStart();
+                        mainActivity.setFlagPause(false);
                     } else {
                         bt_play.setVisibility(View.VISIBLE);
                         bt_play_load.setVisibility(View.GONE);

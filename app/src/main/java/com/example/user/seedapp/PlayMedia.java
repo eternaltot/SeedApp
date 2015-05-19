@@ -3,11 +3,17 @@ package com.example.user.seedapp;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.user.seedapp.com.add.player.DemoPlayer;
+import com.example.user.seedapp.com.add.player.ExtractorRendererBuilder;
+import com.google.android.exoplayer.extractor.mp3.Mp3Extractor;
+import com.google.android.exoplayer.util.Util;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -16,14 +22,15 @@ import pl.droidsonroids.gif.GifImageView;
  * Created by LacNoito on 3/4/2015.
  */
 public class PlayMedia {
-    public static MediaPlayer mediaPlayer;
+//    public static MediaPlayer mediaPlayer;
     private String url = "";
     private Boolean flagStop = Boolean.FALSE;
     private Runnable runnable;
     private Handler mLeakyHandler;
     private ImageButton bt_play;
     private GifImageView bt_play_load;
-    private MainActivity mainActivity;
+    public MainActivity mainActivity;
+    public DemoPlayer player;
 
     public ImageButton getBt_play() {
         return bt_play;
@@ -37,10 +44,16 @@ public class PlayMedia {
         this.bt_play_load = bt_play_load;
     }
 
+    public Boolean returnIsPlating(){
+        if(player == null)
+            return false;
+        return player.getPlayWhenReady();
+    }
+
     public PlayMedia(String url, Context context, Handler mHandler, ImageButton bt_play, GifImageView bt_play_load, MainActivity mainActivity) {
 
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
+//        mediaPlayer = new MediaPlayer();
+//        mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
         this.mLeakyHandler = mHandler;
         this.mainActivity = mainActivity;
         this.bt_play = bt_play;
@@ -49,15 +62,16 @@ public class PlayMedia {
         try {
 
             this.url = url;
-            setReset();
+//            setReset();
+
+//            preparePlayer();
 
             runnable = new Runnable() {
                 @Override
                 public void run() {
                     Log.d("system", "----Runnable---");
-                    if(mediaPlayer != null && !mediaPlayer.isPlaying()){
-                        mediaPlayer.stop();
-                        mediaPlayer.reset();
+                    if(player != null && !player.getPlayWhenReady()){
+                        releasePlayer();
                         flagStop = Boolean.TRUE;
                         Log.d("system", "mediaPlayer.stop()");
                     }
@@ -68,22 +82,30 @@ public class PlayMedia {
         }
     }
 
-    private void setReset() throws Exception{
-        mediaPlayer.reset();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare();
+    private void releasePlayer() {
+        if (player != null) {
+            player.release();
+            player = null;
+        }
     }
 
-    public Boolean returnIsPlating(){
-        return mediaPlayer.isPlaying();
+    private void preparePlayer() {
+        if(player == null){
+            String userAgent = Util.getUserAgent(mainActivity.getBaseContext(), "ExoPlayerDemo");
+            Uri uri = Uri.parse("http://203.147.16.93:8000/seedcave.mp3");
+            player = new DemoPlayer(new ExtractorRendererBuilder(userAgent, uri, null, new Mp3Extractor()));
+            player.prepare();
+            player.setPlayWhenReady(true);
+        }
     }
 
     public void playStart(){
         try {
-            if (flagStop)
-                setReset();
-            mediaPlayer.start();
+//            if (flagStop)
+//                setReset();
+//            mediaPlayer.start();
+
+            preparePlayer();
             flagStop = Boolean.FALSE;
             bt_play.setVisibility(View.VISIBLE);
             bt_play_load.setVisibility(View.GONE);
@@ -97,7 +119,8 @@ public class PlayMedia {
     }
 
     public void force_pause(){
-        mediaPlayer.pause();
+//        releasePlayer();
+        player.setPlayWhenReady(false);
         mLeakyHandler.postDelayed(runnable, 5000);
     }
 
@@ -105,16 +128,21 @@ public class PlayMedia {
         try {
             if (check) {
                 if(flagStop) {
-                    setReset();
+                    preparePlayer();
+                }else{
+                    player.setPlayWhenReady(true);
                 }
 //                mediaPlayer.seekTo(0);
-                mediaPlayer.start();
+//                mediaPlayer.start();
 //                mainActivity.setFlagPause(false);
+//                preparePlayer();
                 flagStop = Boolean.FALSE;
                 mLeakyHandler.removeCallbacks(runnable);
             } else {
-                mediaPlayer.pause();
+//                mediaPlayer.pause();
 //                mainActivity.setFlagPause(true);
+//                releasePlayer();
+                player.setPlayWhenReady(false);
                 mLeakyHandler.postDelayed(runnable, 5000);
             }
         } catch (Exception e) {

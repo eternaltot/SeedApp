@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':ExoPlayers'
 include ':pager-indicator-lib'
