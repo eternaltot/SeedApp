@@ -92,7 +92,7 @@ public class PlayMedia {
     private void preparePlayer() {
         if(player == null){
             String userAgent = Util.getUserAgent(mainActivity.getBaseContext(), "ExoPlayerDemo");
-            Uri uri = Uri.parse("http://203.147.16.93:8000/seedcave.mp3");
+            Uri uri = Uri.parse(url);
             player = new DemoPlayer(new ExtractorRendererBuilder(userAgent, uri, null, new Mp3Extractor()));
             player.prepare();
             player.setPlayWhenReady(true);
@@ -121,7 +121,7 @@ public class PlayMedia {
     public void force_pause(){
 //        releasePlayer();
         player.setPlayWhenReady(false);
-        mLeakyHandler.postDelayed(runnable, 5000);
+//        mLeakyHandler.postDelayed(runnable, 5000);
     }
 
     public void playMedia(boolean check) {
@@ -143,7 +143,7 @@ public class PlayMedia {
 //                mainActivity.setFlagPause(true);
 //                releasePlayer();
                 player.setPlayWhenReady(false);
-                mLeakyHandler.postDelayed(runnable, 5000);
+//                mLeakyHandler.postDelayed(runnable, 5000);
             }
         } catch (Exception e) {
             Log.e("system", "Error ::: " + e.getMessage());

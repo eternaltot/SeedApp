@@ -135,7 +135,11 @@ public class PlayAndNext {
     public boolean equals(Object o) {
         PlayAndNext playAndNext = (PlayAndNext) o;
         if(((songTitle == null && playAndNext.getSongTitle() == null) || (songTitle != null && songTitle.equals(playAndNext.getSongTitle())))
-                && (((artistName == null && playAndNext.getArtistName() == null)) || (artistName != null && artistName.equals(playAndNext.getArtistName())))){
+                && (((artistName == null && playAndNext.getArtistName() == null)) || (artistName != null && artistName.equals(playAndNext.getArtistName())))
+                && ((linkTitle == null && playAndNext.getLinkTitle() ==  null) || (linkTitle!=null  && linkTitle.equals(playAndNext.getLinkTitle())))
+                && ((link_title ==null &&  playAndNext.getLink_title()==null) || (link_title!=null && link_title.equals(playAndNext.getLink_title())))
+                && ((linkCover == null && playAndNext.getLinkCover()==null) || (linkCover!=null && linkCover.equals(playAndNext.getLinkCover())))
+                && ((linkUrl == null && playAndNext.getLinkUrl() ==  null) || (linkUrl!=null && linkUrl.equals(playAndNext.getLinkUrl())))){
             return true;
         }else
             return false;
