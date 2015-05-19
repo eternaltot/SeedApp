@@ -473,7 +473,7 @@ public class MainActivity extends FragmentActivity {
                     playMedia.getBt_play().setImageResource(R.drawable.play_button);
                 }
             }else if(state == TelephonyManager.CALL_STATE_IDLE){
-                if(playMedia!=null && !playMedia.returnIsPlating() && force_stop){
+                if(playMedia!=null && !playMedia.returnIsPlating() && playMedia.getFlagStop()){
                     playMedia.playMedia(true);
                     playMedia.getBt_play().setImageResource(R.drawable.pause_button);
                 }
