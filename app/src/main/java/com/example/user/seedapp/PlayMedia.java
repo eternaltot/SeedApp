@@ -96,6 +96,7 @@ public class PlayMedia {
             player = new DemoPlayer(new ExtractorRendererBuilder(userAgent, uri, null, new Mp3Extractor()));
             player.prepare();
             player.setPlayWhenReady(true);
+            mainActivity.setForce_stop(Boolean.FALSE);
         }
     }
 

@@ -499,6 +499,7 @@ public class FragmentMain extends Fragment {
                     }
                 } else {
                     mainActivity.setFlagPause(true);
+                    mainActivity.setForce_stop(Boolean.FALSE);
                     Log.d("system", "in onclick btn pause");
                     bt_play.setImageResource(R.drawable.play_button);
                     play.playMedia(false);

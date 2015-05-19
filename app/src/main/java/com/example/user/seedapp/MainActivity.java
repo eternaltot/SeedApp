@@ -245,6 +245,14 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    public void setForce_stop(Boolean force_stop){
+        this.force_stop = force_stop;
+    }
+
+    public Boolean getForce_stop(){
+        return force_stop;
+    }
+
     public JSONArray getDJInfoArray(){
         return dj_info_array;
     }
@@ -473,7 +481,7 @@ public class MainActivity extends FragmentActivity {
                     playMedia.getBt_play().setImageResource(R.drawable.play_button);
                 }
             }else if(state == TelephonyManager.CALL_STATE_IDLE){
-                if(playMedia!=null && !playMedia.returnIsPlating() && playMedia.getFlagStop()){
+                if(playMedia!=null && !playMedia.returnIsPlating() && force_stop){
                     playMedia.playMedia(true);
                     playMedia.getBt_play().setImageResource(R.drawable.pause_button);
                 }
