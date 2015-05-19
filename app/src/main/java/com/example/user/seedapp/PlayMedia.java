@@ -25,8 +25,8 @@ public class PlayMedia {
 //    public static MediaPlayer mediaPlayer;
     private String url = "";
     private Boolean flagStop = Boolean.FALSE;
-    private Runnable runnable;
-    private Handler mLeakyHandler;
+//    private Runnable runnable;
+//    private Handler mLeakyHandler;
     private ImageButton bt_play;
     private GifImageView bt_play_load;
     public MainActivity mainActivity;
@@ -54,7 +54,7 @@ public class PlayMedia {
 
 //        mediaPlayer = new MediaPlayer();
 //        mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
-        this.mLeakyHandler = mHandler;
+//        this.mLeakyHandler = mHandler;
         this.mainActivity = mainActivity;
         this.bt_play = bt_play;
         this.bt_play_load = bt_play_load;
@@ -66,17 +66,17 @@ public class PlayMedia {
 
 //            preparePlayer();
 
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("system", "----Runnable---");
-                    if(player != null && !player.getPlayWhenReady()){
-                        releasePlayer();
-                        flagStop = Boolean.TRUE;
-                        Log.d("system", "mediaPlayer.stop()");
-                    }
-                }
-            };
+//            runnable = new Runnable() {
+//                @Override
+//                public void run() {
+//                    Log.d("system", "----Runnable---");
+//                    if(player != null && !player.getPlayWhenReady()){
+//                        releasePlayer();
+//                        flagStop = Boolean.TRUE;
+//                        Log.d("system", "mediaPlayer.stop()");
+//                    }
+//                }
+//            };
         } catch (Exception e) {
             Log.e("system", "Error : " + e.getMessage());
         }
@@ -120,29 +120,32 @@ public class PlayMedia {
 
     public void force_pause(){
 //        releasePlayer();
-        player.setPlayWhenReady(false);
+//        player.setPlayWhenReady(false);
+        releasePlayer();
 //        mLeakyHandler.postDelayed(runnable, 5000);
     }
 
     public void playMedia(boolean check) {
         try {
             if (check) {
-                if(flagStop) {
-                    preparePlayer();
-                }else{
-                    player.setPlayWhenReady(true);
-                }
+//                if(flagStop) {
+//                    preparePlayer();
+//                }else{
+//                    player.setPlayWhenReady(true);
+//                }
+                preparePlayer();
 //                mediaPlayer.seekTo(0);
 //                mediaPlayer.start();
 //                mainActivity.setFlagPause(false);
 //                preparePlayer();
                 flagStop = Boolean.FALSE;
-                mLeakyHandler.removeCallbacks(runnable);
+//                mLeakyHandler.removeCallbacks(runnable);
             } else {
 //                mediaPlayer.pause();
 //                mainActivity.setFlagPause(true);
 //                releasePlayer();
-                player.setPlayWhenReady(false);
+//                player.setPlayWhenReady(false);
+                releasePlayer();
 //                mLeakyHandler.postDelayed(runnable, 5000);
             }
         } catch (Exception e) {
