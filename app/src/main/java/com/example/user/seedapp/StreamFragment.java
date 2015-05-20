@@ -64,7 +64,6 @@ public class StreamFragment extends Fragment {
 
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
-                e.printStackTrace();
             }
 
             videoView.requestFocus();
@@ -75,8 +74,14 @@ public class StreamFragment extends Fragment {
                     videoView.start();
                 }
             });
+            videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    return false;
+                }
+            });
         }catch (Exception e){
-
+            progressDialog.dismiss();
         }
         return view;
     }
