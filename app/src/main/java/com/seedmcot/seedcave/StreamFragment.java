@@ -44,10 +44,8 @@ public class StreamFragment extends Fragment {
             view = inflater.inflate(R.layout.stream_fragment, container, false);
             videoView = (VideoView) view.findViewById(R.id.VideoView);
             progressDialog = new ProgressDialog(getActivity());
-            // Set progressbar title
             progressDialog.setTitle("Video Streaming");
-            // Set progressbar message
-            progressDialog.setMessage("Buffering...");
+            progressDialog.setMessage("Loading Streaming...");
             progressDialog.setIndeterminate(false);
             progressDialog.setCancelable(false);
             // Show progressbar
@@ -88,5 +86,12 @@ public class StreamFragment extends Fragment {
             progressDialog.dismiss();
         }
         return view;
+    }
+
+    public void loadVideo(){
+        progressDialog.show();
+        videoView.stopPlayback();
+        Uri video = Uri.parse(url);
+        videoView.setVideoURI(video);
     }
 }
