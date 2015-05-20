@@ -220,4 +220,17 @@ public class StreamFragment extends Fragment implements SurfaceHolder.Callback,A
         releasePlayer();
         super.onDestroyView();
     }
+
+    @Override
+    public void onStop() {
+        releasePlayer();
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        releasePlayer();
+        preparePlayer();
+        super.onResume();
+    }
 }
