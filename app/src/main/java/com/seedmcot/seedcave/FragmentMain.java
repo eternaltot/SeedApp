@@ -509,8 +509,8 @@ public class FragmentMain extends Fragment {
         @Override
         protected String doInBackground(String... args) {
 
-            if (play == null)
-                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load, mainActivity);
+            if (play == null  && !mainActivity.getFlagPause())
+            play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load, mainActivity);
 
             if(play != null) {
                 play.setBt_play(bt_play);
@@ -530,7 +530,7 @@ public class FragmentMain extends Fragment {
             mainActivity.runOnUiThread(new Runnable() {
                 public void run() {
 
-                    if (play != null && !play.returnIsPlating()) {
+                    if (play != null && !play.returnIsPlating() && !mainActivity.getFlagPause()) {
                         bt_play.setImageResource(R.drawable.pause_button);
                         play.playStart();
                         mainActivity.setFlagPause(false);
