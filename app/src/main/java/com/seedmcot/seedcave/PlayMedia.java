@@ -66,11 +66,9 @@ public class PlayMedia {
 //            runnable = new Runnable() {
 //                @Override
 //                public void run() {
-//                    Log.d("system", "----Runnable---");
 //                    if(player != null && !player.getPlayWhenReady()){
 //                        releasePlayer();
 //                        flagStop = Boolean.TRUE;
-//                        Log.d("system", "mediaPlayer.stop()");
 //                    }
 //                }
 //            };

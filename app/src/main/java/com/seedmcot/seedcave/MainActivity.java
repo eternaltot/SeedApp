@@ -290,7 +290,6 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onResume() {
-        Log.d("system", "This onResume!!");
         for(MenuBarImageButton menuBarImageButton : menuBarList){
             menuBarImageButton.getImageButton().setImageBitmap(menuBarImageButton.getBitmap());
         }
@@ -298,8 +297,6 @@ public class MainActivity extends FragmentActivity {
         editor = settings.edit();
         if(settings.contains("time")){
             Long time = settings.getLong("time",0);
-            Log.d("system","Time in share ::" + time);
-            Log.d("system","Time now :: " + new Date().getTime());
             if (time+(60*60*1000) <= new Date().getTime()){
                 if(flagWebView) {
                     new GetBigBannerTask().execute();
@@ -342,8 +339,6 @@ public class MainActivity extends FragmentActivity {
         editor = settings.edit();
         if(settings.contains("time")){
             Long time = settings.getLong("time",0);
-            Log.d("system","Time in share ::" + time);
-            Log.d("system","Time now :: " + new Date().getTime());
             if (time+(60*60*1000) <= new Date().getTime()){
                 new GetBigBannerTask().execute();
                 editor.putLong("time", new Date().getTime());
@@ -379,7 +374,6 @@ public class MainActivity extends FragmentActivity {
         pager.setInterval(1000);
         pager.setCycle(true);
         pager.setAutoScrollDurationFactor(200);
-        Log.d("system", "Set Top Banner Success");
 
         fragmentMain = new FragmentMain();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -406,11 +400,8 @@ public class MainActivity extends FragmentActivity {
 
                 if(f.getClass() == FragmentListPage.class || f.getClass() == FragmentLyrics.class || f.getClass() == FragmentYouTube.class){
                     setFragmentNoBack(getFragmentMain());
-                    Log.d("system", "setFragmentNoBack");
                 }else if(fragmentMain.isVisible()){
-                    Log.d("system", "no event");
                 }else{
-                    Log.d("system", "setFragment");
                     setFragment(fragmentMain);
                 }
 
@@ -583,19 +574,14 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     url = (String) jsonObject.get("url");
-                    Log.d("system", "url :: " + url);
-                    Log.d("system", "url :: " + url);
                 }
 
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
                 Log.e("system", e.getMessage());
             }
 
@@ -619,17 +605,13 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     jsonBanner = jsonArray;
-                    Log.d("system", "banner :: " + jsonBanner.toString());
                 }
 
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
                 Log.e("system", e.getMessage());
             }
 
@@ -652,18 +634,13 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     jsonBigBanner = jsonArray;
-                    Log.d("Tot", "big banner :: " + jsonBigBanner.toString());
-                    Log.d("Tot", "big banner lenght :: " + jsonBigBanner.length());
                 }
 
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
                 Log.e("system", e.getMessage());
             }
 
@@ -686,13 +663,10 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
                     jsonPrivillege = jsonArray;
-                    Log.d("system", "listPrivillege :: " + jsonPrivillege.toString());
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         String s = MainActivity.path_Image_Privilege + (String) jsonArray.getJSONObject(i).get("small_image");
@@ -724,8 +698,6 @@ public class MainActivity extends FragmentActivity {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null && jsonArray.length()>0){
@@ -792,30 +764,25 @@ public class MainActivity extends FragmentActivity {
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             String result = convertinputStreamToString(instream);
-            Log.d("system", "Sucess!!!!");
-            Log.d("system", result);
 
             JSONArray jsonArray = new JSONArray(result);
             if(jsonArray != null){
                 for(int x= 0 ; x < jsonArray.length() ; ++x){
                     JSONObject object = jsonArray.getJSONObject(x);
 
-                    Log.d("system", "Now Playing :: " + object.toString());
 
                     if(x == 1) {
                         currentPlayOld = currentPlay;
                         currentPlay = gson.fromJson(object.toString(), PlayAndNext.class);
-                        Log.d("system" , " Current Play Object :: " + currentPlay.getSongTitle());
+
                     }
                     else if(x == 0) {
                         nextPlayOld = nextPlay;
                         nextPlay = gson.fromJson(object.toString(), PlayAndNext.class);
-                        Log.d("system" , " Next Play Object :: " + nextPlay.getSongTitle());
                     }
                 }
             }
         } catch (Exception e) {
-            Log.e("system", "Error getDataNowPlayingFromServer!!!!");
             Log.e("system", e.getMessage());
         }
     }
@@ -828,9 +795,9 @@ public class MainActivity extends FragmentActivity {
                 public void run() {
                     getDataNowPlayingFromServer();
                     if(nextPlayOld == null || currentPlayOld == null || !nextPlayOld.equals(nextPlay) || !currentPlayOld.equals(currentPlay)) {
-                        Log.d("system", "Update getDataNowPlayingFromServer: ");
+
                         if (fragmentMain != null && fragmentMain.isVisible()) {
-                            Log.d("system", "ON Fragment Main Other Time");
+
                             setNowPlaying();
                             setComponentInFragmentMain();
                         }
@@ -846,9 +813,6 @@ public class MainActivity extends FragmentActivity {
                             music.setAuthor(currentPlay.getNowAuthor());
                             music.setAuthor2(currentPlay.getNowAuthor2());
                             music.setAuthor3(currentPlay.getNowAuthor3());
-                            Log.d("system", "2Author : " + currentPlay.getNowAuthor());
-                            Log.d("system", "2Author2 : " + currentPlay.getNowAuthor2());
-                            Log.d("system", "2Author3 : " + currentPlay.getNowAuthor3());
                             fragmentLyrics.setMusic(music);
                         }
                     }
@@ -858,9 +822,7 @@ public class MainActivity extends FragmentActivity {
         }else{
             getDataNowPlayingFromServer();
             flagGetListStatus = Boolean.TRUE;
-            Log.d("system", "Update getDataNowPlayingFromServer: ");
             if (fragmentMain != null && fragmentMain.isVisible()) {
-                Log.d("system", "ON Fragment Main First Time");
                 setNowPlaying();
                 setComponentInFragmentMain();
             }
@@ -876,9 +838,6 @@ public class MainActivity extends FragmentActivity {
                 music.setAuthor(currentPlay.getNowAuthor());
                 music.setAuthor2(currentPlay.getNowAuthor2());
                 music.setAuthor3(currentPlay.getNowAuthor3());
-                Log.d("system", "Author : " + currentPlay.getNowAuthor());
-                Log.d("system", "Author2 : " + currentPlay.getNowAuthor2());
-                Log.d("system", "Author3 : " + currentPlay.getNowAuthor3());
                 fragmentLyrics.setMusic(music);
             }
 
@@ -892,7 +851,6 @@ public class MainActivity extends FragmentActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("system","Update DJ Time");
                 getDataDJListMusicFromServer();
                 try {
                     if(fragmentMain!=null && fragmentMain.isVisible())
@@ -985,7 +943,7 @@ public class MainActivity extends FragmentActivity {
             if (getNextPlay() != null && getNextPlay().getEvent_type().equals("song")) {
                 next = (getNextPlay().getSongTitle() != null ? getNextPlay().getSongTitle() : "Seed 97.5 FM") + (getNextPlay().getArtistName() != null && getNextPlay().getArtistName() != "" ? " - " + getNextPlay().getArtistName() : "");
             } else if (getNextPlay().getEvent_type().equals("spot")) {
-                next = (getNextPlay().getLink_title() != null ? getNextPlay().getLink_title() : getCurrentPlay().getLinkTitle() != null ? getCurrentPlay().getLinkTitle() : "Seed 97.5 FM");
+                next = (getNextPlay().getLink_title() != null ? getNextPlay().getLink_title() : getNextPlay().getLinkTitle() != null ? getNextPlay().getLinkTitle() : "Seed 97.5 FM");
             }
             fragmentMain.updateNowPlayingAndNext(now, next, pathImage_Cover, url_Link);
         }
@@ -1021,13 +979,10 @@ public class MainActivity extends FragmentActivity {
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             String result = convertinputStreamToString(instream);
-            Log.d("system", "Load Menu Sucess!!!!");
-            Log.d("system", result);
 
             JSONArray jsonArray = new JSONArray(result);
             jsonMenu = jsonArray;
         } catch (Exception e) {
-            Log.e("system", "Error getDataNowPlayingFromServer!!!!");
             Log.e("system", e.getMessage());
         }
     }
@@ -1050,8 +1005,6 @@ public class MainActivity extends FragmentActivity {
 
                     Bitmap bitmap = ((BitmapDrawable)btnHome.getDrawable()).getBitmap();
 
-                    Log.d("system", "bitmap.getWidth()" + bitmap.getWidth());
-                    Log.d("system", "bitmap.getHeight()" + bitmap.getHeight());
 
 //                    for(int x=0;x<10;x++) {
                         final ImageButton imageButton = new ImageButton(this);
@@ -1238,7 +1191,6 @@ public class MainActivity extends FragmentActivity {
                     if(jsonBigBanner.length()>0) {
                         n = rand.nextInt(jsonBigBanner.length());
                         Banner bann = new Banner();
-                        Log.d("system", "Random Number :: " + n);
                         try {
                             final JSONObject array = jsonBigBanner.getJSONObject(n);
                             Glide.with(MainActivity.this).load(path_Image_Bigbanner + (String) array.getJSONObject("bigBanner").get("image")).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgBigBanner);

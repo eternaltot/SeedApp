@@ -65,7 +65,6 @@ public class ListPageAdapter extends BaseAdapter {
         try {
             startDate = sdf.parse(item.getActual_date_time());
 //            String newDateString = sdf.format(startDate);
-            Log.d("system", "Date Convert " + sdf.parse(item.getActual_date_time()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

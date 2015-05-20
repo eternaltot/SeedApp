@@ -130,8 +130,6 @@ public class FragmentListPage extends Fragment {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = ((MainActivity) getActivity()).convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", "DATA List" + result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 for(int x= 0 ; x < jsonArray.length() ; ++x){
@@ -141,7 +139,6 @@ public class FragmentListPage extends Fragment {
                     listPageItems.add(listPageItem);
                 }
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
                 Log.e("system", e.getMessage());
             }
 

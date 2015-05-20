@@ -102,7 +102,6 @@ public class FragmentPrivilege extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 //                Log.i("system", "keyCode: " + keyCode);
 //                if( keyCode == KeyEvent.KEYCODE_BACK ) {
-//                    Log.d("system", "onKey Back listener is working!!!");
 //                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
 //                    return true;
 //                } else {

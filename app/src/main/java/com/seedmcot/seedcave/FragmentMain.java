@@ -197,7 +197,6 @@ public class FragmentMain extends Fragment {
             mainActivity.setTypeFace(next);
             mainActivity.setTypeFace(textNext);
 
-            Log.d("system", "DJ List : " + mainActivity.getDJInfos().size());
             DJPageAdapter adapter = new DJPageAdapter(getChildFragmentManager(), mainActivity.getDJInfos());
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.pager);
             pager.setAdapter(adapter);
@@ -227,9 +226,6 @@ public class FragmentMain extends Fragment {
             int height = displaymetrics.heightPixels;
             int width = displaymetrics.widthPixels;
 
-            Log.d("system", "height DisplayMetrics " + height);
-            Log.d("system", "width DisplayMetrics " + width);
-            Log.d("system", "SDK Version " + Build.VERSION.SDK_INT);
 
             android.view.ViewGroup.LayoutParams layoutParamsnext = next.getLayoutParams();
             android.view.ViewGroup.LayoutParams layoutParamsim_1 = im_1.getLayoutParams();
@@ -238,22 +234,18 @@ public class FragmentMain extends Fragment {
             int sumW = layoutParamsnext.width + layoutParamsim_1.width + layoutParamsim_2.width;
 
             if(Build.VERSION.SDK_INT > 15) {
-                Log.d("system", "textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
 
 
                 textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.1));
 
-                Log.d("system", "New textNowPlaying.getMaxWidth() " + textNowPlaying.getMaxWidth());
             }else {
 
-                Log.d("system", "textNowPlaying.setWidth() " + textNowPlaying.getWidth());
 
 
                 android.view.ViewGroup.LayoutParams layouttextNowPlaying = textNowPlaying.getLayoutParams();
                 layouttextNowPlaying.width = width - sumW  - (int)(width * 0.1);
                 textNowPlaying.setLayoutParams(layouttextNowPlaying);
 
-                Log.d("system", "New textNowPlaying.setWidth() " + textNowPlaying.getWidth());
             }
 
 
@@ -327,8 +319,7 @@ public class FragmentMain extends Fragment {
                     }
 //                    mainActivity.setSeekVal(progress);
 
-                    Log.d("system", "seekbar.setOnSeekBarChangeListener seekbar.getProgress() :: " + seekbar.getProgress());
-                    Log.d("system", "seekbar.setOnSeekBarChangeListener mainActivity.getSeekVal() :: " + mainActivity.getSeekVal());
+
                 }
 
                 @Override
@@ -407,7 +398,6 @@ public class FragmentMain extends Fragment {
                     if (mainActivity.getCurrentPlay().getNowMv() != null) {
                         String url = mainActivity.getCurrentPlay().getNowMv();
                         String[] strings = url.split(mainActivity.getCutURLYoutube());
-                        Log.d("system", "url MV :: " + url);
 
                         if (mainActivity.getCurrentPlay() != null && mainActivity.getCurrentPlay().getEvent_type().equals("song")) {
                             String name = (mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle() :"Seed 97.5 FM");
@@ -469,16 +459,14 @@ public class FragmentMain extends Fragment {
 
         }
         if (bt_play.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.play_button).getConstantState())) {
-            Log.d("system", "before click button when create fragment");
+
             bt_play.callOnClick();
         }
 
-        Log.d("system", "^__^");
 
         bt_play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mainActivity.getFlagPause()) {
-                    Log.d("system", "in onclick btn play");
                     bt_play.setImageResource(R.drawable.pause_button);
                     mainActivity.setFlagPause(false);
                     if(play == null || play.getFlagStop()) {
@@ -492,7 +480,6 @@ public class FragmentMain extends Fragment {
                 } else {
                     mainActivity.setFlagPause(true);
                     mainActivity.setForce_stop(Boolean.FALSE);
-                    Log.d("system", "in onclick btn pause");
                     bt_play.setImageResource(R.drawable.play_button);
                     play.playMedia(false);
                 }
@@ -544,7 +531,6 @@ public class FragmentMain extends Fragment {
                 public void run() {
 
                     if (play != null && !play.returnIsPlating() && !mainActivity.getFlagPause()) {
-                        Log.d("system", "play.playStart()");
                         bt_play.setImageResource(R.drawable.pause_button);
                         play.playStart();
                         mainActivity.setFlagPause(false);

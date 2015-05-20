@@ -62,8 +62,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             height = displaymetrics.heightPixels;
             width = displaymetrics.widthPixels;
 
-            Log.d("system", "height DisplayMetrics " + height);
-            Log.d("system", "width DisplayMetrics " + width);
+
 
             for (int i = 0; i < group.length(); i++) {
                 Privilege privilege = new Privilege();
@@ -177,7 +176,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         layoutParams.width = width;
         layoutParams.height = (new BigDecimal((width * f))).intValue();
         imageView.setLayoutParams(layoutParams);
-//        Log.d("system","Render List Child :: " + url);
         if (isLastChild) {
             convertView.setPadding(0, 10, 0, 10);
         } else

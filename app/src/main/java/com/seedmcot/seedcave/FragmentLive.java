@@ -79,8 +79,6 @@ public class FragmentLive extends Fragment {
                 HttpEntity entity = response.getEntity();
                 InputStream instream = entity.getContent();
                 String result = mainActivity.convertinputStreamToString(instream);
-                Log.d("system", "Sucess!!!!");
-                Log.d("system", result);
 
                 JSONArray jsonArray = new JSONArray(result);
                 if(jsonArray != null){
@@ -94,7 +92,6 @@ public class FragmentLive extends Fragment {
                 }
 
             } catch (Exception e) {
-                Log.e("system", "Error!!!!");
                 Log.e("system", e.getMessage());
             }
         } catch (Exception e) {
@@ -110,7 +107,6 @@ public class FragmentLive extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 //                Log.i("system", "keyCode: " + keyCode);
 //                if( keyCode == KeyEvent.KEYCODE_BACK ) {
-//                    Log.d("system", "onKey Back listener is working!!!");
 //                    mainActivity.setFragmentNoBack(mainActivity.getFragmentMain());
 //                    return true;
 //                } else {
