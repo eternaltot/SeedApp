@@ -327,7 +327,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         context = this;
         //ReplaceFont.replaceDefaultFont(this, "DEFAULT", "alpine_typeface/AlpineTypeface/Cleanlight.ttf");
-        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Unicode DBX Helvethaica/db_helvethaica_x_ext_v3_2.ttf");
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Unicode_DBX_Helvethaica/db_helvethaica_x_ext_v3_2.ttf");
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -1078,6 +1078,12 @@ public class MainActivity extends FragmentActivity {
         btnStream.setEnabled(isEnable);
     }
 
+
+    public void setTypeFaceOther(TextView textView){
+        if(textView!=null){
+            textView.setTypeface(Typeface.createFromAsset(getAssets(),"Unicode_DBX_Helvethaica/db_helvethaica_x_ext_v3_2.ttf"));
+        }
+    }
     private Typeface getFontTypeface(){
         if(typeface==null){
             typeface = Typeface.createFromAsset(getAssets(),"alpine_typeface/AlpineTypeface/Cleanlight.ttf");
