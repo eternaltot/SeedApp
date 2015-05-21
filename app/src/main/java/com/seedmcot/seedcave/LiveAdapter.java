@@ -63,6 +63,9 @@ public class LiveAdapter extends BaseAdapter {
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setText(itemLiveList.get(position).getTitle());
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView2);
+
+        mainActivity.setTypeFaceOther(textView);
+
         if(itemLiveList.get(position).getType().equals("0"))
         Glide.with(convertView.getContext().getApplicationContext()).load(MainActivity.path_Thumbnail_Youtube + itemLiveList.get(position).getThumbnail()+"/default.jpg").diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
         else imageView.setImageResource(R.drawable.seed_empty);

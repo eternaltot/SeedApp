@@ -77,6 +77,7 @@ public class FragmentYouTube extends Fragment {
 
             mainActivity.pauseMediaFromMainActivity();
             mainActivity.setTypeFace(nowPlaying);
+            mainActivity.setTypeFaceOther(tv_name);
             tv_name.setText(musicName);
 
 

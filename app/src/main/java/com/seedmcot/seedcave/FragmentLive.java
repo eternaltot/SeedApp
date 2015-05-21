@@ -133,7 +133,11 @@ public class FragmentLive extends Fragment {
             textView4 = (TextView) view.findViewById(R.id.textView4);
             tv_name.setSelected(true);
             mainActivity = (MainActivity)getActivity();
+
             mainActivity.setTypeFace(textView4);
+            mainActivity.setTypeFaceOther(tv_name);
+
+
             mainActivity.pauseMediaFromMainActivity();
 
             progressDialog_ = new ProgressDialog(getActivity());

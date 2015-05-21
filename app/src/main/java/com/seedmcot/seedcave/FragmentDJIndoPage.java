@@ -57,6 +57,8 @@ public class FragmentDJIndoPage extends Fragment {
             CircleImageView imageDJ = (CircleImageView) view.findViewById(R.id.imageDJ);
             btn_to_dj = (Button) view.findViewById(R.id.text_dj);
             mainActivity.setTypeFace(nameDJ);
+            mainActivity.setTypeFaceOther(online_time);
+            mainActivity.setTypeFaceOther(btn_to_dj);
 
             btn_to_dj.setOnClickListener(new View.OnClickListener() {
                 @Override

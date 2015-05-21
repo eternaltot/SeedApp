@@ -58,6 +58,11 @@ public class FragmentLyrics extends Fragment {
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
             mainActivity.setTypeFace(tv_lyrics);
+            mainActivity.setTypeFaceOther(name);
+            mainActivity.setTypeFaceOther(author);
+            mainActivity.setTypeFaceOther(author2);
+            mainActivity.setTypeFaceOther(author3);
+            mainActivity.setTypeFaceOther(lyrics);
 
             if(music != null){
                 if(music.getName() != null)
