@@ -1070,6 +1070,14 @@ public class MainActivity extends FragmentActivity {
             textView.setTypeface(getFontTypeface());
         }
     }
+
+    public void setMenuEnable(Boolean isEnable){
+        btnHome.setEnabled(isEnable);
+        btnFb.setEnabled(isEnable);
+        btnSeed.setEnabled(isEnable);
+        btnStream.setEnabled(isEnable);
+    }
+
     private Typeface getFontTypeface(){
         if(typeface==null){
             typeface = Typeface.createFromAsset(getAssets(),"alpine_typeface/AlpineTypeface/Cleanlight.ttf");

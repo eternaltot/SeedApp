@@ -1,6 +1,7 @@
 package com.seedmcot.seedcave;
 
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ public class FragmentPrivilege extends Fragment {
     private ExpandableAdapter adapter;
     private int lastExpandedPosition = -1;
     FragmentTransaction transaction;
+    private MainActivity mainActivity;
 
     public FragmentPrivilege() {
     }
@@ -43,6 +45,7 @@ public class FragmentPrivilege extends Fragment {
             expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
             setBackEvent();
             final Resources res =getResources();
+            mainActivity = (MainActivity) getActivity();
             adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res,expandableListView);
             expandableListView.setAdapter(adapter);
             expandableListView.setDivider(null);
@@ -72,18 +75,24 @@ public class FragmentPrivilege extends Fragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
+                    mainActivity.setMenuEnable(false);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            swipeRefreshLayout.setRefreshing(false);
+
                             try {
                                 adapter = new ExpandableAdapter(getActivity(),((MainActivity)getActivity()).getDataPrivillege(),res,expandableListView);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             expandableListView.setAdapter(adapter);
+                            if(swipeRefreshLayout.isRefreshing()){
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                            mainActivity.setMenuEnable(true);
                         }
-                    },3000);
+                    },1000);
+
                 }
             });
         } catch (Exception e) {
@@ -111,5 +120,6 @@ public class FragmentPrivilege extends Fragment {
             }
         });
     }
+
 
 }
