@@ -67,6 +67,7 @@ public class FragmentListPage extends Fragment {
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
             mainActivity.setTypeFace(number_tv);
+            mainActivity.setTypeFaceOther(name);
 
             if(mainActivity.getCurrentPlay()!=null && mainActivity.getCurrentPlay().getEvent_type().equals("song")){
                 name.setText(mainActivity.getCurrentPlay().getSongTitle()!=null ? mainActivity.getCurrentPlay().getSongTitle():"Seed 97.5 FM");

@@ -218,6 +218,8 @@ public class FragmentMain extends Fragment {
             ImageView im_1 = (ImageView) view.findViewById(R.id.im_1);
             ImageView im_2 = (ImageView) view.findViewById(R.id.im_2);
             textNowPlaying.getBackground().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
+            mainActivity.setTypeFaceOther(textNameSong);
+            mainActivity.setTypeFaceOther(textNowPlaying);
             im_1.getDrawable().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
             im_2.getDrawable().setColorFilter(Color.parseColor("#4FFFFFFF"), PorterDuff.Mode.MULTIPLY);
 

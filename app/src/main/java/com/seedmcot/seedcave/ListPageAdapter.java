@@ -26,11 +26,12 @@ public class ListPageAdapter extends BaseAdapter {
     private Activity activity;
     private List<ListPageItem> listPageItems = new ArrayList<ListPageItem>() ;
     private static LayoutInflater inflater=null;
+    private MainActivity mainActivity;
 
     public ListPageAdapter(Activity a, List<ListPageItem> listPageItems){
         this.listPageItems = listPageItems;
         activity = a;
-
+        mainActivity = (MainActivity) activity;
         inflater = ( LayoutInflater )activity.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -58,6 +59,9 @@ public class ListPageAdapter extends BaseAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        if(mainActivity!=null){
+            mainActivity.setTypeFaceOther(textView);
+        }
         ListPageItem item = listPageItems.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
