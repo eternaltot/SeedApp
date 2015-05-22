@@ -15,7 +15,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=" "
             android:id="@+id/textView"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:textColor="#FFFFFF"
             android:gravity="center_vertical|center_horizontal" />
 
