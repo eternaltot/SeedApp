@@ -17,7 +17,7 @@
             android:scrollHorizontally="false"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Now Playing : "
-            android:textSize="16dp"
+            android:textSize="15dp"
             android:id="@+id/now_playing"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp" />
