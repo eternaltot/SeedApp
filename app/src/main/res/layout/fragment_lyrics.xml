@@ -61,7 +61,7 @@
                     android:text="New Text"
                     android:textColor="#FFF"
                     android:id="@+id/txtAuthor"
-                    android:textSize="16dp"
+                    android:textSize="20dp"
                     android:layout_marginTop="10dp" />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:text="New Text"
                     android:id="@+id/txtAuthor2"
                     android:textColor="#FFF"
-                    android:textSize="16dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                     android:text="New Text"
                     android:textColor="#FFF"
                     android:id="@+id/txtAuthor3"
-                    android:textSize="16dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text=" "
-                    android:textSize="16dp"
+                    android:textSize="20dp"
                     android:textColor="#FFF"
                     android:id="@+id/lyrics"
                     android:layout_gravity="center_horizontal"
