@@ -58,7 +58,7 @@
                     android:layout_height="20dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
-                    android:textSize="13dp"
+                    android:textSize="14dp"
                     android:text="Next : "
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="5dp"
@@ -69,7 +69,7 @@
                     android:layout_height="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_marginBottom="4dp"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit ="marquee_forever"
                     android:focusable="true"
@@ -286,10 +286,9 @@
                         android:textColor="@android:color/white"
                         android:textSize="14dp"
                         android:textIsSelectable="false"
-                        android:paddingTop="25dp"
+                        android:paddingTop="27dp"
                         android:background="@drawable/big_bar_1px"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="65dp"

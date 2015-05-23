@@ -13,7 +13,7 @@
             android:layout_height="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/tv_name"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:layout_toRightOf="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
             android:layout_marginLeft="5dp"
