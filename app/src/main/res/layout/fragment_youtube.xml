@@ -35,8 +35,7 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:layout_marginLeft="5dp" />
+            android:marqueeRepeatLimit="marquee_forever" />
     </RelativeLayout>
 
     <RelativeLayout
