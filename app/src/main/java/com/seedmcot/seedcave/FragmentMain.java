@@ -238,7 +238,7 @@ public class FragmentMain extends Fragment {
             if(Build.VERSION.SDK_INT > 15) {
 
 
-                textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.1));
+                textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.2));
 
             }else {
 

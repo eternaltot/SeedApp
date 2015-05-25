@@ -16,7 +16,7 @@
             android:textSize="20dp"
             android:layout_toRightOf="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
