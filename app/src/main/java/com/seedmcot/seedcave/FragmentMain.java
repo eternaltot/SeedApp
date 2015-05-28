@@ -237,19 +237,13 @@ public class FragmentMain extends Fragment {
 
             int sumW = layoutParamsnext.width + layoutParamsim_1.width + layoutParamsim_2.width;
 
+
             if(Build.VERSION.SDK_INT > 15) {
-
-
-                textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.2));
-
+                textNowPlaying.setMaxWidth(width - sumW - (int)(width * 0.3));
             }else {
-
-
-
                 android.view.ViewGroup.LayoutParams layouttextNowPlaying = textNowPlaying.getLayoutParams();
-                layouttextNowPlaying.width = width - sumW  - (int)(width * 0.1);
+                layouttextNowPlaying.width = width - sumW  - (int)(width * 0.3);
                 textNowPlaying.setLayoutParams(layouttextNowPlaying);
-
             }
 
 
