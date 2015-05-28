@@ -51,6 +51,7 @@ public class FragmentMain extends Fragment {
     private AudioManager audioManager;
     private ImageView imageView3;
     private int oldProgress;
+    ImageLoader imageLoader = new ImageLoader(mainActivity);
     private Handler mHandler = new Handler();
 
     public int getOldProgress() {
@@ -77,7 +78,8 @@ public class FragmentMain extends Fragment {
             textNowPlaying.setText(now);
             textNameSong.setText(next);
             if (pathImage != null && !pathImage.equals(""))
-                Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
+                imageLoader.DisplayImage(MainActivity.path_Image_Cover_NowPlaying + pathImage,imageView3);
+//                Glide.with(mainActivity).load(MainActivity.path_Image_Cover_NowPlaying + pathImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView3);
             else{
                 imageView3.setImageResource(R.drawable.seed_head);
             }
