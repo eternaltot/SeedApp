@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity {
     private AudioManager audioManager;
     private ImageButton bt_mute;
     private Boolean seekMute = Boolean.FALSE;
-    private int seekVal = -1;
+    private static int seekVal = -1;
     private SeekBar seekBar;
     private PlayMedia playMedia;
     private Boolean force_stop = Boolean.FALSE;
@@ -319,6 +319,8 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onStop() {
         flagWebView = Boolean.TRUE;
+        fragmentMain.setFlagClick(Boolean.FALSE);
+        Log.d("system","Volume in fragmentmain 4 :");
         super.onStop();
     }
 
@@ -1139,38 +1141,48 @@ public class MainActivity extends FragmentActivity {
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0);
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                     bt_mute.setImageResource(R.drawable.speaker);
-
+                    setSeekVal(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                    Log.d("system","stream volum value1 : " + getSeekVal());
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                     int val = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_LOWER,0);
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                    setSeekVal(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                     if (val - 1 == 0) {
                         bt_mute.setImageResource(R.drawable.speaker_mute_white);
                     }
+                    Log.d("system","stream volum value2 : " + getSeekVal());
                     return true;
                 }
             }
         }else {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
-                super.onKeyDown(keyCode, event);
+
                 int val = seekBar.getProgress();
                 seekVal = val + 1;
                 if(seekBar!=null){
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                 }
+                setSeekVal(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                Log.d("system","stream volum value3 : " + getSeekVal());
+                super.onKeyDown(keyCode, event);
                 return true;
             }
             else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
-                super.onKeyDown(keyCode, event);
+
                 int val = seekBar.getProgress();
                 if(val - 1 >= 0)
                     seekVal = val - 1;
                 if(seekBar!=null){
                     seekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                 }
+                setSeekVal(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,seekVal,0);
+                Log.d("system","stream volum value4 : " + getSeekVal());
+                super.onKeyDown(keyCode, event);
                 return true;
             }
 

@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.seedmcot.seedcave.add.model.Music;
 import com.seedmcot.seedcave.add.view.AutoScrollViewPager;
 
@@ -47,12 +45,22 @@ public class FragmentMain extends Fragment {
     private MainActivity mainActivity;
     private static PlayMedia play;
     private static FragmentListPage fragmentListPage;
+    private int progressFromAudioManager;
     private SeekBar seekbar;
     private AudioManager audioManager;
     private ImageView imageView3;
     private int oldProgress;
     ImageLoader imageLoader = new ImageLoader(mainActivity);
     private Handler mHandler = new Handler();
+    private Boolean flagClick = Boolean.FALSE;
+
+    public Boolean getFlagClick() {
+        return flagClick;
+    }
+
+    public void setFlagClick(Boolean flagClick) {
+        this.flagClick = flagClick;
+    }
 
     public int getOldProgress() {
         return oldProgress;
@@ -64,8 +72,15 @@ public class FragmentMain extends Fragment {
 
     @Override
     public void onResume() {
-        seekbar.setProgress(mainActivity.getSeekVal());
-
+//        seekbar.setProgress(mainActivity.getSeekVal());
+//        seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        if(flagClick)
+            seekbar.setProgress(progressFromAudioManager);
+        else{
+            seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        }
+        Log.d("system","Volume in fragmentmain 2 : " + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        Log.d("system","State in Fragmentmain 2");
         super.onResume();
     }
 
@@ -193,7 +208,7 @@ public class FragmentMain extends Fragment {
             nowPlaying = (TextView) view.findViewById(R.id.now_playing);
             TextView textNext = (TextView) view.findViewById(R.id.textNext);
             next = (TextView) view.findViewById(R.id.textView3);
-
+            Log.d("system","State in Fragmentmain 1");
             mainActivity = (MainActivity) getActivity();
             mainActivity.setTypeFace(nowPlaying);
             mainActivity.setTypeFace(next);
@@ -284,6 +299,8 @@ public class FragmentMain extends Fragment {
             bt_play_load.setLayoutParams(layoutParamsbt_play_load);
             ((ViewGroup.MarginLayoutParams) bt_play_load.getLayoutParams()).rightMargin = (((width/2) - (layoutParams.width/2))/2) - (layoutParamsbt_youtube.width/2);
             audioManager = (AudioManager) mainActivity.getSystemService(Context.AUDIO_SERVICE);
+            Log.d("system", "Volume in fragmentmain 1 : " + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            progressFromAudioManager = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
@@ -292,7 +309,6 @@ public class FragmentMain extends Fragment {
                 }
             };
             audioManager.requestAudioFocus(onAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
-
 
             seekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             textNameSong.setSelected(true);
@@ -315,7 +331,7 @@ public class FragmentMain extends Fragment {
                     if (progress == 0) {
                         bt_mute.setImageResource(R.drawable.speaker_mute_white);
                     }
-//                    mainActivity.setSeekVal(progress);
+                    mainActivity.setSeekVal(progress);
 
 
                 }
@@ -544,9 +560,9 @@ public class FragmentMain extends Fragment {
     @Override
     public void onDestroyView() {
         mainActivity.setSeekVal(seekbar.getProgress());
-        audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
+        mainActivity.setSeekVal(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        flagClick = Boolean.TRUE;
+        Log.d("system","Volume in fragmentmain  3 :");
         super.onDestroyView();
     }
-
 }
