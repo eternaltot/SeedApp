@@ -94,7 +94,7 @@ public class MainActivity extends FragmentActivity {
     public static String path_Image_Cover_NowPlaying = "http://api.seedmcot.com/backoffice/uploads/";
     public static String path_Image_dj = "http://api.seedmcot.com/backoffice/uploads/dj/2x_";
     public static String list_dj = "http://api.seedmcot.com/api/dj-schedules?expand=dj";
-    public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,artistName";
+    public static String path_nowPlaying = "http://api.seedmcot.com/api/now-playings?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,songCover,linkCover,linkUrl,nowLyric,nowMv,nowAuthor,nowAuthor2,nowAuthor3,artistName";
     public static String path_radio = "http://api.seedmcot.com/api/radio-urls";
     public static String list_song_details = "http://api.seedmcot.com/api/now-playings/last5?fields=actual_date_time,event_type,link_title&expand=linkTitle,songTitle,artistName";
     public static String list_lives = "http://api.seedmcot.com/api/lives";

@@ -85,15 +85,15 @@ public class FragmentLyrics extends Fragment {
                     lyrics.setText(lyrics.getText() + music.getLyrics());
                 else
                     lyrics.setText(lyrics.getText());
-                if(music.getAuthor() != null)
+                if(music.getAuthor() != null && !music.getAuthor().equals(""))
                     author.setText("คำร้อง : " + music.getAuthor());
                 else
                     author.setText("คำร้อง : -");
-                if(music.getAuthor2() != null)
-                    author2.setText("ทำนอง : " + music.getAuthor2());
+                if(music.getAuthor2() != null && !music.getAuthor2().equals(""))
+                    author2.setText("ทำนอง : " + music. getAuthor2());
                 else
                     author2.setText("ทำนอง : -");
-                if(music.getAuthor3() != null)
+                if(music.getAuthor3() != null && !music.getAuthor3().equals(""))
                     author3.setText("เรียบเรียง : " + music.getAuthor3());
                 else
                     author3.setText("เรียบเรียง : -");
