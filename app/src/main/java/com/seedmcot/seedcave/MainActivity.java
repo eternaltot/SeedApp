@@ -856,14 +856,15 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void run() {
                 getDataDJListMusicFromServer();
-                getDataDJ();
+//                getDataDJ();
+                Log.d("system", "1111111111111111");
                 try {
                     if(fragmentMain!=null && fragmentMain.isVisible())
                     fragmentMain.setDjAdapter();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                handler.postDelayed(this,60*1000);
+                handler.postDelayed(this,60*1000);
             }
         },60*1000);
     }
