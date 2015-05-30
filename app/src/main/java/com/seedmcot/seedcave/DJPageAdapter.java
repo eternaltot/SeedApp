@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.view.ViewGroup;
 
 import com.seedmcot.seedcave.add.model.DJInfo;
 
@@ -60,5 +62,14 @@ public class DJPageAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return djInfos.size();
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        FragmentManager manager = ((Fragment) object).getFragmentManager();
+        FragmentTransaction trans = manager.beginTransaction();
+        trans.remove((Fragment) object);
+        trans.commit();
     }
 }
