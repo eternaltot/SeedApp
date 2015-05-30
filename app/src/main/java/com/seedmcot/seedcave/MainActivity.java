@@ -857,8 +857,6 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void run() {
                 getDataDJListMusicFromServer();
-//                getDataDJ();
-                Log.d("system", "1111111111111111");
                 try {
                     if(fragmentMain!=null && fragmentMain.isVisible())
                     fragmentMain.setDjAdapter();
