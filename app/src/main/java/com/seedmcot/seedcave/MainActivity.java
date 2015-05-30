@@ -271,22 +271,22 @@ public class MainActivity extends FragmentActivity {
         return getBaseContext();
     }
 
-    public void setDjInfos() throws Exception {
-        djInfos.clear();
-
-        for(int x= 0 ; x < dj_info_array.length() ; ++x){
-            JSONObject jsonObject = dj_info_array.getJSONObject(x);
-            DJInfo djInfo = new DJInfo();
-            djInfo.setJSONObject(jsonObject);
-            URL newurl = new URL(jsonObject.getString("image"));
-            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            djInfo.setBitmap(mIcon_val);
-            djInfos.add(djInfo);
-
-            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
-            fragmentDJIndoPage.setObject(djInfo);
-        }
-    }
+//    public void setDjInfos() throws Exception {
+//        djInfos.clear();
+//
+//        for(int x= 0 ; x < dj_info_array.length() ; ++x){
+//            JSONObject jsonObject = dj_info_array.getJSONObject(x);
+//            DJInfo djInfo = new DJInfo();
+//            djInfo.setJSONObject(jsonObject);
+//            URL newurl = new URL(jsonObject.getString("image"));
+//            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+//            djInfo.setBitmap(mIcon_val);
+//            djInfos.add(djInfo);
+//
+//            FragmentDJIndoPage fragmentDJIndoPage = new FragmentDJIndoPage();
+//            fragmentDJIndoPage.setObject(djInfo);
+//        }
+//    }
 
 
     @Override
@@ -704,8 +704,9 @@ public class MainActivity extends FragmentActivity {
                 String result = convertinputStreamToString(instream);
 
                 JSONArray jsonArray = new JSONArray(result);
+                djInfos = new ArrayList<>();
                 if(jsonArray != null && jsonArray.length()>0){
-                    djInfos.clear();
+
                     for(int x= 0 ; x < jsonArray.length() ; ++x){
                         JSONObject object = jsonArray.getJSONObject(x);
 
@@ -862,7 +863,7 @@ public class MainActivity extends FragmentActivity {
                     if(fragmentMain!=null && fragmentMain.isVisible())
                     fragmentMain.setDjAdapter();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("system",e.getMessage());
                 }
                 handler.postDelayed(this,60*1000);
             }
