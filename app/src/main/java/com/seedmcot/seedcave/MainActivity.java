@@ -863,7 +863,7 @@ public class MainActivity extends FragmentActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                handler.postDelayed(this,60*1000);
+//                handler.postDelayed(this,60*1000);
             }
         },60*1000);
     }
