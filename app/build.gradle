@@ -8,8 +8,8 @@ android {
         applicationId "com.seedmcot.seedcave"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 13
-        versionName "2.0"
+        versionCode 14
+        versionName "3.0"
     }
     buildTypes {
         release {
