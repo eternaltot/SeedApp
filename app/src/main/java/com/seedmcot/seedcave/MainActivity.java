@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity {
     private static String big_banner = "http://api.seedmcot.com/api/big-banner-schedules?expand=bigBanner";
     public static String list_privilege = "http://api.seedmcot.com/api/privileges";
     public static String path_Image_Topbanner = "http://api.seedmcot.com/backoffice/uploads/topbanner/2x_";
-    public static String path_Image_Bigbanner = "http://api.seedmcot.com/backoffice/uploads/bigbanner/1x_";
+    public static String path_Image_Bigbanner = "http://api.seedmcot.com/backoffice/uploads/bigbanner/2x_";
     public static String path_Image_Privilege = "http://api.seedmcot.com/backoffice/uploads/privilege/small/2x_";
     public static String path_Image_Privilege_Child = "http://api.seedmcot.com/backoffice/uploads/privilege/big/2x_";
     public static String path_Thumbnail_Youtube = "http://img.youtube.com/vi/";
