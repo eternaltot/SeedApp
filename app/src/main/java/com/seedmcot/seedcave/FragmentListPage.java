@@ -24,7 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -123,7 +125,7 @@ public class FragmentListPage extends Fragment {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(mainActivity.list_song_details);
+            HttpGet request = new HttpGet(mainActivity.list_song_details+ "?t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
