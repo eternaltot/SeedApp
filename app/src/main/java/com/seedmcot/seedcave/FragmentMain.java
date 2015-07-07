@@ -79,6 +79,9 @@ public class FragmentMain extends Fragment {
         else{
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         }
+
+        setDjAdapter();
+
         Log.d("system","Volume in fragmentmain 2 : " + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         Log.d("system","State in Fragmentmain 2");
         super.onResume();
@@ -484,12 +487,12 @@ public class FragmentMain extends Fragment {
                 if (mainActivity.getFlagPause()) {
                     bt_play.setImageResource(R.drawable.pause_button);
                     mainActivity.setFlagPause(false);
-                    if(play == null || play.getFlagStop()) {
+                    if (play == null || play.getFlagStop()) {
                         bt_play_load.setVisibility(View.VISIBLE);
                         bt_play.setVisibility(View.GONE);
                         play = null;
                         new PlayMediaTask().execute();
-                    }else{
+                    } else {
                         play.playMedia(true);
                     }
                 } else {
