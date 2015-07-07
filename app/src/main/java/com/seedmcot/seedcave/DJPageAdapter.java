@@ -67,7 +67,16 @@ public class DJPageAdapter extends FragmentPagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         super.destroyItem(container, position, object);
-        if(position>=getCount()) {
+        Boolean haveObject=Boolean.FALSE;
+        for(int i=0;i<getCount();i++) {
+            FragmentDJIndoPage fragmentDJIndoPage = (FragmentDJIndoPage) object;
+            DJInfo djinfo = fragmentDJIndoPage.getObject();
+            DJInfo djOld = djInfos.get(i);
+            if(djinfo.getDjId() == djOld.getDjId()){
+                haveObject=Boolean.TRUE;
+            }
+        }
+        if (!haveObject) {
             FragmentManager manager = ((Fragment) object).getFragmentManager();
             FragmentTransaction trans = manager.beginTransaction();
             trans.remove((Fragment) object);
