@@ -53,6 +53,7 @@ public class FragmentMain extends Fragment {
     ImageLoader imageLoader = new ImageLoader(mainActivity);
     private Handler mHandler = new Handler();
     private Boolean flagClick = Boolean.FALSE;
+    private Boolean flagP = Boolean.FALSE;
 
     public Boolean getFlagClick() {
         return flagClick;
@@ -80,7 +81,8 @@ public class FragmentMain extends Fragment {
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         }
 
-        setDjAdapter();
+        if(flagP)
+            setDjAdapter();
 
         Log.d("system","Volume in fragmentmain 2 : " + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         Log.d("system","State in Fragmentmain 2");
@@ -208,6 +210,7 @@ public class FragmentMain extends Fragment {
             }
         }
         try {
+            flagP = Boolean.FALSE;
             view = inflater.inflate(R.layout.fragment_main, container, false);
             nowPlaying = (TextView) view.findViewById(R.id.now_playing);
             TextView textNext = (TextView) view.findViewById(R.id.textNext);
@@ -559,6 +562,13 @@ public class FragmentMain extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onPause() {
+        flagP = Boolean.TRUE;
+
+        super.onPause();
     }
 
     @Override
