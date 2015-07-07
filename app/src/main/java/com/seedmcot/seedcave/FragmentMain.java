@@ -53,7 +53,6 @@ public class FragmentMain extends Fragment {
     ImageLoader imageLoader = new ImageLoader(mainActivity);
     private Handler mHandler = new Handler();
     private Boolean flagClick = Boolean.FALSE;
-    private Boolean flagP = Boolean.FALSE;
 
     public Boolean getFlagClick() {
         return flagClick;
@@ -80,10 +79,6 @@ public class FragmentMain extends Fragment {
         else{
             seekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         }
-
-        if(flagP)
-            setDjAdapter();
-
         Log.d("system","Volume in fragmentmain 2 : " + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         Log.d("system","State in Fragmentmain 2");
         super.onResume();
@@ -210,7 +205,6 @@ public class FragmentMain extends Fragment {
             }
         }
         try {
-            flagP = Boolean.FALSE;
             view = inflater.inflate(R.layout.fragment_main, container, false);
             nowPlaying = (TextView) view.findViewById(R.id.now_playing);
             TextView textNext = (TextView) view.findViewById(R.id.textNext);
@@ -490,12 +484,12 @@ public class FragmentMain extends Fragment {
                 if (mainActivity.getFlagPause()) {
                     bt_play.setImageResource(R.drawable.pause_button);
                     mainActivity.setFlagPause(false);
-                    if (play == null || play.getFlagStop()) {
+                    if(play == null || play.getFlagStop()) {
                         bt_play_load.setVisibility(View.VISIBLE);
                         bt_play.setVisibility(View.GONE);
                         play = null;
                         new PlayMediaTask().execute();
-                    } else {
+                    }else{
                         play.playMedia(true);
                     }
                 } else {
@@ -531,7 +525,7 @@ public class FragmentMain extends Fragment {
         protected String doInBackground(String... args) {
 
             if (play == null  && !mainActivity.getFlagPause())
-            play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load, mainActivity);
+                play = new PlayMedia(mainActivity.getURL(), mainActivity.returnBaseContext(), mHandler, bt_play, bt_play_load, mainActivity);
 
             if(play != null) {
                 play.setBt_play(bt_play);
@@ -562,13 +556,6 @@ public class FragmentMain extends Fragment {
                 }
             });
         }
-    }
-
-    @Override
-    public void onPause() {
-        flagP = Boolean.TRUE;
-
-        super.onPause();
     }
 
     @Override

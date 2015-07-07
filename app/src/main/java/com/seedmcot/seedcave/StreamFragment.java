@@ -223,6 +223,7 @@ public class StreamFragment extends Fragment implements SurfaceHolder.Callback,A
 
     @Override
     public void onStop() {
+        toggleControlsVisibility();
         releasePlayer();
         super.onStop();
     }

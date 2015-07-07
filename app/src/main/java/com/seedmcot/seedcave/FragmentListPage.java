@@ -125,7 +125,7 @@ public class FragmentListPage extends Fragment {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(mainActivity.list_song_details+ "?t=" + new Date().getTime());
+            HttpGet request = new HttpGet(mainActivity.list_song_details+ "&t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
