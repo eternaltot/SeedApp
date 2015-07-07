@@ -32,7 +32,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +73,7 @@ public class FragmentLive extends Fragment {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(mainActivity.list_lives);
+            HttpGet request = new HttpGet(mainActivity.list_lives+ "?t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {

@@ -66,6 +66,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -570,7 +571,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(path_radio);
+            HttpGet request = new HttpGet(path_radio+ "?t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -601,7 +602,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(banner);
+            HttpGet request = new HttpGet(banner + "?t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -630,7 +631,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(big_banner);
+            HttpGet request = new HttpGet(big_banner + "&t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -659,7 +660,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(list_privilege);
+            HttpGet request = new HttpGet(list_privilege +  "?t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -694,7 +695,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(list_dj);
+            HttpGet request = new HttpGet(list_dj+ "&t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response;
             try {
@@ -763,7 +764,7 @@ public class MainActivity extends FragmentActivity {
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(path_nowPlaying);
+            HttpGet request = new HttpGet(path_nowPlaying+ "&t=" + new Date().getTime());
             request.setHeader("Content-Type", "text/xml");
             HttpResponse response = httpClient.execute(request);
             HttpEntity entity = response.getEntity();
