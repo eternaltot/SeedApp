@@ -40,6 +40,10 @@ public class FragmentDJIndoPage extends Fragment {
         this.djInfo = djInfo;
     }
 
+    public DJInfo getObject(){
+        return djInfo;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view!=null){
             ViewGroup viewGroup = (ViewGroup) view.getParent();
